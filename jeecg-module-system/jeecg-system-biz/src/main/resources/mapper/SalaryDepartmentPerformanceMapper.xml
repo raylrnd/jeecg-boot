@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="generator.mapper.SalaryDepartmentPerformanceMapper">
+
+    <resultMap id="BaseResultMap" type="org.jeecg.biz.salary.entity.SalaryDepartmentPerformance">
+            <id property="id" column="id" jdbcType="VARCHAR"/>
+            <result property="createBy" column="create_by" jdbcType="VARCHAR"/>
+            <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+            <result property="updateBy" column="update_by" jdbcType="VARCHAR"/>
+            <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+            <result property="name" column="name" jdbcType="VARCHAR"/>
+            <result property="idCardNo" column="id_card_no" jdbcType="VARCHAR"/>
+            <result property="sysOrgCode" column="sys_org_code" jdbcType="VARCHAR"/>
+            <result property="monthPerformanceScore" column="month_performance_score" jdbcType="DOUBLE"/>
+            <result property="monthPerformancePrice" column="month_performance_price" jdbcType="DOUBLE"/>
+            <result property="jianrenbujianzi" column="jianrenbujianzi" jdbcType="DOUBLE"/>
+            <result property="emergencyRescuePerformance" column="emergency_rescue_performance" jdbcType="DOUBLE"/>
+            <result property="delayDays" column="delay_days" jdbcType="DOUBLE"/>
+            <result property="nightDays" column="night_days" jdbcType="DOUBLE"/>
+            <result property="huanjianpaodaoDays" column="huanjianpaodao_days" jdbcType="DOUBLE"/>
+            <result property="administrationWeekendDays" column="administration_weekend_days" jdbcType="DOUBLE"/>
+            <result property="holidayDays" column="holiday_days" jdbcType="DOUBLE"/>
+            <result property="firstDutyWorkdayDays" column="first_duty_workday_days" jdbcType="DOUBLE"/>
+            <result property="firstDutyWeekendDays" column="first_duty_weekend_days" jdbcType="DOUBLE"/>
+            <result property="personalLeaveDays" column="personal_leave_days" jdbcType="DOUBLE"/>
+            <result property="sickDays" column="sick_days" jdbcType="DOUBLE"/>
+            <result property="jobSubsidyDays" column="job_subsidy_days" jdbcType="DOUBLE"/>
+            <result property="weinisiPrice" column="weinisi_price" jdbcType="DOUBLE"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,create_by,create_time,
+        update_by,update_time,name,
+        id_card_no,sys_org_code,month_performance_score,
+        month_performance_price,jianrenbujianzi,emergency_rescue_performance,
+        delay_days,night_days,huanjianpaodao_days,
+        administration_weekend_days,holiday_days,first_duty_workday_days,
+        first_duty_weekend_days,personal_leave_days,sick_days,
+        job_subsidy_days,weinisi_price
+    </sql>
+</mapper>

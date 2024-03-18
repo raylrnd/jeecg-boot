@@ -1,7 +1,7 @@
 package generator.service;
 
-import org.jeecg.biz.salary.entity.SalaryDepartmentPerformance;
 import com.baomidou.mybatisplus.extension.service.IService;
+import org.jeecg.biz.salary.entity.SalaryDepartmentPerformance;
 
 /**
 * @author zhongshunchao

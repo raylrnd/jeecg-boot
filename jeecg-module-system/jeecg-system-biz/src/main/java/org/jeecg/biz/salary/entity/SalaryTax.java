@@ -1,4 +1,4 @@
-package org.jeecg.salary.entity;
+package org.jeecg.biz.salary.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
@@ -10,11 +10,11 @@ import lombok.Data;
 
 /**
  * 
- * @TableName salary_central_enterprise_fund
+ * @TableName salary_tax
  */
-@TableName(value ="salary_central_enterprise_fund")
+@TableName(value ="salary_tax")
 @Data
-public class SalaryCentralEnterpriseFund implements Serializable {
+public class SalaryTax implements Serializable {
     /**
      * 
      */
@@ -64,40 +64,34 @@ public class SalaryCentralEnterpriseFund implements Serializable {
     private String idCardNo;
 
     /**
-     * 年基数
+     * 1-12月扣税合计
      */
-    @TableField(value = "year_basis")
-    private String yearBasis;
+    @TableField(value = "all_year_tax_deduction")
+    private Double allYearTaxDeduction;
 
     /**
-     * 企业月缴费额.正常缴费
+     * 补扣个税
      */
-    @TableField(value = "regular_payment")
-    private Double regularPayment;
+    @TableField(value = "deduct_personal_tax")
+    private Double deductPersonalTax;
 
     /**
-     * 企业月缴费额.公共账户缴费
+     * 其他应纳税所得合计（除去餐补）
      */
-    @TableField(value = "public_account_payment")
-    private Double publicAccountPayment;
+    @TableField(value = "other_tax_without_meal")
+    private Double otherTaxWithoutMeal;
 
     /**
-     * 企业月缴费额.企业缴费合计
+     * 专项扣除数
      */
-    @TableField(value = "total_enterprise_contributions")
-    private Double totalEnterpriseContributions;
+    @TableField(value = "special_deduction")
+    private Double specialDeduction;
 
     /**
-     * 个人月缴费额
+     * 差错调整金额
      */
-    @TableField(value = "individual_monthly_payment")
-    private Double individualMonthlyPayment;
-
-    /**
-     * 月缴费合计
-     */
-    @TableField(value = "total_monthly_payment")
-    private Double totalMonthlyPayment;
+    @TableField(value = "fixed_tax")
+    private Double fixedTax;
 
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;

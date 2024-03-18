@@ -1,4 +1,4 @@
-package org.jeecg.salary.entity;
+package org.jeecg.biz.salary.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
@@ -10,11 +10,11 @@ import lombok.Data;
 
 /**
  * 
- * @TableName salary_tax
+ * @TableName salary_addition
  */
-@TableName(value ="salary_tax")
+@TableName(value ="salary_addition")
 @Data
-public class SalaryTax implements Serializable {
+public class SalaryAddition implements Serializable {
     /**
      * 
      */
@@ -64,34 +64,64 @@ public class SalaryTax implements Serializable {
     private String idCardNo;
 
     /**
-     * 1-12月扣税合计
+     * 经济补偿金
      */
-    @TableField(value = "all_year_tax_deduction")
-    private Double allYearTaxDeduction;
+    @TableField(value = "economic_reward")
+    private Double economicReward;
 
     /**
-     * 补扣个税
+     * 房改补贴
      */
-    @TableField(value = "deduct_personal_tax")
-    private Double deductPersonalTax;
+    @TableField(value = "housing_reform_reward")
+    private Double housingReformReward;
 
     /**
-     * 其他应纳税所得合计（除去餐补）
+     * 高温补贴
      */
-    @TableField(value = "other_tax_without_meal")
-    private Double otherTaxWithoutMeal;
+    @TableField(value = "high_temperature_reward")
+    private Double highTemperatureReward;
 
     /**
-     * 专项扣除数
+     * 先进奖励
      */
-    @TableField(value = "special_deduction")
-    private Double specialDeduction;
+    @TableField(value = "advanced_reward")
+    private Double advancedReward;
 
     /**
-     * 差错调整金额
+     * 安全生产工作岗位津贴
      */
-    @TableField(value = "fixed_tax")
-    private Double fixedTax;
+    @TableField(value = "safety_job_reward")
+    private Double safetyJobReward;
+
+    /**
+     * 党建考核奖金
+     */
+    @TableField(value = "party_building_reward")
+    private Double partyBuildingReward;
+
+    /**
+     * 安全绩效
+     */
+    @TableField(value = "safety_reward")
+    private Double safetyReward;
+
+    /**
+     * 其他补发
+     */
+    @TableField(value = "other_reward")
+    private Double otherReward;
+
+    /**
+     * 其他补扣
+     */
+    @TableField(value = "other_deduct")
+    private Double otherDeduct;
+
+    /**
+     * 备注
+     */
+    @TableField(value = "remark")
+    private String remark;
 
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;

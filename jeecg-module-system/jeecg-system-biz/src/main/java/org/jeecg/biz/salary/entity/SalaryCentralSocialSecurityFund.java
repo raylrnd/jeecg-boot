@@ -1,4 +1,4 @@
-package org.jeecg.salary.entity;
+package org.jeecg.biz.salary.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
@@ -10,11 +10,11 @@ import lombok.Data;
 
 /**
  * 
- * @TableName salary_central_aged_fund
+ * @TableName salary_central_social_security_fund
  */
-@TableName(value ="salary_central_aged_fund")
+@TableName(value ="salary_central_social_security_fund")
 @Data
-public class SalaryCentralAgedFund implements Serializable {
+public class SalaryCentralSocialSecurityFund implements Serializable {
     /**
      * 
      */
@@ -88,28 +88,28 @@ public class SalaryCentralAgedFund implements Serializable {
     private String priceEndTime;
 
     /**
-     * 企业养老保险(单位缴纳).缴费基数
+     * 失业保险(单位缴纳).缴费基数
      */
-    @TableField(value = "company_payment_base")
-    private Double companyPaymentBase;
+    @TableField(value = "lose_job_company_payment_base")
+    private Double loseJobCompanyPaymentBase;
 
     /**
-     * 企业养老保险(单位缴纳).应缴金额
+     * 失业保险(单位缴纳).应缴金额
      */
-    @TableField(value = "company_pament")
-    private Double companyPament;
+    @TableField(value = "lose_job_company_pament")
+    private Double loseJobCompanyPament;
 
     /**
-     * 企业养老保险(个人缴纳).缴费基数
+     * 工伤保险.缴费基数
      */
-    @TableField(value = "personal_payment_base")
-    private Double personalPaymentBase;
+    @TableField(value = "injury_company_payment_base")
+    private Double injuryCompanyPaymentBase;
 
     /**
-     * 企业养老保险(个人缴纳).应缴金额
+     * 工伤保险.应缴金额
      */
-    @TableField(value = "personal_pament")
-    private Double personalPament;
+    @TableField(value = "injury_pament")
+    private Double injuryPament;
 
     /**
      * 单位部分合计

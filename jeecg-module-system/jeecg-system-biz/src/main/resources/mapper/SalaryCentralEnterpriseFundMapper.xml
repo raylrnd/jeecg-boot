@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="generator.mapper.SalaryCentralEnterpriseFundMapper">
+
+    <resultMap id="BaseResultMap" type="org.jeecg.biz.salary.entity.SalaryCentralEnterpriseFund">
+            <id property="id" column="id" jdbcType="VARCHAR"/>
+            <result property="createBy" column="create_by" jdbcType="VARCHAR"/>
+            <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+            <result property="updateBy" column="update_by" jdbcType="VARCHAR"/>
+            <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+            <result property="sysOrgCode" column="sys_org_code" jdbcType="VARCHAR"/>
+            <result property="name" column="name" jdbcType="VARCHAR"/>
+            <result property="idCardNo" column="id_card_no" jdbcType="VARCHAR"/>
+            <result property="yearBasis" column="year_basis" jdbcType="VARCHAR"/>
+            <result property="regularPayment" column="regular_payment" jdbcType="DOUBLE"/>
+            <result property="publicAccountPayment" column="public_account_payment" jdbcType="DOUBLE"/>
+            <result property="totalEnterpriseContributions" column="total_enterprise_contributions" jdbcType="DOUBLE"/>
+            <result property="individualMonthlyPayment" column="individual_monthly_payment" jdbcType="DOUBLE"/>
+            <result property="totalMonthlyPayment" column="total_monthly_payment" jdbcType="DOUBLE"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,create_by,create_time,
+        update_by,update_time,sys_org_code,
+        name,id_card_no,year_basis,
+        regular_payment,public_account_payment,total_enterprise_contributions,
+        individual_monthly_payment,total_monthly_payment
+    </sql>
+</mapper>

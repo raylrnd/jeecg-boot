@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="generator.mapper.SalaryTaxMapper">
+
+    <resultMap id="BaseResultMap" type="org.jeecg.biz.salary.entity.SalaryTax">
+            <id property="id" column="id" jdbcType="VARCHAR"/>
+            <result property="createBy" column="create_by" jdbcType="VARCHAR"/>
+            <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+            <result property="updateBy" column="update_by" jdbcType="VARCHAR"/>
+            <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+            <result property="sysOrgCode" column="sys_org_code" jdbcType="VARCHAR"/>
+            <result property="name" column="name" jdbcType="VARCHAR"/>
+            <result property="idCardNo" column="id_card_no" jdbcType="VARCHAR"/>
+            <result property="allYearTaxDeduction" column="all_year_tax_deduction" jdbcType="DOUBLE"/>
+            <result property="deductPersonalTax" column="deduct_personal_tax" jdbcType="DOUBLE"/>
+            <result property="otherTaxWithoutMeal" column="other_tax_without_meal" jdbcType="DOUBLE"/>
+            <result property="specialDeduction" column="special_deduction" jdbcType="DOUBLE"/>
+            <result property="fixedTax" column="fixed_tax" jdbcType="DOUBLE"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,create_by,create_time,
+        update_by,update_time,sys_org_code,
+        name,id_card_no,all_year_tax_deduction,
+        deduct_personal_tax,other_tax_without_meal,special_deduction,
+        fixed_tax
+    </sql>
+</mapper>

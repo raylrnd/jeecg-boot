@@ -1,4 +1,4 @@
-package org.jeecg.salary.job;
+package org.jeecg.biz.salary.job;
 
 import lombok.extern.slf4j.Slf4j;
 import org.jeecg.common.util.DateUtils;
