@@ -768,14 +768,14 @@ public class DateUtils extends PropertyEditorSupport {
     }
 
     public static int yearDiff(Date entryDate, Date leaveDate) {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         try {
-            // 校验日期是否合法
-            dateFormat.setLenient(false);
             Calendar entryDateC = Calendar.getInstance();
             entryDateC.setTime(entryDate);
+            // 校验日期是否合法
+            entryDateC.setLenient(false);
             Calendar leaveDateC = Calendar.getInstance();
             leaveDateC.setTime(leaveDate);
+            leaveDateC.setLenient(false);
             int entryYear = entryDateC.get(Calendar.YEAR);
             int leaveYear = leaveDateC.get(Calendar.YEAR);
             int entryMonth = entryDateC.get(Calendar.MONTH) + 1;
