@@ -760,4 +760,36 @@ public class DateUtils extends PropertyEditorSupport {
         return calendar1.get(Calendar.YEAR) == calendar2.get(Calendar.YEAR);
     }
 
+    public static Calendar getLastDayOfMonth() {
+        // 获取当前月份的最后一天
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.DAY_OF_MONTH, calendar.getActualMaximum(Calendar.DAY_OF_MONTH));
+        return calendar;
+    }
+
+    public static int yearDiff(Date entryDate, Date leaveDate) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            // 校验日期是否合法
+            dateFormat.setLenient(false);
+            Calendar entryDateC = Calendar.getInstance();
+            entryDateC.setTime(entryDate);
+            Calendar leaveDateC = Calendar.getInstance();
+            leaveDateC.setTime(leaveDate);
+            int entryYear = entryDateC.get(Calendar.YEAR);
+            int leaveYear = leaveDateC.get(Calendar.YEAR);
+            int entryMonth = entryDateC.get(Calendar.MONTH) + 1;
+            int leaveMonth = leaveDateC.get(Calendar.MONTH) + 1;
+            int entryDay = entryDateC.get(Calendar.DAY_OF_MONTH);
+            int leaveDay = leaveDateC.get(Calendar.DAY_OF_MONTH);
+            if (leaveMonth < entryMonth || leaveMonth == entryMonth && leaveDay < entryDay) {
+                return leaveYear - entryYear - 1;
+            } else {
+                return leaveYear - entryYear;
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+    }
 }
