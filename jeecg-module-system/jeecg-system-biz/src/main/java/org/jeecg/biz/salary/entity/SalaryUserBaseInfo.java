@@ -1,12 +1,11 @@
 package org.jeecg.biz.salary.entity;
 
-import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import lombok.Data;
 import java.io.Serializable;
 import java.util.Date;
-import lombok.Data;
 
 /**
  * 
@@ -139,7 +138,7 @@ public class SalaryUserBaseInfo implements Serializable {
      * 级别
      */
     @TableField(value = "level")
-    private String level;
+    private Integer level;
 
     /**
      * 薪级
