@@ -9,7 +9,10 @@ import org.jeecg.biz.salary.entity.*;
 import org.jeecg.common.util.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
@@ -55,6 +58,10 @@ public class SalaryService {
     private SalaryUserBaseInfoMapper salaryUserBaseInfoMapper;
 
     private static final int QUERY_PAGE_SIZE = 500;
+    // 住宿补贴
+    private static final double ACCOMMODATION_SUBSIDY = 300.0;
+    // 见习补贴
+    private static final double NOVICIATE_SUBSIDY = 500.0;
 
     private void handleSalaryCompute() {
         // 先把输出表数据删了
@@ -96,11 +103,24 @@ public class SalaryService {
         Map<String, SalaryCentralReserveFund> salaryCentralReserveFundMap = salaryCentralReserveFundPage.getRecords().stream().collect(Collectors.toMap(SalaryCentralReserveFund::getIdCardNo, Function.identity()));
         Map<String, SalaryCentralSocialSecurityFund> salaryCentralSocialSecurityFundMap = salaryCentralSocialSecurityFundPage.getRecords().stream().collect(Collectors.toMap(SalaryCentralSocialSecurityFund::getIdCardNo, Function.identity()));
 
+        // 工资计算月份
+        Date computeTimeBase = new Date();
         List<SalaryUserBaseInfo> userBaseInfoRecords = salaryUserBaseInfoPage.getRecords();
         for (SalaryUserBaseInfo salaryUserBaseInfo : userBaseInfoRecords) {
             salaryCentralReport.setName(salaryUserBaseInfo.getName());
             salaryCentralReport.setYearMerit(calYearMerit(salaryUserBaseInfo));
-
+            // 基本工资
+            double baseSalary = calFloatSalary(salaryUserBaseInfo.getBaseSalary(), computeTimeBase, salaryUserBaseInfo);
+            // 岗位工资
+            double jobSalary = calFloatSalary(salaryUserBaseInfo.getJobSalary(), computeTimeBase, salaryUserBaseInfo);
+            // 岗位(职级)工资
+            salaryCentralReport.setPost(BigDecimal.valueOf(baseSalary).add(BigDecimal.valueOf(jobSalary)).doubleValue());
+            // 住宿补贴
+            double accommodationSubsidy = "是".equals(salaryUserBaseInfo.getHasAccommodationSubsidy()) ? calFloatSalary(ACCOMMODATION_SUBSIDY, computeTimeBase, salaryUserBaseInfo) : 0.0;
+            // 见习补贴
+            double noviciateSubsidy = "是".equals(salaryUserBaseInfo.getHasNoviciateSubsidy()) ? calFloatSalary(NOVICIATE_SUBSIDY, computeTimeBase, salaryUserBaseInfo) : 0.0;
+            // 餐费
+//            double foodSubsidy = salaryUserBaseInfo.getLevel() == 4 ? 400 : 600;
         }
     }
 
@@ -120,4 +140,30 @@ public class SalaryService {
         }
     }
 
+    private double calFloatSalary(double calItem, Date computeTimeBase, SalaryUserBaseInfo salaryUserBaseInfo) {
+        Calendar entryTimeC = DateUtils.getCalendar(salaryUserBaseInfo.getEntryTime().getTime());
+        Calendar timeBaseC = DateUtils.getCalendar(computeTimeBase.getTime());
+        // 当月天数
+        int daysOfMonth = timeBaseC.getActualMaximum(Calendar.DAY_OF_MONTH);
+        BigDecimal calItemBd = new BigDecimal(calItem);
+        if (salaryUserBaseInfo.getLeaveTime() != null) {
+            Calendar leaveTimeC = DateUtils.getCalendar(salaryUserBaseInfo.getLeaveTime().getTime());
+            // 当月入职且离职
+            if (DateUtils.isSameMonth(salaryUserBaseInfo.getEntryTime(), salaryUserBaseInfo.getLeaveTime())) {
+                int dateDiff = DateUtils.dateDiff('d', entryTimeC, leaveTimeC);
+                return calItemBd.multiply(BigDecimal.valueOf(dateDiff)).divide(BigDecimal.valueOf(daysOfMonth), RoundingMode.HALF_UP).doubleValue();
+            }
+            // 当月离职
+            if (DateUtils.isSameMonth(salaryUserBaseInfo.getLeaveTime(), computeTimeBase)) {
+                int leaveDays = leaveTimeC.get(Calendar.DAY_OF_MONTH);
+                return calItemBd.multiply(BigDecimal.valueOf(leaveDays)).divide(BigDecimal.valueOf(daysOfMonth), RoundingMode.HALF_UP).doubleValue();
+            }
+        }
+        // 当月入职
+        if (DateUtils.isSameMonth(salaryUserBaseInfo.getEntryTime(), computeTimeBase)) {
+            int entryDays = entryTimeC.get(Calendar.DAY_OF_MONTH);
+            return calItemBd.multiply(BigDecimal.valueOf(daysOfMonth - entryDays + 1)).divide(BigDecimal.valueOf(daysOfMonth), RoundingMode.HALF_UP).doubleValue();
+        }
+        return calItem;
+    }
 }
