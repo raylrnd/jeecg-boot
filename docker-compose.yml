@@ -12,6 +12,5 @@ services:
     networks:
       - host
 networks:
-  default:
-    external:
-      name: host
+  host:
+    external: true
