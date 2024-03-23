@@ -10,7 +10,7 @@ services:
     ports:
       - 9797:8080
     networks:
-      - 1panel-network
+      - bridge
 networks:
-  1panel-network:
+  bridge:
     external: true
