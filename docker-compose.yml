@@ -10,8 +10,4 @@ services:
     ports:
       - 9797:8080
     networks:
-      - jeecg-boot
-
-networks:
-  jeecg-boot:
-    name: jeecg_boot
+      - 1panel-network
