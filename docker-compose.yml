@@ -9,8 +9,7 @@ services:
     hostname: jeecg-boot-system
     ports:
       - 9797:8080
-    networks:
-      - host
 networks:
-  host:
-    external: true
+  default:
+    external:
+      name: host
