@@ -10,7 +10,8 @@ services:
     ports:
       - 9797:8080
     networks:
-      - bridge
+      - host
 networks:
-  bridge:
-    external: true
+  default:
+    external:
+      name: host
