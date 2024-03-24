@@ -14,5 +14,5 @@ services:
 
 networks:
   external_net_1:
-    name: app-net
+    name: app_net
     external: true
