@@ -7,3 +7,6 @@ services:
     container_name: jeecg-boot-system
     image: jeecg-boot-system
     hostname: jeecg-boot-system
+    ports:
+      - 9797:8080
+
