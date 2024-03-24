@@ -173,7 +173,7 @@ spring:
     database: 0
     host: 1Panel-redis-GbRF
     port: 6379
-    password: ''
+    password: 2511921Zsc12.0
 #mybatis plus 设置
 mybatis-plus:
   mapper-locations: classpath*:org/jeecg/modules/**/xml/*Mapper.xml
@@ -261,7 +261,7 @@ jeecg:
   #分布式锁配置
   redisson:
     address: 1Panel-redis-GbRF:6379
-    password:
+    password: 2511921Zsc12.0
     type: STANDALONE
     enabled: true
 #cas单点登录
