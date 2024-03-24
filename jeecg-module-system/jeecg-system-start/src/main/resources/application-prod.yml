@@ -159,7 +159,7 @@ spring:
       datasource:
         master:
           url: jdbc:mysql://1Panel-mysql-Vclf:3306/jeecg-boot?characterEncoding=UTF-8&useUnicode=true&useSSL=false&tinyInt1isBit=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Shanghai
-          username: zhongshunchao
+          username: jeecg-boot
           password: 2511921Zsc12.0
           driver-class-name: com.mysql.cj.jdbc.Driver
           # 多数据源配置
