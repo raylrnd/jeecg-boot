@@ -9,4 +9,10 @@ services:
     hostname: jeecg-boot-system
     ports:
       - 9797:8080
+    networks:
+      - external_net_1
 
+networks:
+  external_net_1:
+    name: app-net
+    external: true
