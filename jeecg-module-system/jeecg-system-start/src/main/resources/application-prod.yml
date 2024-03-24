@@ -171,7 +171,7 @@ spring:
   #redis 配置
   redis:
     database: 0
-    host: 172.18.0.2
+    host: 1Panel-redis-GbRF
     port: 6379
     password: ''
 #mybatis plus 设置
@@ -260,7 +260,7 @@ jeecg:
     logRetentionDays: 30
   #分布式锁配置
   redisson:
-    address: 172.18.0.2:6379
+    address: 1Panel-redis-GbRF:6379
     password:
     type: STANDALONE
     enabled: true
