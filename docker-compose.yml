@@ -8,5 +8,5 @@ services:
     image: jeecg-boot-system
     hostname: jeecg-boot-system
     ports:
-      - 9797:8080
+      - 8080:8080
 

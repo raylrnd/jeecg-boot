@@ -74,7 +74,7 @@ jeecg:
     cluster-name: jeecg-ES
     cluster-nodes: jeecg-boot-es:9200
     check-enabled: false
-  file-view-domain: host.docker.internal:8012
+  file-view-domain: 127.0.0.1:8012
   minio:
     minio_url: http://minio.jeecg.com
     minio_name: ??
