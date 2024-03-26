@@ -24,6 +24,12 @@
             <result property="companyPamentTotal" column="company_pament_total" jdbcType="DOUBLE"/>
             <result property="personalPamentTotal" column="personal_pament_total" jdbcType="DOUBLE"/>
             <result property="pamentTotal" column="pament_total" jdbcType="DOUBLE"/>
+            <result property="companyPamentBase" column="company_pament_base" jdbcType="DOUBLE"/>
+            <result property="personalPament" column="personal_pament" jdbcType="DOUBLE"/>
+            <result property="companyPament" column="company_pament" jdbcType="DOUBLE"/>
+            <result property="loseJobPersonalPaymentBase" column="lose_job_personal_payment_base" jdbcType="DOUBLE"/>
+            <result property="personalPamentBase" column="personal_pament_base" jdbcType="DOUBLE"/>
+            <result property="loseJobPersonalPament" column="lose_job_personal_pament" jdbcType="DOUBLE"/>
     </resultMap>
 
     <sql id="Base_Column_List">
@@ -33,6 +39,8 @@
         personal_social_no,price_start_time,price_end_time,
         lose_job_company_payment_base,lose_job_company_pament,injury_company_payment_base,
         injury_pament,company_pament_total,personal_pament_total,
-        pament_total
+        pament_total,company_pament_base,personal_pament,
+        company_pament,lose_job_personal_payment_base,personal_pament_base,
+        lose_job_personal_pament
     </sql>
 </mapper>

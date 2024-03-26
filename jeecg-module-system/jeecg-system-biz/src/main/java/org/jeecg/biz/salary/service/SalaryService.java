@@ -181,33 +181,46 @@ public class SalaryService {
                 // 本部应发合计
                 double centralShouldFund = baseSalary + jobSalary + yearMerit + salaryDepartmentPerformance.getMonthPerformancePrice() + huanjianpaodaoDaysSubsidy
                         + centralOtherShouldFund + salaryAddition.getHousingReformReward();
-                // 本部应纳税所得额
-
                 SalaryCentralEnterpriseFund salaryCentralEnterpriseFund = salaryCentralEnterpriseFundMap.get(salaryUserBaseInfo.getIdCardNo());
                 SalaryCentralReserveFund salaryCentralReserveFund = salaryCentralReserveFundMap.get(salaryUserBaseInfo.getIdCardNo());
                 SalaryCentralSocialSecurityFund salaryCentralSocialSecurityFund = salaryCentralSocialSecurityFundMap.get(salaryUserBaseInfo.getIdCardNo());
-                // 养老个人+公积金个人+失业个人+医保个人+企业年金
-                double socialTotal = salaryCentralEnterpriseFund.getIndividualMonthlyPayment() + salaryCentralReserveFund.getPersonalMonthlyDeposit() + salaryCentralSocialSecurityFund.getL
-
+                SalaryCentralAgedFund salaryCentralAgedFund = salaryCentralAgedFundMap.get(salaryUserBaseInfo.getIdCardNo());
+                // 社保=养老个人+失业个人+医保个人+企业年金
+                double socialTotal = salaryCentralEnterpriseFund.getIndividualMonthlyPayment()
+                        + salaryCentralSocialSecurityFund.getLoseJobPersonalPament() + salaryCentralSocialSecurityFund.getPersonalPament() + salaryCentralAgedFund.getPersonalPament();
+                // 社保+公积金
+                double socialAndReserve = socialTotal + salaryCentralReserveFund.getPersonalMonthlyDeposit();
+                // 本部应纳税所得额
+                double centralShouldTax = (salaryCentralReserveFund.getPersonalMonthlyDeposit() > 3476 ?
+                salaryCentralReserveFund.getPersonalMonthlyDeposit() + centralShouldFund + otherShouldTax - 3476 - (3476 + socialTotal + salaryTax.getSpecialDeduction() + 5000)
+                : centralShouldFund + otherShouldTax - (socialAndReserve + salaryTax.getSpecialDeduction() + 5000)) + salaryTaxFirst.getFirstTax();
+                // 本部预扣预缴个税
+                double readyDeductTax = calReadyDeductTax(centralShouldTax, salaryTax.getAllYearTaxDeduction());
+                // 本部代扣款合计
+                double replaceDeduct = socialAndReserve + partyPersonal + salaryDepartmentPerformance.getWeinisiPrice() + readyDeductTax;
+                // 本部实发工资
+                double realSalary = centralShouldFund - replaceDeduct - salaryTax.getDeductPersonalTax();
+                // 本部加发其他（总额）
+                double addtionSalary = salaryAddition.getPartyBuildingReward() + salaryAddition.getHousingReformReward() + huanjianpaodaoDaysSubsidy + salaryDepartmentPerformance.getJianrenbujianzi() + salaryAddition.getOtherReward();
             } else if (salaryUserBaseInfo.getLevel() == 3) {
                 SalaryOutsourcingReserveFund salaryOutsourcingReserveFund = salaryOutsourcingReserveFundMap.get(salaryUserBaseInfo.getIdCardNo());
                 SalaryOutsourcingSocialFund salaryOutsourcingSocialFund = salaryOutsourcingSocialFundMap.get(salaryUserBaseInfo.getIdCardNo());
-                // 公积金个人+失业个人+养老个人+医保个人
-                double socialTotal = salaryOutsourcingSocialFund.getPersonalPament() + salaryOutsourcingSocialFund.getLoseJobPersonalPayment() + salaryOutsourcingReserveFund.getPersonalMonthlyDeposit() + salaryOutsourcingSocialFund.getAgedPersonalPament();
+                // 社保公积金=公积金个人+失业个人+养老个人+医保个人
+                double socialAndReserve = salaryOutsourcingSocialFund.getPersonalPament() + salaryOutsourcingSocialFund.getLoseJobPersonalPayment() + salaryOutsourcingReserveFund.getPersonalMonthlyDeposit() + salaryOutsourcingSocialFund.getAgedPersonalPament();
                 // 岗位补贴
                 double jobSubsidy = salaryDepartmentPerformance.getJobSubsidyDays() * 200;
                 // 空港应发合计
                 double outsourcingShouldFund = salaryAddition.getAdvancedReward() + salaryAddition.getSafetyJobReward() + jobSalary + baseSalary + salaryDepartmentPerformance.getMonthPerformancePrice() + jobSubsidy + huanjianpaodaoDaysSubsidy + sumBase;
-                // 空港应纳税所得额
-                double outsourcingShouldTax = outsourcingShouldFund + otherShouldTax;
                 // 空港应纳税所得额 = (空港应发合计+餐费+其他应纳税所得合计 (除去餐补))-(养老个人+公积金个人+失业个人+医保个人+专项扣除数)-5000+上月空港应纳税所得额+差错调整金额
-                double shouldTax = (outsourcingShouldFund + foodSubsidy + salaryTax.getOtherTaxWithoutMeal()) - (socialTotal + salaryTax.getSpecialDeduction()) - 5000 + salaryTaxFirst.getFirstTax() + salaryTax.getFixedTax();
+                double shouldTax = (outsourcingShouldFund + otherShouldTax) - (socialAndReserve + salaryTax.getSpecialDeduction()) - 5000 + salaryTaxFirst.getFirstTax() + salaryTax.getFixedTax();
                 // 空港预扣预缴个税
                 double readyDeductTax = calReadyDeductTax(shouldTax, salaryTax.getAllYearTaxDeduction());
                 // 空港代扣款合计 = 公积金个人+失业个人+养老个人+医保个人+工会经费+空港预扣预缴个税
-                double outsourcingReplaceDeduct = socialTotal + partyPersonal + readyDeductTax;
+                double replaceDeduct = socialAndReserve + partyPersonal + readyDeductTax;
                 // 空港实发工资 = 空港应发合计-空港代扣款合计-补扣个税
-                double outsourcingRealSalary = outsourcingShouldFund - outsourcingReplaceDeduct - salaryTax.getDeductPersonalTax();
+                double realSalary = outsourcingShouldFund - replaceDeduct - salaryTax.getDeductPersonalTax();
+                // 空港加发其他（总额）
+                double addtionSalary = salaryAddition.getHousingReformReward() + huanjianpaodaoDaysSubsidy + salaryDepartmentPerformance.getJianrenbujianzi() + salaryAddition.getOtherReward();
             } else {
                 // 实习补贴
                 double internshipSubsidy = calFloatSalary("地勤服务部".equals(salaryUserBaseInfo.getDepartment()) ? 1000 : 1600, computeTimeBase, salaryUserBaseInfo);
@@ -215,8 +228,16 @@ public class SalaryService {
                 double noviciateSubsidy = "是".equals(salaryUserBaseInfo.getHasNoviciateSubsidy()) ? calFloatSalary(NOVICIATE_SUBSIDY, computeTimeBase, salaryUserBaseInfo) : 0.0;
                 // 岗位补贴
                 double jobSubsidy = salaryDepartmentPerformance.getJobSubsidyDays() * 100;
-                // 实习生总计（元）
+                // 实习生总计（元）= 实习岗位补贴+见习补贴+其他补发+高温补贴+住宿补贴+实习补贴+夜餐补贴+月绩效金额（元）+减人不减资（元）+值班补贴-其他补扣-考勤扣款
                 double internshipTotal = jobSubsidy + noviciateSubsidy + accommodationSubsidy + internshipSubsidy + salaryDepartmentPerformance.getMonthPerformancePrice() + sumBase;
+                // 实习生应纳税所得额
+                double shouldTax = internshipTotal + salaryTaxFirst.getFirstTax() + foodSubsidy - salaryTax.getSpecialDeduction() - 5000;
+                // 实习生预扣预缴个税
+                double readyDeductTax = calReadyDeductTax(shouldTax, salaryTax.getAllYearTaxDeduction());
+                // 实习生实发工资
+                double realSalary = internshipTotal - readyDeductTax;
+                // 实习生加发其他（总额）
+                double addtionSalary = accommodationSubsidy + salaryDepartmentPerformance.getJianrenbujianzi() + jobSubsidy + noviciateSubsidy + salaryAddition.getOtherReward();
             }
         }
     }
