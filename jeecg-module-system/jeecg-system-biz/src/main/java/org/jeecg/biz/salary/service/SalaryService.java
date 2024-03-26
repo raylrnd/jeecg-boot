@@ -121,6 +121,7 @@ public class SalaryService {
         Map<String, SalaryTaxFirst> salaryTaxFirstMap = salaryTaxFirstPage.getRecords().stream().collect(Collectors.toMap(SalaryTaxFirst::getIdCardNo, Function.identity()));
         Map<String, SalaryOutsourcingReserveFund> salaryOutsourcingReserveFundMap = salaryOutsourcingReserveFundPage.getRecords().stream().collect(Collectors.toMap(SalaryOutsourcingReserveFund::getIdCardNo, Function.identity()));
         Map<String, SalaryOutsourcingSocialFund> salaryOutsourcingSocialFundMap = salaryOutsourcingSocialFundPage.getRecords().stream().collect(Collectors.toMap(SalaryOutsourcingSocialFund::getIdCardNo, Function.identity()));
+        Map<String, SalaryInternSocialFund> salaryInternSocialFundMap = salaryInternSocialFundPage.getRecords().stream().collect(Collectors.toMap(SalaryInternSocialFund::getIdCardNo, Function.identity()));
 
         // 工资计算月份
         Date computeTimeBase = new Date();
@@ -238,6 +239,9 @@ public class SalaryService {
                 double realSalary = internshipTotal - readyDeductTax;
                 // 实习生加发其他（总额）
                 double addtionSalary = accommodationSubsidy + salaryDepartmentPerformance.getJianrenbujianzi() + jobSubsidy + noviciateSubsidy + salaryAddition.getOtherReward();
+                SalaryInternSocialFund salaryInternSocialFund = salaryInternSocialFundMap.get(salaryUserBaseInfo.getIdCardNo());
+                // 特定人员单项工伤保险
+                salaryInternSocialFund.getInjuryPament();
             }
         }
     }
