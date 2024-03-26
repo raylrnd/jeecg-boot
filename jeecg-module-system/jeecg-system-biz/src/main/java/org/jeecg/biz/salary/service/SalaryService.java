@@ -181,6 +181,13 @@ public class SalaryService {
                 // 本部应发合计
                 double centralShouldFund = baseSalary + jobSalary + yearMerit + salaryDepartmentPerformance.getMonthPerformancePrice() + huanjianpaodaoDaysSubsidy
                         + centralOtherShouldFund + salaryAddition.getHousingReformReward();
+                // 本部应纳税所得额
+
+                SalaryCentralEnterpriseFund salaryCentralEnterpriseFund = salaryCentralEnterpriseFundMap.get(salaryUserBaseInfo.getIdCardNo());
+                SalaryCentralReserveFund salaryCentralReserveFund = salaryCentralReserveFundMap.get(salaryUserBaseInfo.getIdCardNo());
+                SalaryCentralSocialSecurityFund salaryCentralSocialSecurityFund = salaryCentralSocialSecurityFundMap.get(salaryUserBaseInfo.getIdCardNo());
+                // 养老个人+公积金个人+失业个人+医保个人+企业年金
+                double socialTotal = salaryCentralEnterpriseFund.getIndividualMonthlyPayment() + salaryCentralReserveFund.getPersonalMonthlyDeposit() + salaryCentralSocialSecurityFund.getL
 
             } else if (salaryUserBaseInfo.getLevel() == 3) {
                 SalaryOutsourcingReserveFund salaryOutsourcingReserveFund = salaryOutsourcingReserveFundMap.get(salaryUserBaseInfo.getIdCardNo());
