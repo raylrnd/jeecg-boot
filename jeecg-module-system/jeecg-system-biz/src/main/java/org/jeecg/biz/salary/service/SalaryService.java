@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import generator.mapper.*;
 import org.apache.commons.collections4.CollectionUtils;
 import org.jeecg.biz.salary.entity.*;
+import org.jeecg.biz.salary.exception.JeecgSalaryException;
 import org.jeecg.common.util.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -57,13 +58,16 @@ public class SalaryService {
     @Autowired
     private SalaryUserBaseInfoMapper salaryUserBaseInfoMapper;
 
+    @Autowired
+    private SalaryTaxFirstMapper salaryTaxFirstMapper;
+
     private static final int QUERY_PAGE_SIZE = 500;
     // 住宿补贴
     private static final double ACCOMMODATION_SUBSIDY = 300.0;
     // 见习补贴
     private static final double NOVICIATE_SUBSIDY = 500.0;
 
-    private void handleSalaryCompute() {
+    private void handleSalaryCompute() throws Exception {
         // 先把输出表数据删了
         // 本部报表
         int deleteSalaryCentralReport = salaryCentralReportMapper.delete(new LambdaQueryWrapper<SalaryCentralReport>().gt(SalaryCentralReport::getId,-1));
@@ -71,30 +75,39 @@ public class SalaryService {
         // 查询输入数据
         // 本部养老金
         Page<SalaryCentralAgedFund> salaryCentralAgedFundPage = salaryCentralAgedFundMapper.selectPage(new Page<>(0, QUERY_PAGE_SIZE), new QueryWrapper<>());
+        checkPage(salaryCentralAgedFundPage);
         // 本部企业年金
         Page<SalaryCentralEnterpriseFund> salaryCentralEnterpriseFundPage = salaryCentralEnterpriseFundMapper.selectPage(new Page<>(0, QUERY_PAGE_SIZE), new QueryWrapper<>());
+        checkPage(salaryCentralEnterpriseFundPage);
         // 本部公积金
         Page<SalaryCentralReserveFund> salaryCentralReserveFundPage = salaryCentralReserveFundMapper.selectPage(new Page<>(0, QUERY_PAGE_SIZE), new QueryWrapper<>());
+        checkPage(salaryCentralReserveFundPage);
         // 本部社保单
         Page<SalaryCentralSocialSecurityFund> salaryCentralSocialSecurityFundPage = salaryCentralSocialSecurityFundMapper.selectPage(new Page<>(0, QUERY_PAGE_SIZE), new QueryWrapper<>());
+        checkPage(salaryCentralSocialSecurityFundPage);
         // 各部门绩效
         Page<SalaryDepartmentPerformance> salaryDepartmentPerformancePage = salaryDepartmentPerformanceMapper.selectPage(new Page<>(0, QUERY_PAGE_SIZE), new QueryWrapper<>());
+        checkPage(salaryDepartmentPerformancePage);
         // 实习生社保单
         Page<SalaryInternSocialFund> salaryInternSocialFundPage = salaryInternSocialFundMapper.selectPage(new Page<>(0, QUERY_PAGE_SIZE), new QueryWrapper<>());
+        checkPage(salaryInternSocialFundPage);
         // 空港公积金
         Page<SalaryOutsourcingReserveFund> salaryOutsourcingReserveFundPage = salaryOutsourcingReserveFundMapper.selectPage(new Page<>(0, QUERY_PAGE_SIZE), new QueryWrapper<>());
+        checkPage(salaryOutsourcingReserveFundPage);
         // 空港社保单
         Page<SalaryOutsourcingSocialFund> salaryOutsourcingSocialFundPage = salaryOutsourcingSocialFundMapper.selectPage(new Page<>(0, QUERY_PAGE_SIZE), new QueryWrapper<>());
+        checkPage(salaryOutsourcingSocialFundPage);
         // 附加字段
         Page<SalaryAddition> salaryAdditionPage = additionMapper.selectPage(new Page<>(0, QUERY_PAGE_SIZE), new QueryWrapper<>());
         // 税务表
         Page<SalaryTax> salaryTaxPage = salaryTaxMapper.selectPage(new Page<>(0, QUERY_PAGE_SIZE), new QueryWrapper<>());
+        checkPage(salaryTaxPage);
         // 人员信息库
         Page<SalaryUserBaseInfo> salaryUserBaseInfoPage = salaryUserBaseInfoMapper.selectPage(new Page<>(0, QUERY_PAGE_SIZE), new QueryWrapper<>());
-
-        if (salaryUserBaseInfoPage == null || CollectionUtils.isEmpty(salaryUserBaseInfoPage.getRecords())) {
-            return;
-        }
+        checkPage(salaryUserBaseInfoPage);
+        // 人员信息库
+        Page<SalaryTaxFirst> salaryTaxFirstPage = salaryTaxFirstMapper.selectPage(new Page<>(0, QUERY_PAGE_SIZE), new QueryWrapper<>());
+        checkPage(salaryTaxFirstPage);
 
         // 计算本部工资报表
         SalaryCentralReport salaryCentralReport = new SalaryCentralReport();
@@ -105,6 +118,9 @@ public class SalaryService {
         Map<String, SalaryAddition> salaryAdditionMap = salaryAdditionPage.getRecords().stream().collect(Collectors.toMap(SalaryAddition::getIdCardNo, Function.identity()));
         Map<String, SalaryDepartmentPerformance> salaryDepartmentPerformanceMap = salaryDepartmentPerformancePage.getRecords().stream().collect(Collectors.toMap(SalaryDepartmentPerformance::getIdCardNo, Function.identity()));
         Map<String, SalaryTax> salaryTaxMap = salaryTaxPage.getRecords().stream().collect(Collectors.toMap(SalaryTax::getIdCardNo, Function.identity()));
+        Map<String, SalaryTaxFirst> salaryTaxFirstMap = salaryTaxFirstPage.getRecords().stream().collect(Collectors.toMap(SalaryTaxFirst::getIdCardNo, Function.identity()));
+        Map<String, SalaryOutsourcingReserveFund> salaryOutsourcingReserveFundMap = salaryOutsourcingReserveFundPage.getRecords().stream().collect(Collectors.toMap(SalaryOutsourcingReserveFund::getIdCardNo, Function.identity()));
+        Map<String, SalaryOutsourcingSocialFund> salaryOutsourcingSocialFundMap = salaryOutsourcingSocialFundPage.getRecords().stream().collect(Collectors.toMap(SalaryOutsourcingSocialFund::getIdCardNo, Function.identity()));
 
         // 工资计算月份
         Date computeTimeBase = new Date();
@@ -164,6 +180,9 @@ public class SalaryService {
                         + centralOtherShouldFund + salaryAddition.getHousingReformReward();
 
             } else if (salaryUserBaseInfo.getLevel() == 3) {
+                SalaryOutsourcingReserveFund salaryOutsourcingReserveFund = salaryOutsourcingReserveFundMap.get(salaryUserBaseInfo.getIdCardNo());
+                SalaryOutsourcingSocialFund salaryOutsourcingSocialFund = salaryOutsourcingSocialFundMap.get(salaryUserBaseInfo.getIdCardNo());
+                double social = salaryOutsourcingSocialFund.getPersonalPament() + salaryOutsourcingSocialFund.getLoseJobPersonalPayment() + salaryOutsourcingReserveFund.getPersonalMonthlyDeposit();
                 // 岗位补贴
                 double jobSubsidy = salaryDepartmentPerformance.getJobSubsidyDays() * 200;
                 // 空港应发合计
@@ -180,6 +199,12 @@ public class SalaryService {
                 // 实习生总计（元）
                 double internshipTotal = jobSubsidy + noviciateSubsidy + accommodationSubsidy + internshipSubsidy + salaryDepartmentPerformance.getMonthPerformancePrice() + sumBase;
             }
+        }
+    }
+
+    private void checkPage(Page<?> page) {
+        if (page == null || CollectionUtils.isEmpty(page.getRecords()) || page.getSize() >= QUERY_PAGE_SIZE) {
+            throw new JeecgSalaryException("某个表单数据为空或者超过" + QUERY_PAGE_SIZE + "条数据！请检查表单");
         }
     }
 
