@@ -1,12 +1,12 @@
 package org.jeecg.biz.salary.entity;
 
-import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import lombok.Data;
+
 import java.io.Serializable;
 import java.util.Date;
-import lombok.Data;
 
 /**
  * 
@@ -188,6 +188,18 @@ public class SalaryOutsourcingSocialFund implements Serializable {
      */
     @TableField(value = "lose_job_personal_payment")
     private Double loseJobPersonalPayment;
+
+    /**
+     * 外资民营个体经济养老保险(个人缴纳).缴费基数
+     */
+    @TableField(value = "aged_personal_payment_base")
+    private String agedPersonalPaymentBase;
+
+    /**
+     * 外资民营个体经济养老保险(个人缴纳).应缴金额
+     */
+    @TableField(value = "aged_personal_pament")
+    private String agedPersonalPament;
 
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
