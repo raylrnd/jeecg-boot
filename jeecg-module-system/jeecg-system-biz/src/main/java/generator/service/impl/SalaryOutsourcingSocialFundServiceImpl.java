@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 /**
 * @author zhongshunchao
 * @description 针对表【salary_outsourcing_social_fund】的数据库操作Service实现
-* @createDate 2024-03-26 09:18:17
+* @createDate 2024-03-26 09:23:41
 */
 @Service
 public class SalaryOutsourcingSocialFundServiceImpl extends ServiceImpl<SalaryOutsourcingSocialFundMapper, SalaryOutsourcingSocialFund>

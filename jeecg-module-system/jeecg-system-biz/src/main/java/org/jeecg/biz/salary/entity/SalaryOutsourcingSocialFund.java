@@ -193,13 +193,13 @@ public class SalaryOutsourcingSocialFund implements Serializable {
      * 外资民营个体经济养老保险(个人缴纳).缴费基数
      */
     @TableField(value = "aged_personal_payment_base")
-    private String agedPersonalPaymentBase;
+    private Double agedPersonalPaymentBase;
 
     /**
      * 外资民营个体经济养老保险(个人缴纳).应缴金额
      */
     @TableField(value = "aged_personal_pament")
-    private String agedPersonalPament;
+    private Double agedPersonalPament;
 
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;

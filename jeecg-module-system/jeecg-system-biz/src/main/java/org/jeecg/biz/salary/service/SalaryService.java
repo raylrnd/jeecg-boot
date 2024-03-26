@@ -140,9 +140,12 @@ public class SalaryService {
             double accommodationSubsidy = "是".equals(salaryUserBaseInfo.getHasAccommodationSubsidy()) ? calFloatSalary(ACCOMMODATION_SUBSIDY, computeTimeBase, salaryUserBaseInfo) : 0.0;
             // 餐费
             double foodSubsidy = calFloatSalary(salaryUserBaseInfo.getLevel() == 4 ? 400 : 600, computeTimeBase, salaryUserBaseInfo);
+
             SalaryAddition salaryAddition = salaryAdditionMap.get(salaryUserBaseInfo.getIdCardNo());
             SalaryTax salaryTax = salaryTaxMap.get(salaryUserBaseInfo.getIdCardNo());
             SalaryDepartmentPerformance salaryDepartmentPerformance = salaryDepartmentPerformanceMap.get(salaryUserBaseInfo.getIdCardNo());
+            SalaryTaxFirst salaryTaxFirst = salaryTaxFirstMap.get(salaryUserBaseInfo.getIdCardNo());
+
             // 其他补发
             double otherReward = salaryAddition.getSafetyReward() + salaryAddition.getOtherReward() + salaryAddition.getSafetyJobReward() + salaryDepartmentPerformance.getEmergencyRescuePerformance();
 
@@ -183,13 +186,21 @@ public class SalaryService {
                 SalaryOutsourcingReserveFund salaryOutsourcingReserveFund = salaryOutsourcingReserveFundMap.get(salaryUserBaseInfo.getIdCardNo());
                 SalaryOutsourcingSocialFund salaryOutsourcingSocialFund = salaryOutsourcingSocialFundMap.get(salaryUserBaseInfo.getIdCardNo());
                 // 公积金个人+失业个人+养老个人+医保个人
-                double social = salaryOutsourcingSocialFund.getPersonalPament() + salaryOutsourcingSocialFund.getLoseJobPersonalPayment() + salaryOutsourcingReserveFund.getPersonalMonthlyDeposit() + salaryOutsourcingSocialFund.getAgedPersonalPament();
+                double socialTotal = salaryOutsourcingSocialFund.getPersonalPament() + salaryOutsourcingSocialFund.getLoseJobPersonalPayment() + salaryOutsourcingReserveFund.getPersonalMonthlyDeposit() + salaryOutsourcingSocialFund.getAgedPersonalPament();
                 // 岗位补贴
                 double jobSubsidy = salaryDepartmentPerformance.getJobSubsidyDays() * 200;
                 // 空港应发合计
                 double outsourcingShouldFund = salaryAddition.getAdvancedReward() + salaryAddition.getSafetyJobReward() + jobSalary + baseSalary + salaryDepartmentPerformance.getMonthPerformancePrice() + jobSubsidy + huanjianpaodaoDaysSubsidy + sumBase;
                 // 空港应纳税所得额
                 double outsourcingShouldTax = outsourcingShouldFund + otherShouldTax;
+                // 空港应纳税所得额 = (空港应发合计+餐费+其他应纳税所得合计 (除去餐补))-(养老个人+公积金个人+失业个人+医保个人+专项扣除数)-5000+上月空港应纳税所得额+差错调整金额
+                double shouldTax = (outsourcingShouldFund + foodSubsidy + salaryTax.getOtherTaxWithoutMeal()) - (socialTotal + salaryTax.getSpecialDeduction()) - 5000 + salaryTaxFirst.getFirstTax() + salaryTax.getFixedTax();
+                // 空港预扣预缴个税
+                double readyDeductTax = calReadyDeductTax(shouldTax, salaryTax.getAllYearTaxDeduction());
+                // 空港代扣款合计 = 公积金个人+失业个人+养老个人+医保个人+工会经费+空港预扣预缴个税
+                double outsourcingReplaceDeduct = socialTotal + partyPersonal + readyDeductTax;
+                // 空港实发工资 = 空港应发合计-空港代扣款合计-补扣个税
+                double outsourcingRealSalary = outsourcingShouldFund - outsourcingReplaceDeduct - salaryTax.getDeductPersonalTax();
             } else {
                 // 实习补贴
                 double internshipSubsidy = calFloatSalary("地勤服务部".equals(salaryUserBaseInfo.getDepartment()) ? 1000 : 1600, computeTimeBase, salaryUserBaseInfo);
@@ -201,6 +212,41 @@ public class SalaryService {
                 double internshipTotal = jobSubsidy + noviciateSubsidy + accommodationSubsidy + internshipSubsidy + salaryDepartmentPerformance.getMonthPerformancePrice() + sumBase;
             }
         }
+    }
+
+    private double calReadyDeductTax(double shouldTax, Double allYearTaxDeduction) {
+        double taxRate = 0.0;
+        double deduction = 0.0;
+        double taxToBeWithheld = 0.0;
+
+        // 根据应纳税所得额确定税率和速算扣除数
+        if (shouldTax <= 36000) {
+            taxRate = 0.03;
+            deduction = 2520;
+        } else if (shouldTax <= 144000) {
+            taxRate = 0.1;
+            deduction = 16920;
+        } else if (shouldTax <= 300000) {
+            taxRate = 0.2;
+            deduction = 31920;
+        } else if (shouldTax <= 420000) {
+            taxRate = 0.25;
+            deduction = 52920;
+        } else if (shouldTax <= 660000) {
+            taxRate = 0.3;
+            deduction = 85920;
+        } else if (shouldTax <= 960000) {
+            taxRate = 0.35;
+            deduction = 181920;
+        } else {
+            taxRate = 0.45;
+            deduction = 181920;
+        }
+        // 计算应预扣预缴的个税
+        taxToBeWithheld = Math.max(shouldTax * taxRate - deduction, 0) - allYearTaxDeduction;
+
+        // 如果计算结果小于0，则不需要预扣预缴个税，否则按照计算结果预扣预缴
+        return taxToBeWithheld < 0 ? 0 : taxToBeWithheld;
     }
 
     private void checkPage(Page<?> page) {

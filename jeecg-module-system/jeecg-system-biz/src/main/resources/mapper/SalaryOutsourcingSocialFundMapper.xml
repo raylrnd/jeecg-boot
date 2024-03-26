@@ -34,8 +34,8 @@
             <result property="personalPament" column="personal_pament" jdbcType="DOUBLE"/>
             <result property="loseJobPersonalPaymentBase" column="lose_job_personal_payment_base" jdbcType="DOUBLE"/>
             <result property="loseJobPersonalPayment" column="lose_job_personal_payment" jdbcType="DOUBLE"/>
-            <result property="agedPersonalPaymentBase" column="aged_personal_payment_base" jdbcType="VARCHAR"/>
-            <result property="agedPersonalPament" column="aged_personal_pament" jdbcType="VARCHAR"/>
+            <result property="agedPersonalPaymentBase" column="aged_personal_payment_base" jdbcType="DOUBLE"/>
+            <result property="agedPersonalPament" column="aged_personal_pament" jdbcType="DOUBLE"/>
     </resultMap>
 
     <sql id="Base_Column_List">
