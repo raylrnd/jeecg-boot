@@ -61,6 +61,18 @@ public class SalaryService {
     @Autowired
     private SalaryTaxFirstMapper salaryTaxFirstMapper;
 
+    @Autowired
+    private SalaryCentralTotalMapper salaryCentralTotalMapper;
+
+    @Autowired
+    private SalaryHuizeTotalMapper salaryHuizeTotalMapper;
+
+    @Autowired
+    private SalaryInternTotalMapper salaryInternTotalMapper;
+
+    @Autowired
+    private SalaryOutsourcingTotalMapper salaryOutsourcingTotalMapper;
+
     private static final int QUERY_PAGE_SIZE = 500;
     // 住宿补贴
     private static final double ACCOMMODATION_SUBSIDY = 300.0;
@@ -108,6 +120,18 @@ public class SalaryService {
         // 人员信息库
         Page<SalaryTaxFirst> salaryTaxFirstPage = salaryTaxFirstMapper.selectPage(new Page<>(0, QUERY_PAGE_SIZE), new QueryWrapper<>());
         checkPage(salaryTaxFirstPage);
+        // 工资表--本部
+        Page<SalaryCentralTotal> salaryCentralTotalPage = salaryCentralTotalMapper.selectPage(new Page<>(0, QUERY_PAGE_SIZE), new QueryWrapper<>());
+        checkPage(salaryCentralTotalPage);
+        // 工资表--惠泽
+        Page<SalaryHuizeTotal> salaryHuizeTotalPage = salaryHuizeTotalMapper.selectPage(new Page<>(0, QUERY_PAGE_SIZE), new QueryWrapper<>());
+        checkPage(salaryHuizeTotalPage);
+        // 工资表--实习生
+        Page<SalaryInternTotal> salaryInternTotalPage = salaryInternTotalMapper.selectPage(new Page<>(0, QUERY_PAGE_SIZE), new QueryWrapper<>());
+        checkPage(salaryInternTotalPage);
+        // 工资表--空港
+        Page<SalaryOutsourcingTotal> salaryOutsourcingTotalPage = salaryOutsourcingTotalMapper.selectPage(new Page<>(0, QUERY_PAGE_SIZE), new QueryWrapper<>());
+        checkPage(salaryOutsourcingTotalPage);
 
         // 计算本部工资报表
         SalaryCentralReport salaryCentralReport = new SalaryCentralReport();
