@@ -146,6 +146,7 @@ public class SalaryService {
         Map<String, SalaryOutsourcingReserveFund> salaryOutsourcingReserveFundMap = salaryOutsourcingReserveFundPage.getRecords().stream().collect(Collectors.toMap(SalaryOutsourcingReserveFund::getIdCardNo, Function.identity()));
         Map<String, SalaryOutsourcingSocialFund> salaryOutsourcingSocialFundMap = salaryOutsourcingSocialFundPage.getRecords().stream().collect(Collectors.toMap(SalaryOutsourcingSocialFund::getIdCardNo, Function.identity()));
         Map<String, SalaryInternSocialFund> salaryInternSocialFundMap = salaryInternSocialFundPage.getRecords().stream().collect(Collectors.toMap(SalaryInternSocialFund::getIdCardNo, Function.identity()));
+//        Map<String, SalaryCentralTotal> salaryInternSocialFundMap = salaryCentralTotalPage.getRecords().stream().collect(Collectors.toMap(SalaryCentralTotal::getIdCardNo, Function.identity()));
 
         // 工资计算月份
         Date computeTimeBase = new Date();
