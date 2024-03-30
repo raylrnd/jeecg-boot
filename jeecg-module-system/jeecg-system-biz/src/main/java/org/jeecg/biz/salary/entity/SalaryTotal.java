@@ -1,4 +1,4 @@
-package generator.domain;
+package org.jeecg.biz.salary.entity;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -10,11 +10,11 @@ import java.util.Date;
 
 /**
  * 
- * @TableName salary_outsourcing_total
+ * @TableName salary_total
  */
-@TableName(value ="salary_outsourcing_total")
+@TableName(value ="salary_total")
 @Data
-public class SalaryOutsourcingTotal implements Serializable {
+public class SalaryTotal implements Serializable {
     /**
      * 
      */
@@ -52,6 +52,12 @@ public class SalaryOutsourcingTotal implements Serializable {
     private String sysOrgCode;
 
     /**
+     * 身份证号
+     */
+    @TableField(value = "id_card_no")
+    private String idCardNo;
+
+    /**
      * 银行卡号
      */
     @TableField(value = "bank_no")
@@ -70,16 +76,22 @@ public class SalaryOutsourcingTotal implements Serializable {
     private String department;
 
     /**
-     * 性别
+     * 薪级
      */
-    @TableField(value = "sex")
-    private String sex;
+    @TableField(value = "salary_level")
+    private String salaryLevel;
 
     /**
-     * 入职时间
+     * 薪档
      */
-    @TableField(value = "entry_time")
-    private Date entryTime;
+    @TableField(value = "salary_grade")
+    private Double salaryGrade;
+
+    /**
+     * 年功工资
+     */
+    @TableField(value = "year_merit")
+    private Double yearMerit;
 
     /**
      * 基本工资
@@ -100,22 +112,10 @@ public class SalaryOutsourcingTotal implements Serializable {
     private Double merit;
 
     /**
-     * 夜餐补贴
+     * 房改补贴
      */
-    @TableField(value = "night_food_subsidy")
-    private Double nightFoodSubsidy;
-
-    /**
-     * 值班补贴
-     */
-    @TableField(value = "on_duty_subsidy")
-    private Double onDutySubsidy;
-
-    /**
-     * 减人不减资（元）
-     */
-    @TableField(value = "jianrenbujianzi")
-    private Double jianrenbujianzi;
+    @TableField(value = "housing_reform_reward")
+    private Double housingReformReward;
 
     /**
      * 还建/跑道补贴
@@ -124,10 +124,28 @@ public class SalaryOutsourcingTotal implements Serializable {
     private Double huanjianpaodaosubsidy;
 
     /**
-     * 岗位补贴
+     * 值班补贴
      */
-    @TableField(value = "job_subsidy")
-    private Double jobSubsidy;
+    @TableField(value = "on_duty_subsidy")
+    private Double onDutySubsidy;
+
+    /**
+     * 夜餐补贴
+     */
+    @TableField(value = "night_food_subsidy")
+    private Double nightFoodSubsidy;
+
+    /**
+     * 减人不减资（元）
+     */
+    @TableField(value = "jianrenbujianzi")
+    private Double jianrenbujianzi;
+
+    /**
+     * 高温补贴
+     */
+    @TableField(value = "high_temper")
+    private Double highTemper;
 
     /**
      * 先进奖励
@@ -142,10 +160,28 @@ public class SalaryOutsourcingTotal implements Serializable {
     private Double safetyJobSubsidy;
 
     /**
-     * 高温补贴
+     * 党建考核奖金
      */
-    @TableField(value = "high_temper")
-    private Double highTemper;
+    @TableField(value = "party_build_subsidy")
+    private Double partyBuildSubsidy;
+
+    /**
+     * 应急救援岗绩效
+     */
+    @TableField(value = "rescue_subsidy")
+    private Double rescueSubsidy;
+
+    /**
+     * 安全绩效
+     */
+    @TableField(value = "safety_subsidy")
+    private Double safetySubsidy;
+
+    /**
+     * 其他补发
+     */
+    @TableField(value = "other_reward")
+    private Double otherReward;
 
     /**
      * 其他补扣
@@ -166,10 +202,16 @@ public class SalaryOutsourcingTotal implements Serializable {
     private Double personalLeaveDaysDeduct;
 
     /**
-     * 空港应发合计
+     * 其他应发合计
      */
-    @TableField(value = "outsourcing_should_fund")
-    private Double outsourcingShouldFund;
+    @TableField(value = "other_should_fund")
+    private Double otherShouldFund;
+
+    /**
+     * 应发合计
+     */
+    @TableField(value = "should_fund")
+    private Double shouldFund;
 
     /**
      * 公积金个人缴交额
@@ -196,16 +238,28 @@ public class SalaryOutsourcingTotal implements Serializable {
     private Double medicalPersonal;
 
     /**
-     * 个人工会费
+     * 年金个人缴交额
      */
-    @TableField(value = "party_personal")
-    private Double partyPersonal;
+    @TableField(value = "enterprise_annuity_personal")
+    private Double enterpriseAnnuityPersonal;
 
     /**
      * 专项扣除数
      */
     @TableField(value = "special_deduction")
     private Double specialDeduction;
+
+    /**
+     * 个人工会费
+     */
+    @TableField(value = "party_personal")
+    private Double partyPersonal;
+
+    /**
+     * 威尼斯宿舍住房费用
+     */
+    @TableField(value = "weinisi_price")
+    private Double weinisiPrice;
 
     /**
      * 应纳税所得额
@@ -232,16 +286,10 @@ public class SalaryOutsourcingTotal implements Serializable {
     private Double realSalary;
 
     /**
-     * 伙食补贴
-     */
-    @TableField(value = "food_subsidy")
-    private Double foodSubsidy;
-
-    /**
      * 备注
      */
     @TableField(value = "remark")
-    private String remark;
+    private Double remark;
 
     /**
      * 安全奖
@@ -254,12 +302,6 @@ public class SalaryOutsourcingTotal implements Serializable {
      */
     @TableField(value = "addition_other_total")
     private Double additionOtherTotal;
-
-    /**
-     * 加发其他(非总额）
-     */
-    @TableField(value = "addition_other")
-    private Double additionOther;
 
     /**
      * 扣工资
@@ -286,6 +328,66 @@ public class SalaryOutsourcingTotal implements Serializable {
     private Double economicCompensation;
 
     /**
+     * 工伤保险单位缴交额
+     */
+    @TableField(value = "injury_company")
+    private Double injuryCompany;
+
+    /**
+     * 补充医疗保险单位缴交额
+     */
+    @TableField(value = "addtion_medical_company")
+    private Double addtionMedicalCompany;
+
+    /**
+     * 个人所得税 （导入）
+     */
+    @TableField(value = "tax_personal")
+    private Double taxPersonal;
+
+    /**
+     * 是否为交通银行
+     */
+    @TableField(value = "is_jiaotong_bank")
+    private String isJiaotongBank;
+
+    /**
+     * 个税调整
+     */
+    @TableField(value = "tax_fix")
+    private Double taxFix;
+
+    /**
+     * 性别
+     */
+    @TableField(value = "sex")
+    private String sex;
+
+    /**
+     * 入职时间
+     */
+    @TableField(value = "entry_time")
+    private Date entryTime;
+
+    /**
+     * 司龄
+     */
+    @TableField(value = "job_time")
+    private Double jobTime;
+
+    /**
+     * 岗位名称
+     */
+    @TableField(value = "job_title")
+    private String jobTitle;
+
+    /**
+     * 值班工资
+     */
+    @TableField(value = "duty")
+    private Double duty;
+
+    /**
      * 公积金单位缴交额
      */
     @TableField(value = "reserve_company_fund")
@@ -310,76 +412,40 @@ public class SalaryOutsourcingTotal implements Serializable {
     private Double medicalCompany;
 
     /**
-     * 工伤保险单位缴交额
+     * 年金单位缴交额
      */
-    @TableField(value = "injury_company")
-    private Double injuryCompany;
+    @TableField(value = "enterprise_annuity_company")
+    private Double enterpriseAnnuityCompany;
 
     /**
-     * 补充医疗保险单位缴交额
+     * 住宿补贴
      */
-    @TableField(value = "addtion_medical_company")
-    private Double addtionMedicalCompany;
+    @TableField(value = "house_subsidy")
+    private Double houseSubsidy;
 
     /**
-     * 个人所得税 （导入）
+     * 实习补贴
      */
-    @TableField(value = "tax_personal")
-    private Double taxPersonal;
+    @TableField(value = "intern_subsidy")
+    private Double internSubsidy;
 
     /**
-     * 法定节假日加班费
+     * 岗位补贴
      */
-    @TableField(value = "holiday_work")
-    private Double holidayWork;
+    @TableField(value = "job_subsidy")
+    private Double jobSubsidy;
 
     /**
-     * 加班工资
+     * 见习补贴
      */
-    @TableField(value = "overtime")
-    private Double overtime;
+    @TableField(value = "jianx_subsidy")
+    private Double jianxSubsidy;
 
     /**
-     * 补发工资
-     */
-    @TableField(value = "addtion_pay")
-    private Double addtionPay;
-
-    /**
-     * 是否为交通银行
-     */
-    @TableField(value = "is_jiaotong_bank")
-    private String isJiaotongBank;
-
-    /**
-     * 单位公积金
-     */
-    @TableField(value = "enterprise_reservce")
-    private Double enterpriseReservce;
-
-    /**
-     * 管理费用
-     */
-    @TableField(value = "manage_fee")
-    private Double manageFee;
-
-    /**
-     * 单位社保
-     */
-    @TableField(value = "enterprise_social")
-    private Double enterpriseSocial;
-
-    /**
-     * 小计
+     * 实习生总计
      */
     @TableField(value = "total")
     private Double total;
-
-    /**
-     * 身份证号
-     */
-    @TableField(value = "id_card_no")
-    private String idCardNo;
 
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;

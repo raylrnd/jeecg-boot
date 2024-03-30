@@ -1,6 +1,5 @@
 package generator.mapper;
 
-import generator.domain.SalaryOutsourcingTotal;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**

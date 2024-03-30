@@ -2,7 +2,6 @@ package org.jeecg.biz.salary.service;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import generator.domain.SalaryCentralTotal;
 import generator.mapper.*;
 import org.apache.commons.collections4.CollectionUtils;
 import org.jeecg.biz.salary.entity.*;
@@ -62,16 +61,7 @@ public class SalaryService {
     private SalaryTaxFirstMapper salaryTaxFirstMapper;
 
     @Autowired
-    private SalaryCentralTotalMapper salaryCentralTotalMapper;
-
-    @Autowired
-    private SalaryHuizeTotalMapper salaryHuizeTotalMapper;
-
-    @Autowired
-    private SalaryInternTotalMapper salaryInternTotalMapper;
-
-    @Autowired
-    private SalaryOutsourcingTotalMapper salaryOutsourcingTotalMapper;
+    private SalaryTotalMapper salaryTotalMapper;
 
     private static final int QUERY_PAGE_SIZE = 500;
     // 住宿补贴
@@ -186,13 +176,29 @@ public class SalaryService {
                     - salaryAddition.getOtherDeduct() - sickDayDeduct - personalLeaveDaysDeduct;
             // 其他应纳税所得合计
             double otherShouldTax = salaryTax.getOtherTaxWithoutMeal() + foodSubsidy;
+            SalaryTotal salaryTotal = new SalaryTotal();
+            salaryTotal.setIdCardNo(salaryUserBaseInfo.getIdCardNo());
+            salaryTotal.setBasicSalary(salaryUserBaseInfo.getBaseSalary());
+            salaryTotal.setName(salaryUserBaseInfo.getName());
+            salaryTotal.setSalaryLevel(salaryUserBaseInfo.getSalaryLevel());
+            salaryTotal.setBankNo(salaryUserBaseInfo.getBankNo());
+            salaryTotal.setDepartment(salaryUserBaseInfo.getDepartment());
+            salaryTotal.setAdvanced(salaryAddition.getAdvancedReward());
+            salaryTotal.setEconomicCompensation(salaryAddition.getEconomicReward());
+            salaryTotal.setAdvanced(salaryAddition.getAdvancedReward());
+            salaryTotal.setCheckingInDeduct(checkingInDeduct);
+            salaryTotal.setPost(post);
+            salaryTotal.setMerit(salaryDepartmentPerformance.getMonthPerformancePrice());
+            salaryTotal.setJobTime(calJobTime(salaryUserBaseInfo));
+//            salaryTotal.setReservePersonalFund();
+//            salaryTotal.setAddtionMedicalCompany();
             // 1:本部，2:惠泽，3:空港，4:实习生
             if (salaryUserBaseInfo.getLevel() == 1 || salaryUserBaseInfo.getLevel() == 2) {
                 // 本部其他应发合计
-                double centralOtherShouldFund = salaryAddition.getAdvancedReward() + salaryAddition.getPartyBuildingReward() + sumBase;
+                double otherShouldFund = salaryAddition.getAdvancedReward() + salaryAddition.getPartyBuildingReward() + sumBase;
                 // 本部应发合计
-                double centralShouldFund = baseSalary + jobSalary + yearMerit + salaryDepartmentPerformance.getMonthPerformancePrice() + huanjianpaodaoDaysSubsidy
-                        + centralOtherShouldFund + salaryAddition.getHousingReformReward();
+                double shouldFund = baseSalary + jobSalary + yearMerit + salaryDepartmentPerformance.getMonthPerformancePrice() + huanjianpaodaoDaysSubsidy
+                        + otherShouldFund + salaryAddition.getHousingReformReward();
                 SalaryCentralEnterpriseFund salaryCentralEnterpriseFund = salaryCentralEnterpriseFundMap.get(salaryUserBaseInfo.getIdCardNo());
                 SalaryCentralReserveFund salaryCentralReserveFund = salaryCentralReserveFundMap.get(salaryUserBaseInfo.getIdCardNo());
                 SalaryCentralSocialSecurityFund salaryCentralSocialSecurityFund = salaryCentralSocialSecurityFundMap.get(salaryUserBaseInfo.getIdCardNo());
@@ -203,36 +209,27 @@ public class SalaryService {
                 // 社保+公积金
                 double socialAndReserve = socialTotal + salaryCentralReserveFund.getPersonalMonthlyDeposit();
                 // 本部应纳税所得额
-                double centralShouldTax = (salaryCentralReserveFund.getPersonalMonthlyDeposit() > 3476 ?
-                salaryCentralReserveFund.getPersonalMonthlyDeposit() + centralShouldFund + otherShouldTax - 3476 - (3476 + socialTotal + salaryTax.getSpecialDeduction() + 5000)
-                : centralShouldFund + otherShouldTax - (socialAndReserve + salaryTax.getSpecialDeduction() + 5000)) + salaryTaxFirst.getFirstTax();
+                double shouldTax = (salaryCentralReserveFund.getPersonalMonthlyDeposit() > 3476 ?
+                salaryCentralReserveFund.getPersonalMonthlyDeposit() + shouldFund + otherShouldTax - 3476 - (3476 + socialTotal + salaryTax.getSpecialDeduction() + 5000)
+                : shouldFund + otherShouldTax - (socialAndReserve + salaryTax.getSpecialDeduction() + 5000)) + salaryTaxFirst.getFirstTax();
                 // 本部预扣预缴个税
-                double readyDeductTax = calReadyDeductTax(centralShouldTax, salaryTax.getAllYearTaxDeduction());
+                double readyDeductTax = calReadyDeductTax(shouldTax, salaryTax.getAllYearTaxDeduction());
                 // 本部代扣款合计
                 double replaceDeduct = socialAndReserve + partyPersonal + salaryDepartmentPerformance.getWeinisiPrice() + readyDeductTax;
                 // 本部实发工资
-                double realSalary = centralShouldFund - replaceDeduct - salaryTax.getDeductPersonalTax();
+                double realSalary = shouldFund - replaceDeduct - salaryTax.getDeductPersonalTax();
                 // 本部加发其他（总额）
                 double addtionSalary = salaryAddition.getPartyBuildingReward() + salaryAddition.getHousingReformReward() + huanjianpaodaoDaysSubsidy + salaryDepartmentPerformance.getJianrenbujianzi() + salaryAddition.getOtherReward();
-                SalaryCentralTotal salaryCentralTotal = new SalaryCentralTotal();
-                salaryCentralTotal.setIdCardNo(salaryUserBaseInfo.getIdCardNo());
-                salaryCentralTotal.setBasicSalary(salaryUserBaseInfo.getBaseSalary());
-                salaryCentralTotal.setName(salaryUserBaseInfo.getName());
-                salaryCentralTotal.setPost(post);
-                salaryCentralTotal.setRealSalary(realSalary);
-//                salaryCentralTotal.setSalaryGrade(salaryUserBaseInfo.getSalaryGrade());
-                salaryCentralTotal.setSalaryLevel(salaryUserBaseInfo.getSalaryLevel());
-                salaryCentralTotal.setAdditionOtherTotal(addtionSalary);
-                salaryCentralTotal.setAddtionMedicalCompany(addtionSalary);
-                salaryCentralTotal.setBankNo(salaryUserBaseInfo.getBankNo());
-                salaryCentralTotal.setAdvanced(salaryAddition.getAdvancedReward());
-                salaryCentralTotal.setCentralOtherShouldFund(centralOtherShouldFund);
-                salaryCentralTotal.setCheckingInDeduct(checkingInDeduct);
-                salaryCentralTotal.setDepartment(salaryUserBaseInfo.getDepartment());
-                salaryCentralTotal.setEconomicCompensation(salaryAddition.getEconomicReward());
-                salaryCentralTotal.setMerit(salaryDepartmentPerformance.getMonthPerformancePrice());
-//                salaryCentralTotal.setReservePersonalFund();
-//                salaryCentralTotal.setAdditionOther(addtionSalary);
+
+//                salaryTotal.setSalaryGrade(salaryUserBaseInfo.getSalaryGrade());
+                salaryTotal.setRealSalary(realSalary);
+                salaryTotal.setAdditionOtherTotal(addtionSalary);
+                salaryTotal.setOtherShouldFund(otherShouldFund);
+                salaryTotal.setShouldTax(shouldTax);
+                salaryTotal.setReadyDeductTax(readyDeductTax);
+                salaryTotal.setReplaceDeduct(replaceDeduct);
+                salaryTotal.setShouldFund(shouldFund);
+
 //                salaryCentralTotalMapper.insert();
             } else if (salaryUserBaseInfo.getLevel() == 3) {
                 SalaryOutsourcingReserveFund salaryOutsourcingReserveFund = salaryOutsourcingReserveFundMap.get(salaryUserBaseInfo.getIdCardNo());
@@ -242,17 +239,24 @@ public class SalaryService {
                 // 岗位补贴
                 double jobSubsidy = salaryDepartmentPerformance.getJobSubsidyDays() * 200;
                 // 空港应发合计
-                double outsourcingShouldFund = salaryAddition.getAdvancedReward() + salaryAddition.getSafetyJobReward() + jobSalary + baseSalary + salaryDepartmentPerformance.getMonthPerformancePrice() + jobSubsidy + huanjianpaodaoDaysSubsidy + sumBase;
+                double shouldFund = salaryAddition.getAdvancedReward() + salaryAddition.getSafetyJobReward() + jobSalary + baseSalary + salaryDepartmentPerformance.getMonthPerformancePrice() + jobSubsidy + huanjianpaodaoDaysSubsidy + sumBase;
                 // 空港应纳税所得额 = (空港应发合计+餐费+其他应纳税所得合计 (除去餐补))-(养老个人+公积金个人+失业个人+医保个人+专项扣除数)-5000+上月空港应纳税所得额+差错调整金额
-                double shouldTax = (outsourcingShouldFund + otherShouldTax) - (socialAndReserve + salaryTax.getSpecialDeduction()) - 5000 + salaryTaxFirst.getFirstTax() + salaryTax.getFixedTax();
+                double shouldTax = (shouldFund + otherShouldTax) - (socialAndReserve + salaryTax.getSpecialDeduction()) - 5000 + salaryTaxFirst.getFirstTax() + salaryTax.getFixedTax();
                 // 空港预扣预缴个税
                 double readyDeductTax = calReadyDeductTax(shouldTax, salaryTax.getAllYearTaxDeduction());
                 // 空港代扣款合计 = 公积金个人+失业个人+养老个人+医保个人+工会经费+空港预扣预缴个税
                 double replaceDeduct = socialAndReserve + partyPersonal + readyDeductTax;
                 // 空港实发工资 = 空港应发合计-空港代扣款合计-补扣个税
-                double realSalary = outsourcingShouldFund - replaceDeduct - salaryTax.getDeductPersonalTax();
+                double realSalary = shouldFund - replaceDeduct - salaryTax.getDeductPersonalTax();
                 // 空港加发其他（总额）
                 double addtionSalary = salaryAddition.getHousingReformReward() + huanjianpaodaoDaysSubsidy + salaryDepartmentPerformance.getJianrenbujianzi() + salaryAddition.getOtherReward();
+                salaryTotal.setRealSalary(realSalary);
+                salaryTotal.setAdditionOtherTotal(addtionSalary);
+                salaryTotal.setReplaceDeduct(replaceDeduct);
+                salaryTotal.setReadyDeductTax(readyDeductTax);
+                salaryTotal.setShouldTax(shouldTax);
+                salaryTotal.setJobSubsidy(jobSubsidy);
+                salaryTotal.setShouldFund(shouldFund);
             } else {
                 // 实习补贴
                 double internshipSubsidy = calFloatSalary("地勤服务部".equals(salaryUserBaseInfo.getDepartment()) ? 1000 : 1600, computeTimeBase, salaryUserBaseInfo);
@@ -273,6 +277,13 @@ public class SalaryService {
                 SalaryInternSocialFund salaryInternSocialFund = salaryInternSocialFundMap.get(salaryUserBaseInfo.getIdCardNo());
                 // 特定人员单项工伤保险
                 salaryInternSocialFund.getInjuryPament();
+                salaryTotal.setRealSalary(realSalary);
+                salaryTotal.setAdditionOtherTotal(addtionSalary);
+                salaryTotal.setReadyDeductTax(readyDeductTax);
+                salaryTotal.setShouldTax(shouldTax);
+                salaryTotal.setJobSubsidy(jobSubsidy);
+                salaryTotal.setInternSubsidy(internshipSubsidy);
+                salaryTotal.setTotal(internshipTotal);
             }
         }
     }
@@ -325,12 +336,19 @@ public class SalaryService {
      */
     private double calYearMerit(SalaryUserBaseInfo salaryUserBaseInfo) {
         // 基本工资为0则年功工资为0
-        if (salaryUserBaseInfo.getBaseSalary() == null || salaryUserBaseInfo.getBaseSalary() == 0) {
-            return 0.0;
-        } else if (salaryUserBaseInfo.getLeaveTime() == null) {
-            return DateUtils.yearDiff(salaryUserBaseInfo.getEntryTime(), null) * 50.0;
+        return salaryUserBaseInfo.getBaseSalary() == null || salaryUserBaseInfo.getBaseSalary() == 0 ? 0.0 : calJobTime(salaryUserBaseInfo);
+    }
+
+    /**
+     * 计算司龄
+     * @param salaryUserBaseInfo
+     * @return
+     */
+    private double calJobTime(SalaryUserBaseInfo salaryUserBaseInfo) {
+        if (salaryUserBaseInfo.getLeaveTime() == null) {
+            return DateUtils.yearDiff(salaryUserBaseInfo.getEntryTime(), null);
         } else {
-            return DateUtils.yearDiff(salaryUserBaseInfo.getEntryTime(), salaryUserBaseInfo.getLeaveTime()) * 50.0;
+            return DateUtils.yearDiff(salaryUserBaseInfo.getEntryTime(), salaryUserBaseInfo.getLeaveTime());
         }
     }
 
