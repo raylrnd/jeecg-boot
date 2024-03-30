@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="generator.mapper.SalaryHuizeTotalMapper">
 
-    <resultMap id="BaseResultMap" type="org.jeecg.biz.salary.entity.SalaryHuizeTotal">
+    <resultMap id="BaseResultMap" type="generator.domain.SalaryHuizeTotal">
             <id property="id" column="id" jdbcType="VARCHAR"/>
             <result property="createBy" column="create_by" jdbcType="VARCHAR"/>
             <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
@@ -80,6 +80,7 @@
             <result property="deductAfterTax" column="deduct_after_tax" jdbcType="DOUBLE"/>
             <result property="yearPay" column="year_pay" jdbcType="DOUBLE"/>
             <result property="isJiaotongBank" column="is_jiaotong_bank" jdbcType="VARCHAR"/>
+            <result property="idCardNo" column="id_card_no" jdbcType="VARCHAR"/>
     </resultMap>
 
     <sql id="Base_Column_List">
@@ -107,6 +108,7 @@
         tax_personal,float_pay,overtime,
         holiday_work,addtion_tax_total,addtion_pay,
         house,float_pay_remark,addtion_tax,
-        deduct_after_tax,year_pay,is_jiaotong_bank
+        deduct_after_tax,year_pay,is_jiaotong_bank,
+        id_card_no
     </sql>
 </mapper>

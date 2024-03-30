@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="generator.mapper.SalaryCentralTotalMapper">
 
-    <resultMap id="BaseResultMap" type="org.jeecg.biz.salary.entity.SalaryCentralTotal">
+    <resultMap id="BaseResultMap" type="generator.domain.SalaryCentralTotal">
             <id property="id" column="id" jdbcType="VARCHAR"/>
             <result property="createBy" column="create_by" jdbcType="VARCHAR"/>
             <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
@@ -65,6 +65,7 @@
             <result property="addtionPay" column="addtion_pay" jdbcType="DOUBLE"/>
             <result property="isJiaotongBank" column="is_jiaotong_bank" jdbcType="VARCHAR"/>
             <result property="taxFix" column="tax_fix" jdbcType="DOUBLE"/>
+            <result property="idCardNo" column="id_card_no" jdbcType="VARCHAR"/>
     </resultMap>
 
     <sql id="Base_Column_List">
@@ -87,6 +88,7 @@
         deduct,checking_in_deduct,year_end,
         economic_compensation,injury_company,addtion_medical_company,
         tax_personal,holiday_work,overtime,
-        addtion_pay,is_jiaotong_bank,tax_fix
+        addtion_pay,is_jiaotong_bank,tax_fix,
+        id_card_no
     </sql>
 </mapper>

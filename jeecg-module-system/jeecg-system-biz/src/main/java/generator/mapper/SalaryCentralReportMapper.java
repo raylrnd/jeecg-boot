@@ -1,6 +1,5 @@
 package generator.mapper;
 
-import org.jeecg.biz.salary.entity.SalaryCentralReport;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**

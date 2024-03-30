@@ -1,8 +1,8 @@
 package org.jeecg.biz.salary.service;
 
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import generator.domain.SalaryCentralTotal;
 import generator.mapper.*;
 import org.apache.commons.collections4.CollectionUtils;
 import org.jeecg.biz.salary.entity.*;
@@ -82,7 +82,7 @@ public class SalaryService {
     private void handleSalaryCompute() throws Exception {
         // 先把输出表数据删了
         // 本部报表
-        int deleteSalaryCentralReport = salaryCentralReportMapper.delete(new LambdaQueryWrapper<SalaryCentralReport>().gt(SalaryCentralReport::getId,-1));
+//        int deleteSalaryCentralReport = salaryCentralReportMapper.delete(new LambdaQueryWrapper<SalaryCentralReport>().gt(SalaryCentralReport::getId,-1));
 
         // 查询输入数据
         // 本部养老金
@@ -120,21 +120,8 @@ public class SalaryService {
         // 人员信息库
         Page<SalaryTaxFirst> salaryTaxFirstPage = salaryTaxFirstMapper.selectPage(new Page<>(0, QUERY_PAGE_SIZE), new QueryWrapper<>());
         checkPage(salaryTaxFirstPage);
-        // 工资表--本部
-        Page<SalaryCentralTotal> salaryCentralTotalPage = salaryCentralTotalMapper.selectPage(new Page<>(0, QUERY_PAGE_SIZE), new QueryWrapper<>());
-        checkPage(salaryCentralTotalPage);
-        // 工资表--惠泽
-        Page<SalaryHuizeTotal> salaryHuizeTotalPage = salaryHuizeTotalMapper.selectPage(new Page<>(0, QUERY_PAGE_SIZE), new QueryWrapper<>());
-        checkPage(salaryHuizeTotalPage);
-        // 工资表--实习生
-        Page<SalaryInternTotal> salaryInternTotalPage = salaryInternTotalMapper.selectPage(new Page<>(0, QUERY_PAGE_SIZE), new QueryWrapper<>());
-        checkPage(salaryInternTotalPage);
-        // 工资表--空港
-        Page<SalaryOutsourcingTotal> salaryOutsourcingTotalPage = salaryOutsourcingTotalMapper.selectPage(new Page<>(0, QUERY_PAGE_SIZE), new QueryWrapper<>());
-        checkPage(salaryOutsourcingTotalPage);
 
         // 计算本部工资报表
-        SalaryCentralReport salaryCentralReport = new SalaryCentralReport();
         Map<String, SalaryCentralAgedFund> salaryCentralAgedFundMap = salaryCentralAgedFundPage.getRecords().stream().collect(Collectors.toMap(SalaryCentralAgedFund::getIdCardNo, Function.identity()));
         Map<String, SalaryCentralEnterpriseFund> salaryCentralEnterpriseFundMap = salaryCentralEnterpriseFundPage.getRecords().stream().collect(Collectors.toMap(SalaryCentralEnterpriseFund::getIdCardNo, Function.identity()));
         Map<String, SalaryCentralReserveFund> salaryCentralReserveFundMap = salaryCentralReserveFundPage.getRecords().stream().collect(Collectors.toMap(SalaryCentralReserveFund::getIdCardNo, Function.identity()));
@@ -146,22 +133,19 @@ public class SalaryService {
         Map<String, SalaryOutsourcingReserveFund> salaryOutsourcingReserveFundMap = salaryOutsourcingReserveFundPage.getRecords().stream().collect(Collectors.toMap(SalaryOutsourcingReserveFund::getIdCardNo, Function.identity()));
         Map<String, SalaryOutsourcingSocialFund> salaryOutsourcingSocialFundMap = salaryOutsourcingSocialFundPage.getRecords().stream().collect(Collectors.toMap(SalaryOutsourcingSocialFund::getIdCardNo, Function.identity()));
         Map<String, SalaryInternSocialFund> salaryInternSocialFundMap = salaryInternSocialFundPage.getRecords().stream().collect(Collectors.toMap(SalaryInternSocialFund::getIdCardNo, Function.identity()));
-//        Map<String, SalaryCentralTotal> salaryInternSocialFundMap = salaryCentralTotalPage.getRecords().stream().collect(Collectors.toMap(SalaryCentralTotal::getIdCardNo, Function.identity()));
 
         // 工资计算月份
         Date computeTimeBase = new Date();
         List<SalaryUserBaseInfo> userBaseInfoRecords = salaryUserBaseInfoPage.getRecords();
         for (SalaryUserBaseInfo salaryUserBaseInfo : userBaseInfoRecords) {
-            salaryCentralReport.setName(salaryUserBaseInfo.getName());
             // 年功工资
             double yearMerit = calYearMerit(salaryUserBaseInfo);
-            salaryCentralReport.setYearMerit(yearMerit);
             // 基本工资
             double baseSalary = calFloatSalary(salaryUserBaseInfo.getBaseSalary(), computeTimeBase, salaryUserBaseInfo);
             // 岗位工资
             double jobSalary = calFloatSalary(salaryUserBaseInfo.getJobSalary(), computeTimeBase, salaryUserBaseInfo);
             // 岗位(职级)工资
-            salaryCentralReport.setPost(BigDecimal.valueOf(baseSalary).add(BigDecimal.valueOf(jobSalary)).doubleValue());
+            double post = BigDecimal.valueOf(baseSalary).add(BigDecimal.valueOf(jobSalary)).doubleValue();
             // 住宿补贴
             double accommodationSubsidy = "是".equals(salaryUserBaseInfo.getHasAccommodationSubsidy()) ? calFloatSalary(ACCOMMODATION_SUBSIDY, computeTimeBase, salaryUserBaseInfo) : 0.0;
             // 餐费
@@ -188,6 +172,8 @@ public class SalaryService {
             double sickDayDeduct = (salaryUserBaseInfo.getLevel() == 4 ? 1600 : (baseSalary + jobSalary)) / daysOfMonth * 0.35 * salaryDepartmentPerformance.getSickDays();
             // 减事假
             double personalLeaveDaysDeduct = (salaryUserBaseInfo.getLevel() == 4 ? 1600 : (baseSalary + jobSalary)) / daysOfMonth * salaryDepartmentPerformance.getPersonalLeaveDays();
+            // 考勤扣款
+            double checkingInDeduct = sickDayDeduct + personalLeaveDaysDeduct;
             // 工会经费
             double partyPersonal = (jobSalary + salaryDepartmentPerformance.getMonthPerformancePrice()) * 0.005;
             // 夜餐补贴
@@ -228,6 +214,26 @@ public class SalaryService {
                 double realSalary = centralShouldFund - replaceDeduct - salaryTax.getDeductPersonalTax();
                 // 本部加发其他（总额）
                 double addtionSalary = salaryAddition.getPartyBuildingReward() + salaryAddition.getHousingReformReward() + huanjianpaodaoDaysSubsidy + salaryDepartmentPerformance.getJianrenbujianzi() + salaryAddition.getOtherReward();
+                SalaryCentralTotal salaryCentralTotal = new SalaryCentralTotal();
+                salaryCentralTotal.setIdCardNo(salaryUserBaseInfo.getIdCardNo());
+                salaryCentralTotal.setBasicSalary(salaryUserBaseInfo.getBaseSalary());
+                salaryCentralTotal.setName(salaryUserBaseInfo.getName());
+                salaryCentralTotal.setPost(post);
+                salaryCentralTotal.setRealSalary(realSalary);
+//                salaryCentralTotal.setSalaryGrade(salaryUserBaseInfo.getSalaryGrade());
+                salaryCentralTotal.setSalaryLevel(salaryUserBaseInfo.getSalaryLevel());
+                salaryCentralTotal.setAdditionOtherTotal(addtionSalary);
+                salaryCentralTotal.setAddtionMedicalCompany(addtionSalary);
+                salaryCentralTotal.setBankNo(salaryUserBaseInfo.getBankNo());
+                salaryCentralTotal.setAdvanced(salaryAddition.getAdvancedReward());
+                salaryCentralTotal.setCentralOtherShouldFund(centralOtherShouldFund);
+                salaryCentralTotal.setCheckingInDeduct(checkingInDeduct);
+                salaryCentralTotal.setDepartment(salaryUserBaseInfo.getDepartment());
+                salaryCentralTotal.setEconomicCompensation(salaryAddition.getEconomicReward());
+                salaryCentralTotal.setMerit(salaryDepartmentPerformance.getMonthPerformancePrice());
+//                salaryCentralTotal.setReservePersonalFund();
+//                salaryCentralTotal.setAdditionOther(addtionSalary);
+//                salaryCentralTotalMapper.insert();
             } else if (salaryUserBaseInfo.getLevel() == 3) {
                 SalaryOutsourcingReserveFund salaryOutsourcingReserveFund = salaryOutsourcingReserveFundMap.get(salaryUserBaseInfo.getIdCardNo());
                 SalaryOutsourcingSocialFund salaryOutsourcingSocialFund = salaryOutsourcingSocialFundMap.get(salaryUserBaseInfo.getIdCardNo());

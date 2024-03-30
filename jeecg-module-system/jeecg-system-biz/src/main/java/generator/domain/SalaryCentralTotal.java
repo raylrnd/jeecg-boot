@@ -1,4 +1,4 @@
-package org.jeecg.biz.salary.entity;
+package generator.domain;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;

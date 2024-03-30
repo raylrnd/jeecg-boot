@@ -375,6 +375,12 @@ public class SalaryOutsourcingTotal implements Serializable {
     @TableField(value = "total")
     private Double total;
 
+    /**
+     * 身份证号
+     */
+    @TableField(value = "id_card_no")
+    private String idCardNo;
+
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
 }

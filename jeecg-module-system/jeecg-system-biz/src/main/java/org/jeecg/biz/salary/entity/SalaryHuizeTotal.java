@@ -465,6 +465,12 @@ public class SalaryHuizeTotal implements Serializable {
     @TableField(value = "is_jiaotong_bank")
     private String isJiaotongBank;
 
+    /**
+     * 身份证号
+     */
+    @TableField(value = "id_card_no")
+    private String idCardNo;
+
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
 }

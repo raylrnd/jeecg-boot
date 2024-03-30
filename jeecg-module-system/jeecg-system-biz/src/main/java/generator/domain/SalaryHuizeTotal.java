@@ -1,20 +1,20 @@
-package org.jeecg.biz.salary.entity;
+package generator.domain;
 
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import lombok.Data;
-
 import java.io.Serializable;
 import java.util.Date;
+import lombok.Data;
 
 /**
  * 
- * @TableName salary_central_total
+ * @TableName salary_huize_total
  */
-@TableName(value ="salary_central_total")
+@TableName(value ="salary_huize_total")
 @Data
-public class SalaryCentralTotal implements Serializable {
+public class SalaryHuizeTotal implements Serializable {
     /**
      * 
      */
@@ -70,6 +70,30 @@ public class SalaryCentralTotal implements Serializable {
     private String department;
 
     /**
+     * 性别
+     */
+    @TableField(value = "sex")
+    private String sex;
+
+    /**
+     * 入职时间
+     */
+    @TableField(value = "entry_time")
+    private Date entryTime;
+
+    /**
+     * 司龄
+     */
+    @TableField(value = "job_time")
+    private Double jobTime;
+
+    /**
+     * 岗位名称
+     */
+    @TableField(value = "job_title")
+    private String jobTitle;
+
+    /**
      * 薪级
      */
     @TableField(value = "salary_level")
@@ -116,12 +140,6 @@ public class SalaryCentralTotal implements Serializable {
      */
     @TableField(value = "huanjianpaodaosubsidy")
     private Double huanjianpaodaosubsidy;
-
-    /**
-     * 值班补贴
-     */
-    @TableField(value = "on_duty_subsidy")
-    private Double onDutySubsidy;
 
     /**
      * 夜餐补贴
@@ -286,6 +304,12 @@ public class SalaryCentralTotal implements Serializable {
     private Double remark;
 
     /**
+     * 值班工资
+     */
+    @TableField(value = "duty")
+    private Double duty;
+
+    /**
      * 安全奖
      */
     @TableField(value = "safety")
@@ -328,6 +352,30 @@ public class SalaryCentralTotal implements Serializable {
     private Double economicCompensation;
 
     /**
+     * 公积金单位缴交额
+     */
+    @TableField(value = "reserve_company_fund")
+    private Double reserveCompanyFund;
+
+    /**
+     * 养老保险单位缴交额
+     */
+    @TableField(value = "eged_company")
+    private Double egedCompany;
+
+    /**
+     * 失业保险单位缴交额
+     */
+    @TableField(value = "lose_job_company")
+    private Double loseJobCompany;
+
+    /**
+     * 医疗保险单位缴交额
+     */
+    @TableField(value = "medical_company")
+    private Double medicalCompany;
+
+    /**
      * 工伤保险单位缴交额
      */
     @TableField(value = "injury_company")
@@ -340,16 +388,22 @@ public class SalaryCentralTotal implements Serializable {
     private Double addtionMedicalCompany;
 
     /**
+     * 年金单位缴交额
+     */
+    @TableField(value = "enterprise_annuity_company")
+    private Double enterpriseAnnuityCompany;
+
+    /**
      * 个人所得税 （导入）
      */
     @TableField(value = "tax_personal")
     private Double taxPersonal;
 
     /**
-     * 法定节假日加班费
+     * 浮动绩效
      */
-    @TableField(value = "holiday_work")
-    private Double holidayWork;
+    @TableField(value = "float_pay")
+    private Double floatPay;
 
     /**
      * 加班工资
@@ -358,22 +412,58 @@ public class SalaryCentralTotal implements Serializable {
     private Double overtime;
 
     /**
+     * 法定节假日加班费
+     */
+    @TableField(value = "holiday_work")
+    private Double holidayWork;
+
+    /**
+     * 补税工资2(总额)
+     */
+    @TableField(value = "addtion_tax_total")
+    private Double addtionTaxTotal;
+
+    /**
      * 补发工资
      */
     @TableField(value = "addtion_pay")
     private Double addtionPay;
 
     /**
+     * 房租
+     */
+    @TableField(value = "house")
+    private Double house;
+
+    /**
+     * 浮动绩效备注
+     */
+    @TableField(value = "float_pay_remark")
+    private Double floatPayRemark;
+
+    /**
+     * 补税工资(非总额)
+     */
+    @TableField(value = "addtion_tax")
+    private Double addtionTax;
+
+    /**
+     * 扣工资-税后
+     */
+    @TableField(value = "deduct_after_tax")
+    private Double deductAfterTax;
+
+    /**
+     * 绩效年薪
+     */
+    @TableField(value = "year_pay")
+    private Double yearPay;
+
+    /**
      * 是否为交通银行
      */
     @TableField(value = "is_jiaotong_bank")
     private String isJiaotongBank;
-
-    /**
-     * 个税调整
-     */
-    @TableField(value = "tax_fix")
-    private Double taxFix;
 
     /**
      * 身份证号
