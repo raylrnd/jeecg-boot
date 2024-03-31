@@ -250,6 +250,7 @@ public class SalaryService {
                 // 公积金
                 salaryTotal.setReservePersonalFund(salaryCentralReserveFund.getPersonalMonthlyDeposit());
                 salaryTotal.setReserveCompanyFund(salaryCentralReserveFund.getCompanyMonthlyDeposit());
+//                salaryTotal.setAddtionMedicalCompany(salaryCentralSocialSecurityFund.get());
 
 //                salaryCentralTotalMapper.insert();
             } else if (salaryUserBaseInfo.getLevel() == 3) {
