@@ -1,5 +1,6 @@
 package org.jeecg.biz.salary.service;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import generator.mapper.*;
@@ -9,6 +10,7 @@ import org.jeecg.biz.salary.exception.JeecgSalaryException;
 import org.jeecg.common.util.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.Calendar;
@@ -72,7 +74,7 @@ public class SalaryService {
     private void handleSalaryCompute() throws Exception {
         // 先把输出表数据删了
         // 本部报表
-//        int deleteSalaryCentralReport = salaryCentralReportMapper.delete(new LambdaQueryWrapper<SalaryCentralReport>().gt(SalaryCentralReport::getId,-1));
+        int deleteReport = salaryTotalMapper.delete(new LambdaQueryWrapper<SalaryTotal>().gt(SalaryTotal::getId,-1));
 
         // 查询输入数据
         // 本部养老金
