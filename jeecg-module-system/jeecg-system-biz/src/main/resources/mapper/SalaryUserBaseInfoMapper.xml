@@ -27,7 +27,7 @@
             <result property="memberCat" column="member_cat" jdbcType="VARCHAR"/>
             <result property="level" column="level" jdbcType="INTEGER"/>
             <result property="salaryLevel" column="salary_level" jdbcType="VARCHAR"/>
-            <result property="salaryGrade" column="salary_grade" jdbcType="INTEGER"/>
+            <result property="salaryGrade" column="salary_grade" jdbcType="DOUBLE"/>
             <result property="internshipSubsidy" column="internship_subsidy" jdbcType="DOUBLE"/>
             <result property="telephoneNo" column="telephone_no" jdbcType="VARCHAR"/>
             <result property="hasAccommodationSubsidy" column="has_accommodation_subsidy" jdbcType="VARCHAR"/>

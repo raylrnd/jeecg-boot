@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -150,7 +151,7 @@ public class SalaryUserBaseInfo implements Serializable {
      * 薪档
      */
     @TableField(value = "salary_grade")
-    private Integer salaryGrade;
+    private Double salaryGrade;
 
     /**
      * 实习补贴

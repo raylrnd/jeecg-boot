@@ -190,7 +190,12 @@ public class SalaryService {
             salaryTotal.setPost(post);
             salaryTotal.setMerit(salaryDepartmentPerformance.getMonthPerformancePrice());
             salaryTotal.setJobTime(calJobTime(salaryUserBaseInfo));
-//            salaryTotal.setReservePersonalFund();
+            salaryTotal.setPartyBuildSubsidy(salaryAddition.getPartyBuildingReward());
+            salaryTotal.setPartyPersonal(partyPersonal);
+            salaryTotal.setSex((salaryUserBaseInfo.getIdCardNo().charAt(17) - '0') % 2 == 0 ? "女" : "男");
+            salaryTotal.setSalaryGrade(salaryUserBaseInfo.getSalaryGrade());
+            salaryTotal.setWeinisiPrice(salaryDepartmentPerformance.getWeinisiPrice());
+
 //            salaryTotal.setAddtionMedicalCompany();
             // 1:本部，2:惠泽，3:空港，4:实习生
             if (salaryUserBaseInfo.getLevel() == 1 || salaryUserBaseInfo.getLevel() == 2) {
@@ -221,7 +226,7 @@ public class SalaryService {
                 // 本部加发其他（总额）
                 double addtionSalary = salaryAddition.getPartyBuildingReward() + salaryAddition.getHousingReformReward() + huanjianpaodaoDaysSubsidy + salaryDepartmentPerformance.getJianrenbujianzi() + salaryAddition.getOtherReward();
 
-//                salaryTotal.setSalaryGrade(salaryUserBaseInfo.getSalaryGrade());
+
                 salaryTotal.setRealSalary(realSalary);
                 salaryTotal.setAdditionOtherTotal(addtionSalary);
                 salaryTotal.setOtherShouldFund(otherShouldFund);
@@ -229,6 +234,7 @@ public class SalaryService {
                 salaryTotal.setReadyDeductTax(readyDeductTax);
                 salaryTotal.setReplaceDeduct(replaceDeduct);
                 salaryTotal.setShouldFund(shouldFund);
+
                 // 养老
                 salaryTotal.setEgedPersonal(salaryCentralAgedFund.getPersonalPament());
                 salaryTotal.setEgedCompany(salaryCentralAgedFund.getCompanyPament());
@@ -305,7 +311,7 @@ public class SalaryService {
                 double addtionSalary = accommodationSubsidy + salaryDepartmentPerformance.getJianrenbujianzi() + jobSubsidy + noviciateSubsidy + salaryAddition.getOtherReward();
                 SalaryInternSocialFund salaryInternSocialFund = salaryInternSocialFundMap.get(salaryUserBaseInfo.getIdCardNo());
                 // 特定人员单项工伤保险
-                salaryInternSocialFund.getInjuryPament();
+                salaryTotal.setInjuryCompany(salaryInternSocialFund.getInjuryPament());
                 salaryTotal.setRealSalary(realSalary);
                 salaryTotal.setAdditionOtherTotal(addtionSalary);
                 salaryTotal.setReadyDeductTax(readyDeductTax);
