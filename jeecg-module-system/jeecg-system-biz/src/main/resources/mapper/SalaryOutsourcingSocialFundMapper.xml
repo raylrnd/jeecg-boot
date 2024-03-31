@@ -36,6 +36,7 @@
             <result property="loseJobPersonalPayment" column="lose_job_personal_payment" jdbcType="DOUBLE"/>
             <result property="agedPersonalPaymentBase" column="aged_personal_payment_base" jdbcType="DOUBLE"/>
             <result property="agedPersonalPament" column="aged_personal_pament" jdbcType="DOUBLE"/>
+            <result property="additionMedical" column="addition_medical" jdbcType="DOUBLE"/>
     </resultMap>
 
     <sql id="Base_Column_List">
@@ -49,6 +50,6 @@
         company_pament_base,company_pament,retire_company_pament_base,
         retire_company_pament,personal_pament_base,personal_pament,
         lose_job_personal_payment_base,lose_job_personal_payment,aged_personal_payment_base,
-        aged_personal_pament
+        aged_personal_pament,addition_medical
     </sql>
 </mapper>

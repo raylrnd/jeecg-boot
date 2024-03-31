@@ -136,22 +136,16 @@ public class SalaryCentralSocialSecurityFund implements Serializable {
     private Double companyPamentBase;
 
     /**
-     * 综合基本医疗保险(单位缴纳).应缴金额
-     */
-    @TableField(value = "company_pament")
-    private Double companyPament;
-
-    /**
-     * 综合基本医疗保险(个人缴纳).缴费基数
-     */
-    @TableField(value = "personal_pament_base")
-    private Double personalPamentBase;
-
-    /**
      * 综合基本医疗保险(个人缴纳).应缴金额
      */
     @TableField(value = "personal_pament")
     private Double personalPament;
+
+    /**
+     * 综合基本医疗保险(单位缴纳).应缴金额
+     */
+    @TableField(value = "company_pament")
+    private Double companyPament;
 
     /**
      * 失业保险(个人缴纳).缴费基数
@@ -160,10 +154,22 @@ public class SalaryCentralSocialSecurityFund implements Serializable {
     private Double loseJobPersonalPaymentBase;
 
     /**
+     * 综合基本医疗保险(个人缴纳).缴费基数
+     */
+    @TableField(value = "personal_pament_base")
+    private Double personalPamentBase;
+
+    /**
      * 失业保险(个人缴纳).应缴金额
      */
     @TableField(value = "lose_job_personal_pament")
     private Double loseJobPersonalPament;
+
+    /**
+     * 补充基本医疗保险(单位缴纳)
+     */
+    @TableField(value = "addition_medical")
+    private Double additionMedical;
 
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;

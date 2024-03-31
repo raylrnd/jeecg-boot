@@ -195,8 +195,8 @@ public class SalaryService {
             salaryTotal.setSex((salaryUserBaseInfo.getIdCardNo().charAt(17) - '0') % 2 == 0 ? "女" : "男");
             salaryTotal.setSalaryGrade(salaryUserBaseInfo.getSalaryGrade());
             salaryTotal.setWeinisiPrice(salaryDepartmentPerformance.getWeinisiPrice());
+            salaryTotal.setOtherReward(salaryAddition.getOtherReward());
 
-//            salaryTotal.setAddtionMedicalCompany();
             // 1:本部，2:惠泽，3:空港，4:实习生
             if (salaryUserBaseInfo.getLevel() == 1 || salaryUserBaseInfo.getLevel() == 2) {
                 // 本部其他应发合计
@@ -244,15 +244,13 @@ public class SalaryService {
                 // 医疗
                 salaryTotal.setMedicalPersonal(salaryCentralSocialSecurityFund.getPersonalPament());
                 salaryTotal.setMedicalCompany(salaryCentralSocialSecurityFund.getCompanyPament());
+                salaryTotal.setAddtionMedicalCompany(salaryCentralSocialSecurityFund.getAdditionMedical());
                 // 企业年金
                 salaryTotal.setEnterpriseAnnuityPersonal(salaryCentralEnterpriseFund.getIndividualMonthlyPayment());
                 salaryTotal.setEnterpriseAnnuityCompany(salaryCentralEnterpriseFund.getTotalEnterpriseContributions());
                 // 公积金
                 salaryTotal.setReservePersonalFund(salaryCentralReserveFund.getPersonalMonthlyDeposit());
                 salaryTotal.setReserveCompanyFund(salaryCentralReserveFund.getCompanyMonthlyDeposit());
-//                salaryTotal.setAddtionMedicalCompany(salaryCentralSocialSecurityFund.get());
-
-//                salaryCentralTotalMapper.insert();
             } else if (salaryUserBaseInfo.getLevel() == 3) {
                 SalaryOutsourcingReserveFund salaryOutsourcingReserveFund = salaryOutsourcingReserveFundMap.get(salaryUserBaseInfo.getIdCardNo());
                 SalaryOutsourcingSocialFund salaryOutsourcingSocialFund = salaryOutsourcingSocialFundMap.get(salaryUserBaseInfo.getIdCardNo());
@@ -290,6 +288,7 @@ public class SalaryService {
                 // 医疗
                 salaryTotal.setMedicalPersonal(salaryOutsourcingSocialFund.getPersonalPament());
                 salaryTotal.setMedicalCompany(salaryOutsourcingSocialFund.getCompanyPament());
+                salaryTotal.setAddtionMedicalCompany(salaryOutsourcingSocialFund.getAdditionMedical());
                 // 公积金
                 salaryTotal.setReservePersonalFund(salaryOutsourcingReserveFund.getPersonalMonthlyDeposit());
                 salaryTotal.setReserveCompanyFund(salaryOutsourcingReserveFund.getCompanyMonthlyDeposit());
@@ -321,6 +320,7 @@ public class SalaryService {
                 salaryTotal.setInternSubsidy(internshipSubsidy);
                 salaryTotal.setTotal(internshipTotal);
             }
+            salaryTotalMapper.insert(salaryTotal);
         }
     }
 
