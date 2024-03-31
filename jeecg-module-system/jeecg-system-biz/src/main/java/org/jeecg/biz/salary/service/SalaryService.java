@@ -10,7 +10,6 @@ import org.jeecg.biz.salary.exception.JeecgSalaryException;
 import org.jeecg.common.util.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.Calendar;
@@ -31,9 +30,6 @@ public class SalaryService {
 
     @Autowired
     private SalaryCentralEnterpriseFundMapper salaryCentralEnterpriseFundMapper;
-
-    @Autowired
-    private SalaryCentralReportMapper salaryCentralReportMapper;
 
     @Autowired
     private SalaryCentralReserveFundMapper salaryCentralReserveFundMapper;
@@ -149,7 +145,7 @@ public class SalaryService {
             SalaryTaxFirst salaryTaxFirst = salaryTaxFirstMap.get(salaryUserBaseInfo.getIdCardNo());
 
             // 其他补发
-            double otherReward = salaryAddition.getSafetyReward() + salaryAddition.getOtherReward() + salaryAddition.getSafetyJobReward() + salaryDepartmentPerformance.getEmergencyRescuePerformance();
+//            double otherReward = salaryAddition.getSafetyReward() + salaryAddition.getOtherReward() + salaryAddition.getSafetyJobReward() + salaryDepartmentPerformance.getEmergencyRescuePerformance();
 
             Calendar timeBaseC = DateUtils.getCalendar(computeTimeBase.getTime());
             timeBaseC.add(Calendar.MONTH, -1);
@@ -171,7 +167,7 @@ public class SalaryService {
             // 夜餐补贴
             double nightFoodSubsidy = salaryDepartmentPerformance.getDelayDays() * 30 + salaryDepartmentPerformance.getNightDays() * 20;
             // 1号值班天数
-            double firstDutyDays = salaryDepartmentPerformance.getFirstDutyWorkdayDays() + salaryDepartmentPerformance.getFirstDutyWeekendDays();
+//            double firstDutyDays = salaryDepartmentPerformance.getFirstDutyWorkdayDays() + salaryDepartmentPerformance.getFirstDutyWeekendDays();
             // 值班补贴+夜餐补贴+减人不减资（元）+高温补贴+其他补发-其他补扣-减事假-减病假
             double sumBase = onDutyDaySubsidy + nightFoodSubsidy
                     + salaryDepartmentPerformance.getJianrenbujianzi() + salaryAddition.getHighTemperatureReward() + salaryAddition.getOtherReward()
