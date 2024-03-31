@@ -365,8 +365,7 @@ public class SysDepartController {
 			//}
 		//});
 		//step.2 组装导出数据
-		Integer tenantId = sysDepart == null ? null : sysDepart.getTenantId();
-		List<SysDepartExportVo> sysDepartExportVos = sysDepartService.getExportDepart(tenantId);
+		List<SysDepartExportVo> sysDepartExportVos = sysDepartService.getExportDepart(sysDepart.getTenantId());
         //导出文件名称
         mv.addObject(NormalExcelConstants.FILE_NAME, "部门列表");
         mv.addObject(NormalExcelConstants.CLASS, SysDepartExportVo.class);

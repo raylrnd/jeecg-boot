@@ -223,7 +223,7 @@ public interface ISysDepartService extends IService<SysDepart>{
      * @param tenantId
      * @return
      */
-    List<SysDepartExportVo> getExportDepart(Integer tenantId);
+    List<SysDepartExportVo> getExportDepart(int tenantId);
 
     /**
      * 导出系统部门excel
