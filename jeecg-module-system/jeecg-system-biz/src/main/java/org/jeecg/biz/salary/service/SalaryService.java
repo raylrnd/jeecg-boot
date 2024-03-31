@@ -178,6 +178,8 @@ public class SalaryService {
                     - salaryAddition.getOtherDeduct() - sickDayDeduct - personalLeaveDaysDeduct;
             // 其他应纳税所得合计
             double otherShouldTax = salaryTax.getOtherTaxWithoutMeal() + foodSubsidy;
+            // 值班工资=值班补贴+夜餐补贴
+            double duty = onDutyDaySubsidy + nightFoodSubsidy;
             SalaryTotal salaryTotal = new SalaryTotal();
             salaryTotal.setIdCardNo(salaryUserBaseInfo.getIdCardNo());
             salaryTotal.setBasicSalary(salaryUserBaseInfo.getBaseSalary());
@@ -198,6 +200,27 @@ public class SalaryService {
             salaryTotal.setSalaryGrade(salaryUserBaseInfo.getSalaryGrade());
             salaryTotal.setWeinisiPrice(salaryDepartmentPerformance.getWeinisiPrice());
             salaryTotal.setOtherReward(salaryAddition.getOtherReward());
+            salaryTotal.setSick(sickDayDeduct);
+            salaryTotal.setPersonalLeaveDaysDeduct(personalLeaveDaysDeduct);
+            salaryTotal.setHouseSubsidy(accommodationSubsidy);
+            salaryTotal.setDuty(duty);
+            salaryTotal.setJobTitle(salaryUserBaseInfo.getJobTitle());
+            salaryTotal.setEntryTime(salaryUserBaseInfo.getEntryTime());
+            salaryTotal.setIsJiaotongBank(salaryUserBaseInfo.getIsTrafficBank());
+            salaryTotal.setTaxFix(salaryTax.getFixedTax());
+//            salaryTotal.setTaxPersonal();
+            salaryTotal.setSpecialDeduction(salaryTax.getSpecialDeduction());
+            salaryTotal.setOtheDeduct(salaryAddition.getOtherDeduct());
+            salaryTotal.setSafetySubsidy(salaryAddition.getAdvancedReward());
+            salaryTotal.setRescueSubsidy(salaryAddition.getAdvancedReward());
+            salaryTotal.setSafetySubsidy(salaryDepartmentPerformance.getEmergencyRescuePerformance());
+            salaryTotal.setHighTemper(salaryAddition.getHighTemperatureReward());
+            salaryTotal.setJianrenbujianzi(salaryDepartmentPerformance.getJianrenbujianzi());
+            salaryTotal.setNightFoodSubsidy(nightFoodSubsidy);
+            salaryTotal.setOnDutySubsidy(onDutyDaySubsidy);
+            salaryTotal.setHuanjianpaodaosubsidy(huanjianpaodaoDaysSubsidy);
+            salaryTotal.setHousingReformReward(salaryAddition.getHousingReformReward());
+            salaryTotal.setYearMerit(yearMerit);
 
             // 1:本部，2:惠泽，3:空港，4:实习生
             if (salaryUserBaseInfo.getLevel() == 1 || salaryUserBaseInfo.getLevel() == 2) {
@@ -321,6 +344,7 @@ public class SalaryService {
                 salaryTotal.setJobSubsidy(jobSubsidy);
                 salaryTotal.setInternSubsidy(internshipSubsidy);
                 salaryTotal.setTotal(internshipTotal);
+                salaryTotal.setJianxSubsidy(noviciateSubsidy);
             }
             salaryTotalMapper.insert(salaryTotal);
         }

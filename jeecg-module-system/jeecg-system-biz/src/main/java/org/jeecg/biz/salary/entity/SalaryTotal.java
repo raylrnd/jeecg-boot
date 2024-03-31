@@ -292,7 +292,7 @@ public class SalaryTotal implements Serializable {
     private Double remark;
 
     /**
-     * 安全奖
+     * 安全奖（不展示?）
      */
     @TableField(value = "safety")
     private Double safety;
@@ -304,7 +304,7 @@ public class SalaryTotal implements Serializable {
     private Double additionOtherTotal;
 
     /**
-     * 扣工资
+     * 扣工资（不展示?）
      */
     @TableField(value = "deduct")
     private Double deduct;
@@ -316,7 +316,7 @@ public class SalaryTotal implements Serializable {
     private Double checkingInDeduct;
 
     /**
-     * 年终奖
+     * 年终奖（人力说先不做）
      */
     @TableField(value = "year_end")
     private Double yearEnd;
@@ -340,7 +340,7 @@ public class SalaryTotal implements Serializable {
     private Double addtionMedicalCompany;
 
     /**
-     * 个人所得税 （导入）
+     * 个人所得税 （导入）(?)
      */
     @TableField(value = "tax_personal")
     private Double taxPersonal;
