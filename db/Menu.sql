@@ -1,0 +1,2 @@
+INSERT INTO sys_permission(id, parent_id, name, url, component, component_name, redirect, menu_type, perms, perms_type, sort_no, always_show, icon, is_route, is_leaf, keep_alive, hidden, hide_tab, description, status, del_flag, rule_flag, create_by, create_time, update_by, update_time, internal_or_external)
+VALUES ('2024033102357870080', NULL, '工资计算', '/salary/SalaryCalculate', '/salary/SalaryCalculate', NULL, NULL, 0, NULL, '1', 0.00, 0, NULL, 1, 0, 0, 0, 0, NULL, '1', 0, 0, 'admin', '2024-03-31 14:35:08', NULL, NULL, 0);
