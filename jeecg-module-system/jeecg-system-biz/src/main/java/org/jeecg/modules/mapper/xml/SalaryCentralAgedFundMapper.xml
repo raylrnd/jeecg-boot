@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.jeecg.modules.mapper.SalaryCentralAgedFundMapper">
+
+    <resultMap id="BaseResultMap" type="org.jeecg.biz.salary.entity.SalaryCentralAgedFund">
+            <id property="id" column="id" jdbcType="VARCHAR"/>
+            <result property="createBy" column="create_by" jdbcType="VARCHAR"/>
+            <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+            <result property="updateBy" column="update_by" jdbcType="VARCHAR"/>
+            <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+            <result property="sysOrgCode" column="sys_org_code" jdbcType="VARCHAR"/>
+            <result property="name" column="name" jdbcType="VARCHAR"/>
+            <result property="idCardNo" column="id_card_no" jdbcType="VARCHAR"/>
+            <result property="idCardType" column="id_card_type" jdbcType="VARCHAR"/>
+            <result property="personalSocialNo" column="personal_social_no" jdbcType="VARCHAR"/>
+            <result property="priceStartTime" column="price_start_time" jdbcType="VARCHAR"/>
+            <result property="priceEndTime" column="price_end_time" jdbcType="VARCHAR"/>
+            <result property="companyPaymentBase" column="company_payment_base" jdbcType="DOUBLE"/>
+            <result property="companyPament" column="company_pament" jdbcType="DOUBLE"/>
+            <result property="personalPaymentBase" column="personal_payment_base" jdbcType="DOUBLE"/>
+            <result property="personalPament" column="personal_pament" jdbcType="DOUBLE"/>
+            <result property="companyPamentTotal" column="company_pament_total" jdbcType="DOUBLE"/>
+            <result property="personalPamentTotal" column="personal_pament_total" jdbcType="DOUBLE"/>
+            <result property="pamentTotal" column="pament_total" jdbcType="DOUBLE"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,create_by,create_time,
+        update_by,update_time,sys_org_code,
+        name,id_card_no,id_card_type,
+        personal_social_no,price_start_time,price_end_time,
+        company_payment_base,company_pament,personal_payment_base,
+        personal_pament,company_pament_total,personal_pament_total,
+        pament_total
+    </sql>
+</mapper>

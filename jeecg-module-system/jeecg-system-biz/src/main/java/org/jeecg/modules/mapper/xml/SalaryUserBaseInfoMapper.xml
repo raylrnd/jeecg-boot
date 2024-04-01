@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.jeecg.modules.mapper.SalaryUserBaseInfoMapper">
+
+    <resultMap id="BaseResultMap" type="org.jeecg.biz.salary.entity.SalaryUserBaseInfo">
+            <id property="id" column="id" jdbcType="VARCHAR"/>
+            <result property="name" column="name" jdbcType="VARCHAR"/>
+            <result property="idCardNo" column="id_card_no" jdbcType="VARCHAR"/>
+            <result property="baseSalary" column="base_salary" jdbcType="DOUBLE"/>
+            <result property="createBy" column="create_by" jdbcType="VARCHAR"/>
+            <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+            <result property="updateBy" column="update_by" jdbcType="VARCHAR"/>
+            <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+            <result property="sysOrgCode" column="sys_org_code" jdbcType="VARCHAR"/>
+            <result property="memberNo" column="member_no" jdbcType="VARCHAR"/>
+            <result property="buySocialSecurity" column="buy_social_security" jdbcType="INTEGER"/>
+            <result property="bankNo" column="bank_no" jdbcType="VARCHAR"/>
+            <result property="isTrafficBank" column="is_traffic_bank" jdbcType="VARCHAR"/>
+            <result property="entryTime" column="entry_time" jdbcType="TIMESTAMP"/>
+            <result property="leaveTime" column="leave_time" jdbcType="TIMESTAMP"/>
+            <result property="department" column="department" jdbcType="VARCHAR"/>
+            <result property="jobTitle" column="job_title" jdbcType="VARCHAR"/>
+            <result property="jobSalary" column="job_salary" jdbcType="DOUBLE"/>
+            <result property="departmentCat" column="department_cat" jdbcType="VARCHAR"/>
+            <result property="memberCat" column="member_cat" jdbcType="VARCHAR"/>
+            <result property="level" column="level" jdbcType="INTEGER"/>
+            <result property="salaryLevel" column="salary_level" jdbcType="VARCHAR"/>
+            <result property="salaryGrade" column="salary_grade" jdbcType="DOUBLE"/>
+            <result property="internshipSubsidy" column="internship_subsidy" jdbcType="DOUBLE"/>
+            <result property="telephoneNo" column="telephone_no" jdbcType="VARCHAR"/>
+            <result property="hasAccommodationSubsidy" column="has_accommodation_subsidy" jdbcType="VARCHAR"/>
+            <result property="hasNoviciateSubsidy" column="has_noviciate_subsidy" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,name,id_card_no,
+        base_salary,create_by,create_time,
+        update_by,update_time,sys_org_code,
+        member_no,buy_social_security,bank_no,
+        is_traffic_bank,entry_time,leave_time,
+        department,job_title,job_salary,
+        department_cat,member_cat,level,
+        salary_level,salary_grade,internship_subsidy,
+        telephone_no,has_accommodation_subsidy,has_noviciate_subsidy
+    </sql>
+</mapper>

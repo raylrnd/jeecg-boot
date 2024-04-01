@@ -3,11 +3,11 @@ package org.jeecg.biz.salary.service;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import generator.mapper.*;
 import org.apache.commons.collections4.CollectionUtils;
 import org.jeecg.biz.salary.entity.*;
 import org.jeecg.biz.salary.exception.JeecgSalaryException;
 import org.jeecg.common.util.DateUtils;
+import org.jeecg.modules.mapper.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
@@ -67,7 +67,7 @@ public class SalaryService {
     // 见习补贴
     private static final double NOVICIATE_SUBSIDY = 500.0;
 
-    private void handleSalaryCompute() throws Exception {
+    public void handleSalaryCompute() throws Exception {
         // 先把输出表数据删了
         // 本部报表
         int deleteReport = salaryTotalMapper.delete(new LambdaQueryWrapper<SalaryTotal>().gt(SalaryTotal::getId,-1));
@@ -99,6 +99,7 @@ public class SalaryService {
         checkPage(salaryOutsourcingSocialFundPage);
         // 附加字段
         Page<SalaryAddition> salaryAdditionPage = additionMapper.selectPage(new Page<>(0, QUERY_PAGE_SIZE), new QueryWrapper<>());
+        checkPage(salaryAdditionPage);
         // 税务表
         Page<SalaryTax> salaryTaxPage = salaryTaxMapper.selectPage(new Page<>(0, QUERY_PAGE_SIZE), new QueryWrapper<>());
         checkPage(salaryTaxPage);
@@ -247,7 +248,6 @@ public class SalaryService {
                 // 本部加发其他（总额）
                 double addtionSalary = salaryAddition.getPartyBuildingReward() + salaryAddition.getHousingReformReward() + huanjianpaodaoDaysSubsidy + salaryDepartmentPerformance.getJianrenbujianzi() + salaryAddition.getOtherReward();
 
-
                 salaryTotal.setRealSalary(realSalary);
                 salaryTotal.setAdditionOtherTotal(addtionSalary);
                 salaryTotal.setOtherShouldFund(otherShouldFund);
@@ -382,8 +382,8 @@ public class SalaryService {
     }
 
     private void checkPage(Page<?> page) {
-        if (page == null || CollectionUtils.isEmpty(page.getRecords()) || page.getSize() >= QUERY_PAGE_SIZE) {
-            throw new JeecgSalaryException("某个表单数据为空或者超过" + QUERY_PAGE_SIZE + "条数据！请检查表单");
+        if (page == null || CollectionUtils.isEmpty(page.getRecords()) || page.getRecords().size() >= 400) {
+            throw new JeecgSalaryException("某个表单数据为空或者超过" + 400 + "条数据！请检查表单");
         }
     }
 

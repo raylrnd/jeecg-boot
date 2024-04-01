@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.jeecg.modules.mapper.SalaryTotalMapper">
+
+    <resultMap id="BaseResultMap" type="org.jeecg.biz.salary.entity.SalaryTotal">
+            <id property="id" column="id" jdbcType="VARCHAR"/>
+            <result property="createBy" column="create_by" jdbcType="VARCHAR"/>
+            <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+            <result property="updateBy" column="update_by" jdbcType="VARCHAR"/>
+            <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+            <result property="sysOrgCode" column="sys_org_code" jdbcType="VARCHAR"/>
+            <result property="idCardNo" column="id_card_no" jdbcType="VARCHAR"/>
+            <result property="bankNo" column="bank_no" jdbcType="VARCHAR"/>
+            <result property="name" column="name" jdbcType="VARCHAR"/>
+            <result property="department" column="department" jdbcType="VARCHAR"/>
+            <result property="salaryLevel" column="salary_level" jdbcType="VARCHAR"/>
+            <result property="salaryGrade" column="salary_grade" jdbcType="DOUBLE"/>
+            <result property="yearMerit" column="year_merit" jdbcType="DOUBLE"/>
+            <result property="basicSalary" column="basic_salary" jdbcType="DOUBLE"/>
+            <result property="post" column="post" jdbcType="DOUBLE"/>
+            <result property="merit" column="merit" jdbcType="DOUBLE"/>
+            <result property="housingReformReward" column="housing_reform_reward" jdbcType="DOUBLE"/>
+            <result property="huanjianpaodaosubsidy" column="huanjianpaodaosubsidy" jdbcType="DOUBLE"/>
+            <result property="onDutySubsidy" column="on_duty_subsidy" jdbcType="DOUBLE"/>
+            <result property="nightFoodSubsidy" column="night_food_subsidy" jdbcType="DOUBLE"/>
+            <result property="jianrenbujianzi" column="jianrenbujianzi" jdbcType="DOUBLE"/>
+            <result property="highTemper" column="high_temper" jdbcType="DOUBLE"/>
+            <result property="advanced" column="advanced" jdbcType="DOUBLE"/>
+            <result property="safetyJobSubsidy" column="safety_job_subsidy" jdbcType="DOUBLE"/>
+            <result property="partyBuildSubsidy" column="party_build_subsidy" jdbcType="DOUBLE"/>
+            <result property="rescueSubsidy" column="rescue_subsidy" jdbcType="DOUBLE"/>
+            <result property="safetySubsidy" column="safety_subsidy" jdbcType="DOUBLE"/>
+            <result property="otherReward" column="other_reward" jdbcType="DOUBLE"/>
+            <result property="otheDeduct" column="othe_deduct" jdbcType="DOUBLE"/>
+            <result property="sick" column="sick" jdbcType="DOUBLE"/>
+            <result property="personalLeaveDaysDeduct" column="personal_leave_days_deduct" jdbcType="DOUBLE"/>
+            <result property="otherShouldFund" column="other_should_fund" jdbcType="DOUBLE"/>
+            <result property="shouldFund" column="should_fund" jdbcType="DOUBLE"/>
+            <result property="reservePersonalFund" column="reserve_personal_fund" jdbcType="DOUBLE"/>
+            <result property="egedPersonal" column="eged_personal" jdbcType="DOUBLE"/>
+            <result property="loseJobPersonal" column="lose_job_personal" jdbcType="DOUBLE"/>
+            <result property="medicalPersonal" column="medical_personal" jdbcType="DOUBLE"/>
+            <result property="enterpriseAnnuityPersonal" column="enterprise_annuity_personal" jdbcType="DOUBLE"/>
+            <result property="specialDeduction" column="special_deduction" jdbcType="DOUBLE"/>
+            <result property="partyPersonal" column="party_personal" jdbcType="DOUBLE"/>
+            <result property="weinisiPrice" column="weinisi_price" jdbcType="DOUBLE"/>
+            <result property="shouldTax" column="should_tax" jdbcType="DOUBLE"/>
+            <result property="readyDeductTax" column="ready_deduct_tax" jdbcType="DOUBLE"/>
+            <result property="replaceDeduct" column="replace_deduct" jdbcType="DOUBLE"/>
+            <result property="realSalary" column="real_salary" jdbcType="DOUBLE"/>
+            <result property="remark" column="remark" jdbcType="DOUBLE"/>
+            <result property="safety" column="safety" jdbcType="DOUBLE"/>
+            <result property="additionOtherTotal" column="addition_other_total" jdbcType="DOUBLE"/>
+            <result property="deduct" column="deduct" jdbcType="DOUBLE"/>
+            <result property="checkingInDeduct" column="checking_in_deduct" jdbcType="DOUBLE"/>
+            <result property="yearEnd" column="year_end" jdbcType="DOUBLE"/>
+            <result property="economicCompensation" column="economic_compensation" jdbcType="DOUBLE"/>
+            <result property="injuryCompany" column="injury_company" jdbcType="DOUBLE"/>
+            <result property="addtionMedicalCompany" column="addtion_medical_company" jdbcType="DOUBLE"/>
+            <result property="taxPersonal" column="tax_personal" jdbcType="DOUBLE"/>
+            <result property="isJiaotongBank" column="is_jiaotong_bank" jdbcType="VARCHAR"/>
+            <result property="taxFix" column="tax_fix" jdbcType="DOUBLE"/>
+            <result property="sex" column="sex" jdbcType="VARCHAR"/>
+            <result property="entryTime" column="entry_time" jdbcType="TIMESTAMP"/>
+            <result property="jobTime" column="job_time" jdbcType="DOUBLE"/>
+            <result property="jobTitle" column="job_title" jdbcType="VARCHAR"/>
+            <result property="duty" column="duty" jdbcType="DOUBLE"/>
+            <result property="reserveCompanyFund" column="reserve_company_fund" jdbcType="DOUBLE"/>
+            <result property="egedCompany" column="eged_company" jdbcType="DOUBLE"/>
+            <result property="loseJobCompany" column="lose_job_company" jdbcType="DOUBLE"/>
+            <result property="medicalCompany" column="medical_company" jdbcType="DOUBLE"/>
+            <result property="enterpriseAnnuityCompany" column="enterprise_annuity_company" jdbcType="DOUBLE"/>
+            <result property="houseSubsidy" column="house_subsidy" jdbcType="DOUBLE"/>
+            <result property="internSubsidy" column="intern_subsidy" jdbcType="DOUBLE"/>
+            <result property="jobSubsidy" column="job_subsidy" jdbcType="DOUBLE"/>
+            <result property="jianxSubsidy" column="jianx_subsidy" jdbcType="DOUBLE"/>
+            <result property="total" column="total" jdbcType="DOUBLE"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,create_by,create_time,
+        update_by,update_time,sys_org_code,
+        id_card_no,bank_no,name,
+        department,salary_level,salary_grade,
+        year_merit,basic_salary,post,
+        merit,housing_reform_reward,huanjianpaodaosubsidy,
+        on_duty_subsidy,night_food_subsidy,jianrenbujianzi,
+        high_temper,advanced,safety_job_subsidy,
+        party_build_subsidy,rescue_subsidy,safety_subsidy,
+        other_reward,othe_deduct,sick,
+        personal_leave_days_deduct,other_should_fund,should_fund,
+        reserve_personal_fund,eged_personal,lose_job_personal,
+        medical_personal,enterprise_annuity_personal,special_deduction,
+        party_personal,weinisi_price,should_tax,
+        ready_deduct_tax,replace_deduct,real_salary,
+        remark,safety,addition_other_total,
+        deduct,checking_in_deduct,year_end,
+        economic_compensation,injury_company,addtion_medical_company,
+        tax_personal,is_jiaotong_bank,tax_fix,
+        sex,entry_time,job_time,
+        job_title,duty,reserve_company_fund,
+        eged_company,lose_job_company,medical_company,
+        enterprise_annuity_company,house_subsidy,intern_subsidy,
+        job_subsidy,jianx_subsidy,total
+    </sql>
+</mapper>

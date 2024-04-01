@@ -1,4 +1,4 @@
-package generator.mapper;
+package org.jeecg.modules.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.jeecg.biz.salary.entity.SalaryTaxFirst;
