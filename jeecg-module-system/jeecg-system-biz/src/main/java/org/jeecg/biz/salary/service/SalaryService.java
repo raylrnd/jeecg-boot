@@ -312,7 +312,7 @@ public class SalaryService {
                     // 医疗
                     salaryTotal.setMedicalPersonal(salaryOutsourcingSocialFund.getPersonalPament());
                     salaryTotal.setMedicalCompany(salaryOutsourcingSocialFund.getCompanyPament());
-                    salaryTotal.setAddtionMedicalCompany(salaryOutsourcingSocialFund.getAdditionMedicalBase());
+                    salaryTotal.setAddtionMedicalCompany(salaryOutsourcingSocialFund.getAdditionMedicalPament());
                     // 公积金
                     salaryTotal.setReservePersonalFund(salaryOutsourcingReserveFund.getPersonalMonthlyDeposit());
                     salaryTotal.setReserveCompanyFund(salaryOutsourcingReserveFund.getCompanyMonthlyDeposit());
