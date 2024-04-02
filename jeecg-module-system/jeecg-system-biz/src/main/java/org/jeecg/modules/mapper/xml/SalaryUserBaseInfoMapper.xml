@@ -15,7 +15,7 @@
             <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
             <result property="sysOrgCode" column="sys_org_code" jdbcType="VARCHAR"/>
             <result property="memberNo" column="member_no" jdbcType="VARCHAR"/>
-            <result property="buySocialSecurity" column="buy_social_security" jdbcType="INTEGER"/>
+            <result property="buySocialSecurity" column="buy_social_security" jdbcType="VARCHAR"/>
             <result property="bankNo" column="bank_no" jdbcType="VARCHAR"/>
             <result property="isTrafficBank" column="is_traffic_bank" jdbcType="VARCHAR"/>
             <result property="entryTime" column="entry_time" jdbcType="TIMESTAMP"/>

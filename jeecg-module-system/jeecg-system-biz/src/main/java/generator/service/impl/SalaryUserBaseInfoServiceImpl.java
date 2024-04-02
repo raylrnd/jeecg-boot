@@ -1,9 +1,7 @@
 package generator.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import generator.domain.SalaryUserBaseInfo;
 import generator.service.SalaryUserBaseInfoService;
-import generator.mapper.SalaryUserBaseInfoMapper;
 import org.springframework.stereotype.Service;
 
 /**

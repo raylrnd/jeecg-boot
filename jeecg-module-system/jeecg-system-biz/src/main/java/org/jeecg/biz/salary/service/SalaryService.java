@@ -234,7 +234,7 @@ public class SalaryService {
                 double socialTotal = salaryCentralEnterpriseFund.getIndividualMonthlyPayment()
                         + salaryCentralSocialSecurityFund.getLoseJobPersonalPament() + salaryCentralSocialSecurityFund.getPersonalPament() + salaryCentralAgedFund.getPersonalPament();
                 // 社保+公积金
-                double socialAndReserve = socialTotal + salaryCentralReserveFund.getPersonalMonthlyDeposit();
+                double socialAndReserve = "是".equals(salaryUserBaseInfo.getBuySocialSecurity()) ? socialTotal + salaryCentralReserveFund.getPersonalMonthlyDeposit() : 0;
                 // 本部应纳税所得额
                 double shouldTax = (salaryCentralReserveFund.getPersonalMonthlyDeposit() > 3476 ?
                 salaryCentralReserveFund.getPersonalMonthlyDeposit() + shouldFund + otherShouldTax - 3476 - (3476 + socialTotal + salaryTax.getSpecialDeduction() + 5000)
@@ -276,7 +276,7 @@ public class SalaryService {
                 SalaryOutsourcingReserveFund salaryOutsourcingReserveFund = salaryOutsourcingReserveFundMap.get(salaryUserBaseInfo.getIdCardNo());
                 SalaryOutsourcingSocialFund salaryOutsourcingSocialFund = salaryOutsourcingSocialFundMap.get(salaryUserBaseInfo.getIdCardNo());
                 // 社保公积金=公积金个人+失业个人+养老个人+医保个人
-                double socialAndReserve = salaryOutsourcingSocialFund.getPersonalPament() + salaryOutsourcingSocialFund.getLoseJobPersonalPayment() + salaryOutsourcingReserveFund.getPersonalMonthlyDeposit() + salaryOutsourcingSocialFund.getAgedPersonalPament();
+                double socialAndReserve = "是".equals(salaryUserBaseInfo.getBuySocialSecurity()) ? salaryOutsourcingSocialFund.getPersonalPament() + salaryOutsourcingSocialFund.getLoseJobPersonalPayment() + salaryOutsourcingReserveFund.getPersonalMonthlyDeposit() + salaryOutsourcingSocialFund.getAgedPersonalPament() : 0;
                 // 岗位补贴
                 double jobSubsidy = salaryDepartmentPerformance.getJobSubsidyDays() * 200;
                 // 空港应发合计
