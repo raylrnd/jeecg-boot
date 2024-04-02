@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="generator.mapper.SalaryUserBaseInfoMapper">
 
-    <resultMap id="BaseResultMap" type="org.jeecg.biz.salary.entity.SalaryUserBaseInfo">
+    <resultMap id="BaseResultMap" type="generator.domain.SalaryUserBaseInfo">
             <id property="id" column="id" jdbcType="VARCHAR"/>
             <result property="name" column="name" jdbcType="VARCHAR"/>
             <result property="idCardNo" column="id_card_no" jdbcType="VARCHAR"/>
@@ -15,7 +15,7 @@
             <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
             <result property="sysOrgCode" column="sys_org_code" jdbcType="VARCHAR"/>
             <result property="memberNo" column="member_no" jdbcType="VARCHAR"/>
-            <result property="buySocialSecurity" column="buy_social_security" jdbcType="INTEGER"/>
+            <result property="buySocialSecurity" column="buy_social_security" jdbcType="VARCHAR"/>
             <result property="bankNo" column="bank_no" jdbcType="VARCHAR"/>
             <result property="isTrafficBank" column="is_traffic_bank" jdbcType="VARCHAR"/>
             <result property="entryTime" column="entry_time" jdbcType="TIMESTAMP"/>
