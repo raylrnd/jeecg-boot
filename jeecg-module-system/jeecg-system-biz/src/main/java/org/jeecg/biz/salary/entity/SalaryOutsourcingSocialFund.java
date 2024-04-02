@@ -202,10 +202,10 @@ public class SalaryOutsourcingSocialFund implements Serializable {
     private Double agedPersonalPament;
 
     /**
-     * 补充基本医疗保险(单位缴纳)
+     * 补充基本医疗保险(单位缴纳).应缴基数
      */
-    @TableField(value = "addition_medical")
-    private Double additionMedical;
+    @TableField(value = "addition_medical_base")
+    private Double additionMedicalBase;
 
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
