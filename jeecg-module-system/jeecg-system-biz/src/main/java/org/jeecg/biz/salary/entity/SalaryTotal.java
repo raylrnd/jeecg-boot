@@ -291,23 +291,12 @@ public class SalaryTotal implements Serializable {
     @TableField(value = "remark")
     private Double remark;
 
-    /**
-     * 安全奖（不展示?）
-     */
-    @TableField(value = "safety")
-    private Double safety;
 
     /**
      * 加发其他（总额）
      */
     @TableField(value = "addition_other_total")
     private Double additionOtherTotal;
-
-    /**
-     * 扣工资（不展示?）
-     */
-    @TableField(value = "deduct")
-    private Double deduct;
 
     /**
      * 考勤扣款
@@ -338,12 +327,6 @@ public class SalaryTotal implements Serializable {
      */
     @TableField(value = "addtion_medical_company")
     private Double addtionMedicalCompany;
-
-    /**
-     * 个人所得税 （导入）(?)
-     */
-    @TableField(value = "tax_personal")
-    private Double taxPersonal;
 
     /**
      * 是否为交通银行

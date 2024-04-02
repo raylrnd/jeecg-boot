@@ -25,9 +25,9 @@ public class IncomeController {
     public Result<String> getSalary(@RequestParam(name = "yearmonth", required = true) String yearmonth) throws ParseException {
         //处理日期格式以便使用
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM");
-        Date date = sdf.parse(yearmonth);
+        Date computeTimeBase = sdf.parse(yearmonth);
         try {
-            salaryService.handleSalaryCompute();
+            salaryService.handleSalaryCompute(computeTimeBase);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

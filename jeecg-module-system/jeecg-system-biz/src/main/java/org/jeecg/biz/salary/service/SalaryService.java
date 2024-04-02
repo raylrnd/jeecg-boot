@@ -67,7 +67,7 @@ public class SalaryService {
     // 见习补贴
     private static final double NOVICIATE_SUBSIDY = 500.0;
 
-    public void handleSalaryCompute() throws Exception {
+    public void handleSalaryCompute(Date computeTimeBase) throws Exception {
         // 先把输出表数据删了
         // 本部报表
         int deleteReport = salaryTotalMapper.delete(new LambdaQueryWrapper<SalaryTotal>().gt(SalaryTotal::getId,-1));
@@ -123,12 +123,10 @@ public class SalaryService {
         Map<String, SalaryOutsourcingSocialFund> salaryOutsourcingSocialFundMap = salaryOutsourcingSocialFundPage.getRecords().stream().collect(Collectors.toMap(SalaryOutsourcingSocialFund::getIdCardNo, Function.identity()));
         Map<String, SalaryInternSocialFund> salaryInternSocialFundMap = salaryInternSocialFundPage.getRecords().stream().collect(Collectors.toMap(SalaryInternSocialFund::getIdCardNo, Function.identity()));
 
-        // 工资计算月份
-        Date computeTimeBase = new Date();
         List<SalaryUserBaseInfo> userBaseInfoRecords = salaryUserBaseInfoPage.getRecords();
         for (SalaryUserBaseInfo salaryUserBaseInfo : userBaseInfoRecords) {
             // 年功工资
-            double yearMerit = calYearMerit(salaryUserBaseInfo);
+            double yearMerit = calYearMerit(salaryUserBaseInfo, computeTimeBase);
             // 基本工资
             double baseSalary = calFloatSalary(salaryUserBaseInfo.getBaseSalary(), computeTimeBase, salaryUserBaseInfo);
             // 岗位工资
@@ -190,7 +188,7 @@ public class SalaryService {
             salaryTotal.setCheckingInDeduct(checkingInDeduct);
             salaryTotal.setPost(post);
             salaryTotal.setMerit(salaryDepartmentPerformance.getMonthPerformancePrice());
-            salaryTotal.setJobTime(calJobTime(salaryUserBaseInfo));
+            salaryTotal.setJobTime(calJobTime(salaryUserBaseInfo, computeTimeBase));
             salaryTotal.setPartyBuildSubsidy(salaryAddition.getPartyBuildingReward());
             salaryTotal.setPartyPersonal(partyPersonal);
             salaryTotal.setSex((salaryUserBaseInfo.getIdCardNo().charAt(17) - '0') % 2 == 0 ? "女" : "男");
@@ -205,7 +203,6 @@ public class SalaryService {
             salaryTotal.setEntryTime(salaryUserBaseInfo.getEntryTime());
             salaryTotal.setIsJiaotongBank(salaryUserBaseInfo.getIsTrafficBank());
             salaryTotal.setTaxFix(salaryTax.getFixedTax());
-//            salaryTotal.setTaxPersonal();
             salaryTotal.setSpecialDeduction(salaryTax.getSpecialDeduction());
             salaryTotal.setOtheDeduct(salaryAddition.getOtherDeduct());
             salaryTotal.setSafetySubsidy(salaryAddition.getAdvancedReward());
@@ -394,21 +391,23 @@ public class SalaryService {
     /**
      * 计算年功工资
      * @param salaryUserBaseInfo
+     * @param computeTimeBase
      * @return
      */
-    private double calYearMerit(SalaryUserBaseInfo salaryUserBaseInfo) {
+    private double calYearMerit(SalaryUserBaseInfo salaryUserBaseInfo, Date computeTimeBase) {
         // 基本工资为0则年功工资为0
-        return salaryUserBaseInfo.getBaseSalary() == null || salaryUserBaseInfo.getBaseSalary() == 0 ? 0.0 : calJobTime(salaryUserBaseInfo);
+        return salaryUserBaseInfo.getBaseSalary() == null || salaryUserBaseInfo.getBaseSalary() == 0 ? 0.0 : calJobTime(salaryUserBaseInfo, computeTimeBase);
     }
 
     /**
      * 计算司龄
      * @param salaryUserBaseInfo
+     * @param computeTimeBase
      * @return
      */
-    private double calJobTime(SalaryUserBaseInfo salaryUserBaseInfo) {
+    private double calJobTime(SalaryUserBaseInfo salaryUserBaseInfo, Date computeTimeBase) {
         if (salaryUserBaseInfo.getLeaveTime() == null) {
-            return DateUtils.yearDiff(salaryUserBaseInfo.getEntryTime(), null);
+            return DateUtils.yearDiff(salaryUserBaseInfo.getEntryTime(), DateUtils.getLastDayOfMonth(computeTimeBase));
         } else {
             return DateUtils.yearDiff(salaryUserBaseInfo.getEntryTime(), salaryUserBaseInfo.getLeaveTime());
         }
