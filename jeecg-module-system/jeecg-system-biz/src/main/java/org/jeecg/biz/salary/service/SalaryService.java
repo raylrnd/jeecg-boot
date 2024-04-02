@@ -266,7 +266,7 @@ public class SalaryService {
                     // 医疗
                     salaryTotal.setMedicalPersonal(salaryCentralSocialSecurityFund.getPersonalPament());
                     salaryTotal.setMedicalCompany(salaryCentralSocialSecurityFund.getCompanyPament());
-                    salaryTotal.setAddtionMedicalCompany(salaryCentralSocialSecurityFund.getAdditionMedical());
+                    salaryTotal.setAddtionMedicalCompany(salaryCentralSocialSecurityFund.getAdditionMedicalPayment());
                     // 企业年金
                     salaryTotal.setEnterpriseAnnuityPersonal(salaryCentralEnterpriseFund.getIndividualMonthlyPayment());
                     salaryTotal.setEnterpriseAnnuityCompany(salaryCentralEnterpriseFund.getTotalEnterpriseContributions());
