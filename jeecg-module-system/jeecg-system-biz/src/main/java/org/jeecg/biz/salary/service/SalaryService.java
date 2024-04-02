@@ -256,22 +256,24 @@ public class SalaryService {
                 salaryTotal.setReplaceDeduct(replaceDeduct);
                 salaryTotal.setShouldFund(shouldFund);
 
-                // 养老
-                salaryTotal.setEgedPersonal(salaryCentralAgedFund.getPersonalPament());
-                salaryTotal.setEgedCompany(salaryCentralAgedFund.getCompanyPament());
-                // 失业
-                salaryTotal.setLoseJobPersonal(salaryCentralSocialSecurityFund.getLoseJobPersonalPament());
-                salaryTotal.setLoseJobCompany(salaryCentralSocialSecurityFund.getLoseJobCompanyPament());
-                // 医疗
-                salaryTotal.setMedicalPersonal(salaryCentralSocialSecurityFund.getPersonalPament());
-                salaryTotal.setMedicalCompany(salaryCentralSocialSecurityFund.getCompanyPament());
-                salaryTotal.setAddtionMedicalCompany(salaryCentralSocialSecurityFund.getAdditionMedical());
-                // 企业年金
-                salaryTotal.setEnterpriseAnnuityPersonal(salaryCentralEnterpriseFund.getIndividualMonthlyPayment());
-                salaryTotal.setEnterpriseAnnuityCompany(salaryCentralEnterpriseFund.getTotalEnterpriseContributions());
-                // 公积金
-                salaryTotal.setReservePersonalFund(salaryCentralReserveFund.getPersonalMonthlyDeposit());
-                salaryTotal.setReserveCompanyFund(salaryCentralReserveFund.getCompanyMonthlyDeposit());
+                if ("是".equals(salaryUserBaseInfo.getBuySocialSecurity())) {
+                    // 养老
+                    salaryTotal.setEgedPersonal(salaryCentralAgedFund.getPersonalPament());
+                    salaryTotal.setEgedCompany(salaryCentralAgedFund.getCompanyPament());
+                    // 失业
+                    salaryTotal.setLoseJobPersonal(salaryCentralSocialSecurityFund.getLoseJobPersonalPament());
+                    salaryTotal.setLoseJobCompany(salaryCentralSocialSecurityFund.getLoseJobCompanyPament());
+                    // 医疗
+                    salaryTotal.setMedicalPersonal(salaryCentralSocialSecurityFund.getPersonalPament());
+                    salaryTotal.setMedicalCompany(salaryCentralSocialSecurityFund.getCompanyPament());
+                    salaryTotal.setAddtionMedicalCompany(salaryCentralSocialSecurityFund.getAdditionMedical());
+                    // 企业年金
+                    salaryTotal.setEnterpriseAnnuityPersonal(salaryCentralEnterpriseFund.getIndividualMonthlyPayment());
+                    salaryTotal.setEnterpriseAnnuityCompany(salaryCentralEnterpriseFund.getTotalEnterpriseContributions());
+                    // 公积金
+                    salaryTotal.setReservePersonalFund(salaryCentralReserveFund.getPersonalMonthlyDeposit());
+                    salaryTotal.setReserveCompanyFund(salaryCentralReserveFund.getCompanyMonthlyDeposit());
+                }
             } else if (salaryUserBaseInfo.getLevel() == 3) {
                 SalaryOutsourcingReserveFund salaryOutsourcingReserveFund = salaryOutsourcingReserveFundMap.get(salaryUserBaseInfo.getIdCardNo());
                 SalaryOutsourcingSocialFund salaryOutsourcingSocialFund = salaryOutsourcingSocialFundMap.get(salaryUserBaseInfo.getIdCardNo());
@@ -299,20 +301,22 @@ public class SalaryService {
                 salaryTotal.setJobSubsidy(jobSubsidy);
                 salaryTotal.setShouldFund(shouldFund);
 
-                // 空港无企业年金，实习生无社保公积金
-                // 养老
-                salaryTotal.setEgedPersonal(salaryOutsourcingSocialFund.getAgedPersonalPament());
-                salaryTotal.setEgedCompany(salaryOutsourcingSocialFund.getAgedCompanyPament());
-                // 失业
-                salaryTotal.setLoseJobPersonal(salaryOutsourcingSocialFund.getLoseJobPersonalPayment());
-                salaryTotal.setLoseJobCompany(salaryOutsourcingSocialFund.getLoseJobCompanyPament());
-                // 医疗
-                salaryTotal.setMedicalPersonal(salaryOutsourcingSocialFund.getPersonalPament());
-                salaryTotal.setMedicalCompany(salaryOutsourcingSocialFund.getCompanyPament());
-                salaryTotal.setAddtionMedicalCompany(salaryOutsourcingSocialFund.getAdditionMedical());
-                // 公积金
-                salaryTotal.setReservePersonalFund(salaryOutsourcingReserveFund.getPersonalMonthlyDeposit());
-                salaryTotal.setReserveCompanyFund(salaryOutsourcingReserveFund.getCompanyMonthlyDeposit());
+                if ("是".equals(salaryUserBaseInfo.getBuySocialSecurity())) {
+                    // 空港无企业年金，实习生无社保公积金
+                    // 养老
+                    salaryTotal.setEgedPersonal(salaryOutsourcingSocialFund.getAgedPersonalPament());
+                    salaryTotal.setEgedCompany(salaryOutsourcingSocialFund.getAgedCompanyPament());
+                    // 失业
+                    salaryTotal.setLoseJobPersonal(salaryOutsourcingSocialFund.getLoseJobPersonalPayment());
+                    salaryTotal.setLoseJobCompany(salaryOutsourcingSocialFund.getLoseJobCompanyPament());
+                    // 医疗
+                    salaryTotal.setMedicalPersonal(salaryOutsourcingSocialFund.getPersonalPament());
+                    salaryTotal.setMedicalCompany(salaryOutsourcingSocialFund.getCompanyPament());
+                    salaryTotal.setAddtionMedicalCompany(salaryOutsourcingSocialFund.getAdditionMedical());
+                    // 公积金
+                    salaryTotal.setReservePersonalFund(salaryOutsourcingReserveFund.getPersonalMonthlyDeposit());
+                    salaryTotal.setReserveCompanyFund(salaryOutsourcingReserveFund.getCompanyMonthlyDeposit());
+                }
             } else {
                 // 实习补贴
                 double internshipSubsidy = calFloatSalary("地勤服务部".equals(salaryUserBaseInfo.getDepartment()) ? 1000 : 1600, computeTimeBase, salaryUserBaseInfo);
