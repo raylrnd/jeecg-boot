@@ -166,10 +166,16 @@ public class SalaryCentralSocialSecurityFund implements Serializable {
     private Double loseJobPersonalPament;
 
     /**
-     * 补充基本医疗保险(单位缴纳)
+     * 补充基本医疗保险(单位缴纳).缴费基数
      */
-    @TableField(value = "addition_medical")
-    private Double additionMedical;
+    @TableField(value = "addition_medical_base")
+    private Double additionMedicalBase;
+
+    /**
+     * 补充基本医疗保险(单位缴纳).应缴金额
+     */
+    @TableField(value = "addition_medical_payment")
+    private Double additionMedicalPayment;
 
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;

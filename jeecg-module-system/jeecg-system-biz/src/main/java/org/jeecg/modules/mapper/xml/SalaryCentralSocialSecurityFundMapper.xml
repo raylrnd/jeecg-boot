@@ -30,7 +30,8 @@
             <result property="loseJobPersonalPaymentBase" column="lose_job_personal_payment_base" jdbcType="DOUBLE"/>
             <result property="personalPamentBase" column="personal_pament_base" jdbcType="DOUBLE"/>
             <result property="loseJobPersonalPament" column="lose_job_personal_pament" jdbcType="DOUBLE"/>
-            <result property="additionMedical" column="addition_medical" jdbcType="DOUBLE"/>
+            <result property="additionMedicalBase" column="addition_medical_base" jdbcType="DOUBLE"/>
+            <result property="additionMedicalPayment" column="addition_medical_payment" jdbcType="DOUBLE"/>
     </resultMap>
 
     <sql id="Base_Column_List">
@@ -42,6 +43,6 @@
         injury_pament,company_pament_total,personal_pament_total,
         pament_total,company_pament_base,personal_pament,
         company_pament,lose_job_personal_payment_base,personal_pament_base,
-        lose_job_personal_pament,addition_medical
+        lose_job_personal_pament,addition_medical_base,addition_medical_payment
     </sql>
 </mapper>
