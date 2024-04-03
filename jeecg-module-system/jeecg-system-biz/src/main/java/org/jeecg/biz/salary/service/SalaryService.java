@@ -216,6 +216,7 @@ public class SalaryService {
             salaryTotal.setHuanjianpaodaosubsidy(huanjianpaodaoDaysSubsidy);
             salaryTotal.setHousingReformReward(salaryAddition.getHousingReformReward());
             salaryTotal.setYearMerit(yearMerit);
+            salaryTotal.setJobSalary(salaryUserBaseInfo.getJobSalary());
 
             // 1:本部，2:惠泽，3:空港，4:实习生
             if ("1".equals(salaryUserBaseInfo.getMemberCat()) || "2".equals(salaryUserBaseInfo.getMemberCat())) {
