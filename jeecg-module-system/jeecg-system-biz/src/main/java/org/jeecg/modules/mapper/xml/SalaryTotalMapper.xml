@@ -51,12 +51,15 @@
             <result property="replaceDeduct" column="replace_deduct" jdbcType="DOUBLE"/>
             <result property="realSalary" column="real_salary" jdbcType="DOUBLE"/>
             <result property="remark" column="remark" jdbcType="DOUBLE"/>
+            <result property="safety" column="safety" jdbcType="DOUBLE"/>
             <result property="additionOtherTotal" column="addition_other_total" jdbcType="DOUBLE"/>
+            <result property="deduct" column="deduct" jdbcType="DOUBLE"/>
             <result property="checkingInDeduct" column="checking_in_deduct" jdbcType="DOUBLE"/>
             <result property="yearEnd" column="year_end" jdbcType="DOUBLE"/>
             <result property="economicCompensation" column="economic_compensation" jdbcType="DOUBLE"/>
             <result property="injuryCompany" column="injury_company" jdbcType="DOUBLE"/>
             <result property="addtionMedicalCompany" column="addtion_medical_company" jdbcType="DOUBLE"/>
+            <result property="taxPersonal" column="tax_personal" jdbcType="DOUBLE"/>
             <result property="isJiaotongBank" column="is_jiaotong_bank" jdbcType="VARCHAR"/>
             <result property="taxFix" column="tax_fix" jdbcType="DOUBLE"/>
             <result property="sex" column="sex" jdbcType="VARCHAR"/>
@@ -74,6 +77,8 @@
             <result property="jobSubsidy" column="job_subsidy" jdbcType="DOUBLE"/>
             <result property="jianxSubsidy" column="jianx_subsidy" jdbcType="DOUBLE"/>
             <result property="total" column="total" jdbcType="DOUBLE"/>
+            <result property="additionMedical" column="addition_medical" jdbcType="DOUBLE"/>
+            <result property="jobSalary" column="job_salary" jdbcType="DOUBLE"/>
     </resultMap>
 
     <sql id="Base_Column_List">
@@ -92,14 +97,15 @@
         medical_personal,enterprise_annuity_personal,special_deduction,
         party_personal,weinisi_price,should_tax,
         ready_deduct_tax,replace_deduct,real_salary,
-        remark,addition_other_total,
-        checking_in_deduct,year_end,
+        remark,safety,addition_other_total,
+        deduct,checking_in_deduct,year_end,
         economic_compensation,injury_company,addtion_medical_company,
-        is_jiaotong_bank,tax_fix,
+        tax_personal,is_jiaotong_bank,tax_fix,
         sex,entry_time,job_time,
         job_title,duty,reserve_company_fund,
         eged_company,lose_job_company,medical_company,
         enterprise_annuity_company,house_subsidy,intern_subsidy,
-        job_subsidy,jianx_subsidy,total
+        job_subsidy,jianx_subsidy,total,
+        addition_medical,job_salary
     </sql>
 </mapper>

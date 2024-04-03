@@ -305,7 +305,7 @@ public class SalaryTotal implements Serializable {
     private double checkingInDeduct;
 
     /**
-     * 年终奖（人力说先不做）
+     * 年终奖
      */
     @TableField(value = "year_end")
     private double yearEnd;
@@ -429,6 +429,18 @@ public class SalaryTotal implements Serializable {
      */
     @TableField(value = "total")
     private double total;
+
+    /**
+     * 补充基本医疗保险(单位缴纳)
+     */
+    @TableField(value = "addition_medical")
+    private double additionMedical;
+
+    /**
+     * 岗位工资
+     */
+    @TableField(value = "job_salary")
+    private double jobSalary;
 
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;

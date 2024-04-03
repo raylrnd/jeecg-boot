@@ -18,6 +18,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 public class SalaryService {
@@ -191,7 +192,7 @@ public class SalaryService {
             salaryTotal.setJobTime(calJobTime(salaryUserBaseInfo, computeTimeBase));
             salaryTotal.setPartyBuildSubsidy(salaryAddition.getPartyBuildingReward());
             salaryTotal.setPartyPersonal(partyPersonal);
-            salaryTotal.setSex((salaryUserBaseInfo.getIdCardNo().charAt(17) - '0') % 2 == 0 ? "女" : "男");
+            salaryTotal.setSex((salaryUserBaseInfo.getIdCardNo().charAt(17) - '0') % 2 == 0 ? "男" : "女");
             salaryTotal.setSalaryGrade(salaryUserBaseInfo.getSalaryGrade());
             salaryTotal.setWeinisiPrice(salaryDepartmentPerformance.getWeinisiPrice());
             salaryTotal.setOtherReward(salaryAddition.getOtherReward());
@@ -217,7 +218,7 @@ public class SalaryService {
             salaryTotal.setYearMerit(yearMerit);
 
             // 1:本部，2:惠泽，3:空港，4:实习生
-            if (salaryUserBaseInfo.getLevel() == 1 || salaryUserBaseInfo.getLevel() == 2) {
+            if ("1".equals(salaryUserBaseInfo.getMemberCat()) || "2".equals(salaryUserBaseInfo.getMemberCat())) {
                 // 本部其他应发合计
                 double otherShouldFund = salaryAddition.getAdvancedReward() + salaryAddition.getPartyBuildingReward() + sumBase;
                 // 本部应发合计
@@ -271,7 +272,7 @@ public class SalaryService {
                     salaryTotal.setReservePersonalFund(salaryCentralReserveFund.getPersonalMonthlyDeposit());
                     salaryTotal.setReserveCompanyFund(salaryCentralReserveFund.getCompanyMonthlyDeposit());
                 }
-            } else if (salaryUserBaseInfo.getLevel() == 3) {
+            } else if ("3".equals(salaryUserBaseInfo.getMemberCat())) {
                 SalaryOutsourcingReserveFund salaryOutsourcingReserveFund = salaryOutsourcingReserveFundMap.getOrDefault(salaryUserBaseInfo.getIdCardNo(), new SalaryOutsourcingReserveFund());
                 SalaryOutsourcingSocialFund salaryOutsourcingSocialFund = salaryOutsourcingSocialFundMap.getOrDefault(salaryUserBaseInfo.getIdCardNo(), new SalaryOutsourcingSocialFund());
                 // 社保公积金=公积金个人+失业个人+养老个人+医保个人
@@ -347,39 +348,15 @@ public class SalaryService {
         }
     }
 
-    private double calReadyDeductTax(double shouldTax, Double allYearTaxDeduction) {
-        double taxRate = 0.0;
-        double deduction = 0.0;
-        double taxToBeWithheld = 0.0;
-
-        // 根据应纳税所得额确定税率和速算扣除数
-        if (shouldTax <= 36000) {
-            taxRate = 0.03;
-            deduction = 2520;
-        } else if (shouldTax <= 144000) {
-            taxRate = 0.1;
-            deduction = 16920;
-        } else if (shouldTax <= 300000) {
-            taxRate = 0.2;
-            deduction = 31920;
-        } else if (shouldTax <= 420000) {
-            taxRate = 0.25;
-            deduction = 52920;
-        } else if (shouldTax <= 660000) {
-            taxRate = 0.3;
-            deduction = 85920;
-        } else if (shouldTax <= 960000) {
-            taxRate = 0.35;
-            deduction = 181920;
-        } else {
-            taxRate = 0.45;
-            deduction = 181920;
-        }
-        // 计算应预扣预缴的个税
-        taxToBeWithheld = Math.max(shouldTax * taxRate - deduction, 0) - allYearTaxDeduction;
-
-        // 如果计算结果小于0，则不需要预扣预缴个税，否则按照计算结果预扣预缴
-        return taxToBeWithheld < 0 ? 0 : taxToBeWithheld;
+    /**
+     * MAX(MAX(本部应纳税所得额*0.03,本部应纳税所得额*0.1-2520,本部应纳税所得额*0.2-16920,本部应纳税所得额*0.25-31920,本部应纳税所得额*0.3-52920,本部应纳税所得额*0.35-85920,本部应纳税所得额*0.45-181920,0)-1-12月扣税合计,0)
+     * @param shouldTax
+     * @param allYearTaxDeduction
+     * @return
+     */
+    private double calReadyDeductTax(double shouldTax, double allYearTaxDeduction) {
+        return Math.max(Stream.of(shouldTax * 0.03, shouldTax * 0.1 - 2520, shouldTax * 0.2 - 16920, shouldTax * 0.25 - 31920, shouldTax * 0.3 - 52920, shouldTax * 0.35 - 85920, shouldTax * 0.45 - 181920, 0.0)
+                .max(Double::compareTo).get() - allYearTaxDeduction, 0);
     }
 
     private void checkPage(Page<?> page) {
