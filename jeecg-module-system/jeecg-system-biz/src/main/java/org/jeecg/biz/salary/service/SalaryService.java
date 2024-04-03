@@ -138,10 +138,10 @@ public class SalaryService {
             // 餐费
             double foodSubsidy = calFloatSalary(salaryUserBaseInfo.getLevel() == 4 ? 400 : 600, computeTimeBase, salaryUserBaseInfo);
 
-            SalaryAddition salaryAddition = salaryAdditionMap.get(salaryUserBaseInfo.getIdCardNo());
-            SalaryTax salaryTax = salaryTaxMap.get(salaryUserBaseInfo.getIdCardNo());
-            SalaryDepartmentPerformance salaryDepartmentPerformance = salaryDepartmentPerformanceMap.get(salaryUserBaseInfo.getIdCardNo());
-            SalaryTaxFirst salaryTaxFirst = salaryTaxFirstMap.get(salaryUserBaseInfo.getIdCardNo());
+            SalaryAddition salaryAddition = salaryAdditionMap.getOrDefault(salaryUserBaseInfo.getIdCardNo(), new SalaryAddition());
+            SalaryTax salaryTax = salaryTaxMap.getOrDefault(salaryUserBaseInfo.getIdCardNo(), new SalaryTax());
+            SalaryDepartmentPerformance salaryDepartmentPerformance = salaryDepartmentPerformanceMap.getOrDefault(salaryUserBaseInfo.getIdCardNo(), new SalaryDepartmentPerformance());
+            SalaryTaxFirst salaryTaxFirst = salaryTaxFirstMap.getOrDefault(salaryUserBaseInfo.getIdCardNo(), new SalaryTaxFirst());
 
             // 其他补发
 //            double otherReward = salaryAddition.getSafetyReward() + salaryAddition.getOtherReward() + salaryAddition.getSafetyJobReward() + salaryDepartmentPerformance.getEmergencyRescuePerformance();
@@ -223,10 +223,10 @@ public class SalaryService {
                 // 本部应发合计
                 double shouldFund = baseSalary + jobSalary + yearMerit + salaryDepartmentPerformance.getMonthPerformancePrice() + huanjianpaodaoDaysSubsidy
                         + otherShouldFund + salaryAddition.getHousingReformReward();
-                SalaryCentralEnterpriseFund salaryCentralEnterpriseFund = salaryCentralEnterpriseFundMap.get(salaryUserBaseInfo.getIdCardNo());
-                SalaryCentralReserveFund salaryCentralReserveFund = salaryCentralReserveFundMap.get(salaryUserBaseInfo.getIdCardNo());
-                SalaryCentralSocialSecurityFund salaryCentralSocialSecurityFund = salaryCentralSocialSecurityFundMap.get(salaryUserBaseInfo.getIdCardNo());
-                SalaryCentralAgedFund salaryCentralAgedFund = salaryCentralAgedFundMap.get(salaryUserBaseInfo.getIdCardNo());
+                SalaryCentralEnterpriseFund salaryCentralEnterpriseFund = salaryCentralEnterpriseFundMap.getOrDefault(salaryUserBaseInfo.getIdCardNo(), new SalaryCentralEnterpriseFund());
+                SalaryCentralReserveFund salaryCentralReserveFund = salaryCentralReserveFundMap.getOrDefault(salaryUserBaseInfo.getIdCardNo(), new SalaryCentralReserveFund());
+                SalaryCentralSocialSecurityFund salaryCentralSocialSecurityFund = salaryCentralSocialSecurityFundMap.getOrDefault(salaryUserBaseInfo.getIdCardNo(), new SalaryCentralSocialSecurityFund());
+                SalaryCentralAgedFund salaryCentralAgedFund = salaryCentralAgedFundMap.getOrDefault(salaryUserBaseInfo.getIdCardNo(), new SalaryCentralAgedFund());
                 // 社保=养老个人+失业个人+医保个人+企业年金
                 double socialTotal = salaryCentralEnterpriseFund.getIndividualMonthlyPayment()
                         + salaryCentralSocialSecurityFund.getLoseJobPersonalPament() + salaryCentralSocialSecurityFund.getPersonalPament() + salaryCentralAgedFund.getPersonalPament();
@@ -272,8 +272,8 @@ public class SalaryService {
                     salaryTotal.setReserveCompanyFund(salaryCentralReserveFund.getCompanyMonthlyDeposit());
                 }
             } else if (salaryUserBaseInfo.getLevel() == 3) {
-                SalaryOutsourcingReserveFund salaryOutsourcingReserveFund = salaryOutsourcingReserveFundMap.get(salaryUserBaseInfo.getIdCardNo());
-                SalaryOutsourcingSocialFund salaryOutsourcingSocialFund = salaryOutsourcingSocialFundMap.get(salaryUserBaseInfo.getIdCardNo());
+                SalaryOutsourcingReserveFund salaryOutsourcingReserveFund = salaryOutsourcingReserveFundMap.getOrDefault(salaryUserBaseInfo.getIdCardNo(), new SalaryOutsourcingReserveFund());
+                SalaryOutsourcingSocialFund salaryOutsourcingSocialFund = salaryOutsourcingSocialFundMap.getOrDefault(salaryUserBaseInfo.getIdCardNo(), new SalaryOutsourcingSocialFund());
                 // 社保公积金=公积金个人+失业个人+养老个人+医保个人
                 double socialAndReserve = "是".equals(salaryUserBaseInfo.getBuySocialSecurity()) ? salaryOutsourcingSocialFund.getPersonalPament() + salaryOutsourcingSocialFund.getLoseJobPersonalPayment() + salaryOutsourcingReserveFund.getPersonalMonthlyDeposit() + salaryOutsourcingSocialFund.getAgedPersonalPament() : 0;
                 // 岗位补贴
@@ -331,7 +331,7 @@ public class SalaryService {
                 double realSalary = internshipTotal - readyDeductTax;
                 // 实习生加发其他（总额）
                 double addtionSalary = accommodationSubsidy + salaryDepartmentPerformance.getJianrenbujianzi() + jobSubsidy + noviciateSubsidy + salaryAddition.getOtherReward();
-                SalaryInternSocialFund salaryInternSocialFund = salaryInternSocialFundMap.get(salaryUserBaseInfo.getIdCardNo());
+                SalaryInternSocialFund salaryInternSocialFund = salaryInternSocialFundMap.getOrDefault(salaryUserBaseInfo.getIdCardNo(), new SalaryInternSocialFund());
                 // 特定人员单项工伤保险
                 salaryTotal.setInjuryCompany(salaryInternSocialFund.getInjuryPament());
                 salaryTotal.setRealSalary(realSalary);
@@ -396,7 +396,7 @@ public class SalaryService {
      */
     private double calYearMerit(SalaryUserBaseInfo salaryUserBaseInfo, Date computeTimeBase) {
         // 基本工资为0则年功工资为0
-        return salaryUserBaseInfo.getBaseSalary() == null || salaryUserBaseInfo.getBaseSalary() == 0 ? 0.0 : calJobTime(salaryUserBaseInfo, computeTimeBase);
+        return salaryUserBaseInfo.getBaseSalary() == 0 ? 0.0 : calJobTime(salaryUserBaseInfo, computeTimeBase);
     }
 
     /**

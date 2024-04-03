@@ -91,91 +91,91 @@ public class SalaryCentralSocialSecurityFund implements Serializable {
      * 失业保险(单位缴纳).缴费基数
      */
     @TableField(value = "lose_job_company_payment_base")
-    private Double loseJobCompanyPaymentBase;
+    private double loseJobCompanyPaymentBase;
 
     /**
      * 失业保险(单位缴纳).应缴金额
      */
     @TableField(value = "lose_job_company_pament")
-    private Double loseJobCompanyPament;
+    private double loseJobCompanyPament;
 
     /**
      * 工伤保险.缴费基数
      */
     @TableField(value = "injury_company_payment_base")
-    private Double injuryCompanyPaymentBase;
+    private double injuryCompanyPaymentBase;
 
     /**
      * 工伤保险.应缴金额
      */
     @TableField(value = "injury_pament")
-    private Double injuryPament;
+    private double injuryPament;
 
     /**
      * 单位部分合计
      */
     @TableField(value = "company_pament_total")
-    private Double companyPamentTotal;
+    private double companyPamentTotal;
 
     /**
      * 个人部分合计
      */
     @TableField(value = "personal_pament_total")
-    private Double personalPamentTotal;
+    private double personalPamentTotal;
 
     /**
      * 应缴金额合计
      */
     @TableField(value = "pament_total")
-    private Double pamentTotal;
+    private double pamentTotal;
 
     /**
      * 综合基本医疗保险(单位缴纳).缴费基数
      */
     @TableField(value = "company_pament_base")
-    private Double companyPamentBase;
+    private double companyPamentBase;
 
     /**
      * 综合基本医疗保险(个人缴纳).应缴金额
      */
     @TableField(value = "personal_pament")
-    private Double personalPament;
+    private double personalPament;
 
     /**
      * 综合基本医疗保险(单位缴纳).应缴金额
      */
     @TableField(value = "company_pament")
-    private Double companyPament;
+    private double companyPament;
 
     /**
      * 失业保险(个人缴纳).缴费基数
      */
     @TableField(value = "lose_job_personal_payment_base")
-    private Double loseJobPersonalPaymentBase;
+    private double loseJobPersonalPaymentBase;
 
     /**
      * 综合基本医疗保险(个人缴纳).缴费基数
      */
     @TableField(value = "personal_pament_base")
-    private Double personalPamentBase;
+    private double personalPamentBase;
 
     /**
      * 失业保险(个人缴纳).应缴金额
      */
     @TableField(value = "lose_job_personal_pament")
-    private Double loseJobPersonalPament;
+    private double loseJobPersonalPament;
 
     /**
      * 补充基本医疗保险(单位缴纳).缴费基数
      */
     @TableField(value = "addition_medical_base")
-    private Double additionMedicalBase;
+    private double additionMedicalBase;
 
     /**
      * 补充基本医疗保险(单位缴纳).应缴金额
      */
     @TableField(value = "addition_medical_payment")
-    private Double additionMedicalPayment;
+    private double additionMedicalPayment;
 
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;

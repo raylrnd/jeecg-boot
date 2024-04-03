@@ -1,12 +1,12 @@
 package org.jeecg.biz.salary.entity;
 
-import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import lombok.Data;
+
 import java.io.Serializable;
 import java.util.Date;
-import lombok.Data;
 
 /**
  * 
@@ -67,31 +67,31 @@ public class SalaryTax implements Serializable {
      * 1-12月扣税合计
      */
     @TableField(value = "all_year_tax_deduction")
-    private Double allYearTaxDeduction;
+    private double allYearTaxDeduction;
 
     /**
      * 补扣个税
      */
     @TableField(value = "deduct_personal_tax")
-    private Double deductPersonalTax;
+    private double deductPersonalTax;
 
     /**
      * 其他应纳税所得合计（除去餐补）
      */
     @TableField(value = "other_tax_without_meal")
-    private Double otherTaxWithoutMeal;
+    private double otherTaxWithoutMeal;
 
     /**
      * 专项扣除数
      */
     @TableField(value = "special_deduction")
-    private Double specialDeduction;
+    private double specialDeduction;
 
     /**
      * 差错调整金额
      */
     @TableField(value = "fixed_tax")
-    private Double fixedTax;
+    private double fixedTax;
 
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;

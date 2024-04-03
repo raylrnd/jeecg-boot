@@ -1,12 +1,12 @@
 package org.jeecg.biz.salary.entity;
 
-import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import lombok.Data;
+
 import java.io.Serializable;
 import java.util.Date;
-import lombok.Data;
 
 /**
  * 
@@ -91,43 +91,43 @@ public class SalaryCentralAgedFund implements Serializable {
      * 企业养老保险(单位缴纳).缴费基数
      */
     @TableField(value = "company_payment_base")
-    private Double companyPaymentBase;
+    private double companyPaymentBase;
 
     /**
      * 企业养老保险(单位缴纳).应缴金额
      */
     @TableField(value = "company_pament")
-    private Double companyPament;
+    private double companyPament;
 
     /**
      * 企业养老保险(个人缴纳).缴费基数
      */
     @TableField(value = "personal_payment_base")
-    private Double personalPaymentBase;
+    private double personalPaymentBase;
 
     /**
      * 企业养老保险(个人缴纳).应缴金额
      */
     @TableField(value = "personal_pament")
-    private Double personalPament;
+    private double personalPament;
 
     /**
      * 单位部分合计
      */
     @TableField(value = "company_pament_total")
-    private Double companyPamentTotal;
+    private double companyPamentTotal;
 
     /**
      * 个人部分合计
      */
     @TableField(value = "personal_pament_total")
-    private Double personalPamentTotal;
+    private double personalPamentTotal;
 
     /**
      * 应缴金额合计
      */
     @TableField(value = "pament_total")
-    private Double pamentTotal;
+    private double pamentTotal;
 
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;

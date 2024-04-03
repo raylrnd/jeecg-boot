@@ -1,12 +1,12 @@
 package org.jeecg.biz.salary.entity;
 
-import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import lombok.Data;
+
 import java.io.Serializable;
 import java.util.Date;
-import lombok.Data;
 
 /**
  * 
@@ -67,55 +67,55 @@ public class SalaryAddition implements Serializable {
      * 经济补偿金
      */
     @TableField(value = "economic_reward")
-    private Double economicReward;
+    private double economicReward;
 
     /**
      * 房改补贴
      */
     @TableField(value = "housing_reform_reward")
-    private Double housingReformReward;
+    private double housingReformReward;
 
     /**
      * 高温补贴
      */
     @TableField(value = "high_temperature_reward")
-    private Double highTemperatureReward;
+    private double highTemperatureReward;
 
     /**
      * 先进奖励
      */
     @TableField(value = "advanced_reward")
-    private Double advancedReward;
+    private double advancedReward;
 
     /**
      * 安全生产工作岗位津贴
      */
     @TableField(value = "safety_job_reward")
-    private Double safetyJobReward;
+    private double safetyJobReward;
 
     /**
      * 党建考核奖金
      */
     @TableField(value = "party_building_reward")
-    private Double partyBuildingReward;
+    private double partyBuildingReward;
 
     /**
      * 安全绩效
      */
     @TableField(value = "safety_reward")
-    private Double safetyReward;
+    private double safetyReward;
 
     /**
      * 其他补发
      */
     @TableField(value = "other_reward")
-    private Double otherReward;
+    private double otherReward;
 
     /**
      * 其他补扣
      */
     @TableField(value = "other_deduct")
-    private Double otherDeduct;
+    private double otherDeduct;
 
     /**
      * 备注

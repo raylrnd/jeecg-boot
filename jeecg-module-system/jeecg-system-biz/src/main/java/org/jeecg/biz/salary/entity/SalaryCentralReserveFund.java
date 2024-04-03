@@ -1,12 +1,12 @@
 package org.jeecg.biz.salary.entity;
 
-import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import lombok.Data;
+
 import java.io.Serializable;
 import java.util.Date;
-import lombok.Data;
 
 /**
  * 
@@ -91,43 +91,43 @@ public class SalaryCentralReserveFund implements Serializable {
      * 个人缴存基数
      */
     @TableField(value = "personal_deposit_base")
-    private Double personalDepositBase;
+    private double personalDepositBase;
 
     /**
      * 月缴存总额
      */
     @TableField(value = "total_monthly_deposits")
-    private Double totalMonthlyDeposits;
+    private double totalMonthlyDeposits;
 
     /**
      * 个人缴存比例
      */
     @TableField(value = "individual_deposit_ratio")
-    private Double individualDepositRatio;
+    private double individualDepositRatio;
 
     /**
      * 单位缴存比例
      */
     @TableField(value = "company_deposit_ratio")
-    private Double companyDepositRatio;
+    private double companyDepositRatio;
 
     /**
      * 个人月缴存额
      */
     @TableField(value = "personal_monthly_deposit")
-    private Double personalMonthlyDeposit;
+    private double personalMonthlyDeposit;
 
     /**
      * 单位月缴存额
      */
     @TableField(value = "company_monthly_deposit")
-    private Double companyMonthlyDeposit;
+    private double companyMonthlyDeposit;
 
     /**
      * 账户余额
      */
     @TableField(value = "account_balance")
-    private Double accountBalance;
+    private double accountBalance;
 
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;

@@ -1,12 +1,12 @@
 package org.jeecg.biz.salary.entity;
 
-import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import lombok.Data;
+
 import java.io.Serializable;
 import java.util.Date;
-import lombok.Data;
 
 /**
  * 
@@ -67,91 +67,91 @@ public class SalaryDepartmentPerformance implements Serializable {
      * 月绩效分
      */
     @TableField(value = "month_performance_score")
-    private Double monthPerformanceScore;
+    private double monthPerformanceScore;
 
     /**
      * 月绩效金额（元）
      */
     @TableField(value = "month_performance_price")
-    private Double monthPerformancePrice;
+    private double monthPerformancePrice;
 
     /**
      * 减人不减资（元）
      */
     @TableField(value = "jianrenbujianzi")
-    private Double jianrenbujianzi;
+    private double jianrenbujianzi;
 
     /**
      * 应急救援岗绩效
      */
     @TableField(value = "emergency_rescue_performance")
-    private Double emergencyRescuePerformance;
+    private double emergencyRescuePerformance;
 
     /**
      * 延误天数
      */
     @TableField(value = "delay_days")
-    private Double delayDays;
+    private double delayDays;
 
     /**
      * 夜班天数
      */
     @TableField(value = "night_days")
-    private Double nightDays;
+    private double nightDays;
 
     /**
      * 还建/跑道值班天数
      */
     @TableField(value = "huanjianpaodao_days")
-    private Double huanjianpaodaoDays;
+    private double huanjianpaodaoDays;
 
     /**
      * 行政周末值班天数
      */
     @TableField(value = "administration_weekend_days")
-    private Double administrationWeekendDays;
+    private double administrationWeekendDays;
 
     /**
      * 节假日值班天数
      */
     @TableField(value = "holiday_days")
-    private Double holidayDays;
+    private double holidayDays;
 
     /**
      * 1号值班天数(工作日)
      */
     @TableField(value = "first_duty_workday_days")
-    private Double firstDutyWorkdayDays;
+    private double firstDutyWorkdayDays;
 
     /**
      * 1号值班天数(周末)
      */
     @TableField(value = "first_duty_weekend_days")
-    private Double firstDutyWeekendDays;
+    private double firstDutyWeekendDays;
 
     /**
      * 事假天数
      */
     @TableField(value = "personal_leave_days")
-    private Double personalLeaveDays;
+    private double personalLeaveDays;
 
     /**
      * 病假天数
      */
     @TableField(value = "sick_days")
-    private Double sickDays;
+    private double sickDays;
 
     /**
      * 岗位补贴天数
      */
     @TableField(value = "job_subsidy_days")
-    private Double jobSubsidyDays;
+    private double jobSubsidyDays;
 
     /**
      * 威尼斯宿舍住房费用
      */
     @TableField(value = "weinisi_price")
-    private Double weinisiPrice;
+    private double weinisiPrice;
 
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;

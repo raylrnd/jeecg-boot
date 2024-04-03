@@ -37,7 +37,7 @@ public class SalaryUserBaseInfo implements Serializable {
      * 基本工资
      */
     @TableField(value = "base_salary")
-    private Double baseSalary;
+    private double baseSalary;
 
     /**
      * 创建人
@@ -121,7 +121,7 @@ public class SalaryUserBaseInfo implements Serializable {
      * 岗位工资
      */
     @TableField(value = "job_salary")
-    private Double jobSalary;
+    private double jobSalary;
 
     /**
      * 部门类别
@@ -139,7 +139,7 @@ public class SalaryUserBaseInfo implements Serializable {
      * 级别
      */
     @TableField(value = "level")
-    private Integer level;
+    private int level;
 
     /**
      * 薪级
@@ -151,13 +151,13 @@ public class SalaryUserBaseInfo implements Serializable {
      * 薪档
      */
     @TableField(value = "salary_grade")
-    private Double salaryGrade;
+    private double salaryGrade;
 
     /**
      * 实习补贴
      */
     @TableField(value = "internship_subsidy")
-    private Double internshipSubsidy;
+    private double internshipSubsidy;
 
     /**
      * 手机号

@@ -1,12 +1,12 @@
 package org.jeecg.biz.salary.entity;
 
-import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import lombok.Data;
+
 import java.io.Serializable;
 import java.util.Date;
-import lombok.Data;
 
 /**
  * 
@@ -73,31 +73,31 @@ public class SalaryCentralEnterpriseFund implements Serializable {
      * 企业月缴费额.正常缴费
      */
     @TableField(value = "regular_payment")
-    private Double regularPayment;
+    private double regularPayment;
 
     /**
      * 企业月缴费额.公共账户缴费
      */
     @TableField(value = "public_account_payment")
-    private Double publicAccountPayment;
+    private double publicAccountPayment;
 
     /**
      * 企业月缴费额.企业缴费合计
      */
     @TableField(value = "total_enterprise_contributions")
-    private Double totalEnterpriseContributions;
+    private double totalEnterpriseContributions;
 
     /**
      * 个人月缴费额
      */
     @TableField(value = "individual_monthly_payment")
-    private Double individualMonthlyPayment;
+    private double individualMonthlyPayment;
 
     /**
      * 月缴费合计
      */
     @TableField(value = "total_monthly_payment")
-    private Double totalMonthlyPayment;
+    private double totalMonthlyPayment;
 
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;

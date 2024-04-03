@@ -85,248 +85,248 @@ public class SalaryTotal implements Serializable {
      * 薪档
      */
     @TableField(value = "salary_grade")
-    private Double salaryGrade;
+    private double salaryGrade;
 
     /**
      * 年功工资
      */
     @TableField(value = "year_merit")
-    private Double yearMerit;
+    private double yearMerit;
 
     /**
      * 基本工资
      */
     @TableField(value = "basic_salary")
-    private Double basicSalary;
+    private double basicSalary;
 
     /**
      * 岗位(职级)工资
      */
     @TableField(value = "post")
-    private Double post;
+    private double post;
 
     /**
      * 绩效工资
      */
     @TableField(value = "merit")
-    private Double merit;
+    private double merit;
 
     /**
      * 房改补贴
      */
     @TableField(value = "housing_reform_reward")
-    private Double housingReformReward;
+    private double housingReformReward;
 
     /**
      * 还建/跑道补贴
      */
     @TableField(value = "huanjianpaodaosubsidy")
-    private Double huanjianpaodaosubsidy;
+    private double huanjianpaodaosubsidy;
 
     /**
      * 值班补贴
      */
     @TableField(value = "on_duty_subsidy")
-    private Double onDutySubsidy;
+    private double onDutySubsidy;
 
     /**
      * 夜餐补贴
      */
     @TableField(value = "night_food_subsidy")
-    private Double nightFoodSubsidy;
+    private double nightFoodSubsidy;
 
     /**
      * 减人不减资（元）
      */
     @TableField(value = "jianrenbujianzi")
-    private Double jianrenbujianzi;
+    private double jianrenbujianzi;
 
     /**
      * 高温补贴
      */
     @TableField(value = "high_temper")
-    private Double highTemper;
+    private double highTemper;
 
     /**
      * 先进奖励
      */
     @TableField(value = "advanced")
-    private Double advanced;
+    private double advanced;
 
     /**
      * 安全生产工作岗位津贴
      */
     @TableField(value = "safety_job_subsidy")
-    private Double safetyJobSubsidy;
+    private double safetyJobSubsidy;
 
     /**
      * 党建考核奖金
      */
     @TableField(value = "party_build_subsidy")
-    private Double partyBuildSubsidy;
+    private double partyBuildSubsidy;
 
     /**
      * 应急救援岗绩效
      */
     @TableField(value = "rescue_subsidy")
-    private Double rescueSubsidy;
+    private double rescueSubsidy;
 
     /**
      * 安全绩效
      */
     @TableField(value = "safety_subsidy")
-    private Double safetySubsidy;
+    private double safetySubsidy;
 
     /**
      * 其他补发
      */
     @TableField(value = "other_reward")
-    private Double otherReward;
+    private double otherReward;
 
     /**
      * 其他补扣
      */
     @TableField(value = "othe_deduct")
-    private Double otheDeduct;
+    private double otheDeduct;
 
     /**
      * 减病假
      */
     @TableField(value = "sick")
-    private Double sick;
+    private double sick;
 
     /**
      * 减事假
      */
     @TableField(value = "personal_leave_days_deduct")
-    private Double personalLeaveDaysDeduct;
+    private double personalLeaveDaysDeduct;
 
     /**
      * 其他应发合计
      */
     @TableField(value = "other_should_fund")
-    private Double otherShouldFund;
+    private double otherShouldFund;
 
     /**
      * 应发合计
      */
     @TableField(value = "should_fund")
-    private Double shouldFund;
+    private double shouldFund;
 
     /**
      * 公积金个人缴交额
      */
     @TableField(value = "reserve_personal_fund")
-    private Double reservePersonalFund;
+    private double reservePersonalFund;
 
     /**
      * 养老保险个人缴交额
      */
     @TableField(value = "eged_personal")
-    private Double egedPersonal;
+    private double egedPersonal;
 
     /**
      * 失业保险个人缴交额
      */
     @TableField(value = "lose_job_personal")
-    private Double loseJobPersonal;
+    private double loseJobPersonal;
 
     /**
      * 医疗保险个人缴交额
      */
     @TableField(value = "medical_personal")
-    private Double medicalPersonal;
+    private double medicalPersonal;
 
     /**
      * 年金个人缴交额
      */
     @TableField(value = "enterprise_annuity_personal")
-    private Double enterpriseAnnuityPersonal;
+    private double enterpriseAnnuityPersonal;
 
     /**
      * 专项扣除数
      */
     @TableField(value = "special_deduction")
-    private Double specialDeduction;
+    private double specialDeduction;
 
     /**
      * 个人工会费
      */
     @TableField(value = "party_personal")
-    private Double partyPersonal;
+    private double partyPersonal;
 
     /**
      * 威尼斯宿舍住房费用
      */
     @TableField(value = "weinisi_price")
-    private Double weinisiPrice;
+    private double weinisiPrice;
 
     /**
      * 应纳税所得额
      */
     @TableField(value = "should_tax")
-    private Double shouldTax;
+    private double shouldTax;
 
     /**
      * 本部预扣预缴个税
      */
     @TableField(value = "ready_deduct_tax")
-    private Double readyDeductTax;
+    private double readyDeductTax;
 
     /**
      * 本部代扣款合计
      */
     @TableField(value = "replace_deduct")
-    private Double replaceDeduct;
+    private double replaceDeduct;
 
     /**
      * 本部实发工资
      */
     @TableField(value = "real_salary")
-    private Double realSalary;
+    private double realSalary;
 
     /**
      * 备注
      */
     @TableField(value = "remark")
-    private Double remark;
+    private double remark;
 
 
     /**
      * 加发其他（总额）
      */
     @TableField(value = "addition_other_total")
-    private Double additionOtherTotal;
+    private double additionOtherTotal;
 
     /**
      * 考勤扣款
      */
     @TableField(value = "checking_in_deduct")
-    private Double checkingInDeduct;
+    private double checkingInDeduct;
 
     /**
      * 年终奖（人力说先不做）
      */
     @TableField(value = "year_end")
-    private Double yearEnd;
+    private double yearEnd;
 
     /**
      * 经济补偿金
      */
     @TableField(value = "economic_compensation")
-    private Double economicCompensation;
+    private double economicCompensation;
 
     /**
      * 工伤保险单位缴交额
      */
     @TableField(value = "injury_company")
-    private Double injuryCompany;
+    private double injuryCompany;
 
     /**
      * 补充医疗保险单位缴交额
      */
     @TableField(value = "addtion_medical_company")
-    private Double addtionMedicalCompany;
+    private double addtionMedicalCompany;
 
     /**
      * 是否为交通银行
@@ -338,7 +338,7 @@ public class SalaryTotal implements Serializable {
      * 个税调整
      */
     @TableField(value = "tax_fix")
-    private Double taxFix;
+    private double taxFix;
 
     /**
      * 性别
@@ -356,7 +356,7 @@ public class SalaryTotal implements Serializable {
      * 司龄
      */
     @TableField(value = "job_time")
-    private Double jobTime;
+    private double jobTime;
 
     /**
      * 岗位名称
@@ -368,67 +368,67 @@ public class SalaryTotal implements Serializable {
      * 值班工资
      */
     @TableField(value = "duty")
-    private Double duty;
+    private double duty;
 
     /**
      * 公积金单位缴交额
      */
     @TableField(value = "reserve_company_fund")
-    private Double reserveCompanyFund;
+    private double reserveCompanyFund;
 
     /**
      * 养老保险单位缴交额
      */
     @TableField(value = "eged_company")
-    private Double egedCompany;
+    private double egedCompany;
 
     /**
      * 失业保险单位缴交额
      */
     @TableField(value = "lose_job_company")
-    private Double loseJobCompany;
+    private double loseJobCompany;
 
     /**
      * 医疗保险单位缴交额
      */
     @TableField(value = "medical_company")
-    private Double medicalCompany;
+    private double medicalCompany;
 
     /**
      * 年金单位缴交额
      */
     @TableField(value = "enterprise_annuity_company")
-    private Double enterpriseAnnuityCompany;
+    private double enterpriseAnnuityCompany;
 
     /**
      * 住宿补贴
      */
     @TableField(value = "house_subsidy")
-    private Double houseSubsidy;
+    private double houseSubsidy;
 
     /**
      * 实习补贴
      */
     @TableField(value = "intern_subsidy")
-    private Double internSubsidy;
+    private double internSubsidy;
 
     /**
      * 岗位补贴
      */
     @TableField(value = "job_subsidy")
-    private Double jobSubsidy;
+    private double jobSubsidy;
 
     /**
      * 见习补贴
      */
     @TableField(value = "jianx_subsidy")
-    private Double jianxSubsidy;
+    private double jianxSubsidy;
 
     /**
      * 实习生总计
      */
     @TableField(value = "total")
-    private Double total;
+    private double total;
 
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;

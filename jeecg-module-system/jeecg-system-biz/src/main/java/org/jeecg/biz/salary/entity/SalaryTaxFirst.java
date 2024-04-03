@@ -29,7 +29,7 @@ public class SalaryTaxFirst implements Serializable {
      * 上月累计应纳税所得额（首次提交需要）
      */
     @TableField(value = "first_tax")
-    private Double firstTax;
+    private double firstTax;
 
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
