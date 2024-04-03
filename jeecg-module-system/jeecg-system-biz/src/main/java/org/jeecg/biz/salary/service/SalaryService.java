@@ -265,7 +265,7 @@ public class SalaryService {
                     // 医疗
                     salaryTotal.setMedicalPersonal(salaryCentralSocialSecurityFund.getPersonalPament());
                     salaryTotal.setMedicalCompany(salaryCentralSocialSecurityFund.getCompanyPament());
-                    salaryTotal.setAddtionMedicalCompany(salaryCentralSocialSecurityFund.getAdditionMedicalPayment());
+                    salaryTotal.setAdditionMedicalCompany(salaryCentralSocialSecurityFund.getAdditionMedicalPayment());
                     // 企业年金
                     salaryTotal.setEnterpriseAnnuityPersonal(salaryCentralEnterpriseFund.getIndividualMonthlyPayment());
                     salaryTotal.setEnterpriseAnnuityCompany(salaryCentralEnterpriseFund.getTotalEnterpriseContributions());
@@ -311,7 +311,7 @@ public class SalaryService {
                     // 医疗
                     salaryTotal.setMedicalPersonal(salaryOutsourcingSocialFund.getPersonalPament());
                     salaryTotal.setMedicalCompany(salaryOutsourcingSocialFund.getCompanyPament());
-                    salaryTotal.setAddtionMedicalCompany(salaryOutsourcingSocialFund.getAdditionMedicalPament());
+                    salaryTotal.setAdditionMedicalCompany(salaryOutsourcingSocialFund.getAdditionMedicalPament());
                     // 公积金
                     salaryTotal.setReservePersonalFund(salaryOutsourcingReserveFund.getPersonalMonthlyDeposit());
                     salaryTotal.setReserveCompanyFund(salaryOutsourcingReserveFund.getCompanyMonthlyDeposit());
