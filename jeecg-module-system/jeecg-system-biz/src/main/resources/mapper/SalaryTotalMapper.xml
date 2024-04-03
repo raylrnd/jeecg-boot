@@ -2,9 +2,9 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="org.jeecg.modules.mapper.SalaryTotalMapper">
+<mapper namespace="generator.mapper.SalaryTotalMapper">
 
-    <resultMap id="BaseResultMap" type="org.jeecg.biz.salary.entity.SalaryTotal">
+    <resultMap id="BaseResultMap" type="generator.domain.SalaryTotal">
             <id property="id" column="id" jdbcType="VARCHAR"/>
             <result property="createBy" column="create_by" jdbcType="VARCHAR"/>
             <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
@@ -93,14 +93,14 @@
         medical_personal,enterprise_annuity_personal,special_deduction,
         party_personal,weinisi_price,should_tax,
         ready_deduct_tax,replace_deduct,real_salary,
-        remark,addition_other_total,
-        checking_in_deduct,year_end,
-        economic_compensation,injury_company,addition_medical_company,
-        tax_personal,is_jiaotong_bank,tax_fix,
+        remark,addition_other_total,checking_in_deduct,
+        year_end,economic_compensation,injury_company,
+        addition_medical_company,is_jiaotong_bank,tax_fix,
         sex,entry_time,job_time,
         job_title,duty,reserve_company_fund,
         eged_company,lose_job_company,medical_company,
         enterprise_annuity_company,house_subsidy,intern_subsidy,
-        job_subsidy,jianx_subsidy,total,job_salary
+        job_subsidy,jianx_subsidy,total,
+        job_salary
     </sql>
 </mapper>

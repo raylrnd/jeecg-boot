@@ -325,8 +325,8 @@ public class SalaryTotal implements Serializable {
     /**
      * 补充医疗保险单位缴交额
      */
-    @TableField(value = "addtion_medical_company")
-    private double addtionMedicalCompany;
+    @TableField(value = "addition_medical_company")
+    private Double additionMedicalCompany;
 
     /**
      * 是否为交通银行
@@ -429,12 +429,6 @@ public class SalaryTotal implements Serializable {
      */
     @TableField(value = "total")
     private double total;
-
-    /**
-     * 补充基本医疗保险(单位缴纳)
-     */
-    @TableField(value = "addition_medical")
-    private double additionMedical;
 
     /**
      * 岗位工资
