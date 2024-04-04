@@ -133,7 +133,7 @@ public class SalaryService {
             // 岗位工资
             double jobSalary = calFloatSalary(salaryUserBaseInfo.getJobSalary(), computeTimeBase, salaryUserBaseInfo);
             // 岗位(职级)工资
-            double post = BigDecimal.valueOf(baseSalary).add(BigDecimal.valueOf(jobSalary)).doubleValue();
+            double post = cal(BigDecimal.valueOf(baseSalary).add(BigDecimal.valueOf(jobSalary)).doubleValue());
             // 住宿补贴
             double accommodationSubsidy = "是".equals(salaryUserBaseInfo.getHasAccommodationSubsidy()) ? calFloatSalary(ACCOMMODATION_SUBSIDY, computeTimeBase, salaryUserBaseInfo) : 0.0;
             // 餐费
@@ -152,30 +152,30 @@ public class SalaryService {
             // 上月天数
             int daysOfMonth = timeBaseC.getActualMaximum(Calendar.DAY_OF_MONTH);
             // 值班补贴
-            double onDutyDaySubsidy = 100 * salaryDepartmentPerformance.getAdministrationWeekendDays() + 200 * salaryDepartmentPerformance.getFirstDutyWorkdayDays() + 300 * salaryDepartmentPerformance.getFirstDutyWeekendDays()
-                    + salaryUserBaseInfo.getLevel() == 4 ? 1600 * 3 * salaryDepartmentPerformance.getHolidayDays() / daysOfMonth : 1720 * 3 * salaryDepartmentPerformance.getHolidayDays() / daysOfMonth;
+            double onDutyDaySubsidy = cal(100 * salaryDepartmentPerformance.getAdministrationWeekendDays() + 200 * salaryDepartmentPerformance.getFirstDutyWorkdayDays() + 300 * salaryDepartmentPerformance.getFirstDutyWeekendDays()
+                    + (salaryUserBaseInfo.getLevel() == 4 ? (1600 * 3 * salaryDepartmentPerformance.getHolidayDays() / daysOfMonth) : (1720 * 3 * salaryDepartmentPerformance.getHolidayDays() / daysOfMonth)));
             // 还建/跑道补贴
             double huanjianpaodaoDaysSubsidy = salaryDepartmentPerformance.getHuanjianpaodaoDays() * 100;
             // 减病假
-            double sickDayDeduct = (salaryUserBaseInfo.getLevel() == 4 ? 1600 : (baseSalary + jobSalary)) / daysOfMonth * 0.35 * salaryDepartmentPerformance.getSickDays();
+            double sickDayDeduct = cal((salaryUserBaseInfo.getLevel() == 4 ? 1600 : (baseSalary + jobSalary)) / daysOfMonth * 0.35 * salaryDepartmentPerformance.getSickDays());
             // 减事假
-            double personalLeaveDaysDeduct = (salaryUserBaseInfo.getLevel() == 4 ? 1600 : (baseSalary + jobSalary)) / daysOfMonth * salaryDepartmentPerformance.getPersonalLeaveDays();
+            double personalLeaveDaysDeduct = cal((salaryUserBaseInfo.getLevel() == 4 ? 1600 : (baseSalary + jobSalary)) / daysOfMonth * salaryDepartmentPerformance.getPersonalLeaveDays());
             // 考勤扣款
             double checkingInDeduct = sickDayDeduct + personalLeaveDaysDeduct;
             // 工会经费
-            double partyPersonal = (jobSalary + salaryDepartmentPerformance.getMonthPerformancePrice()) * 0.005;
+            double partyPersonal = cal((jobSalary + salaryDepartmentPerformance.getMonthPerformancePrice()) * 0.005);
             // 夜餐补贴
             double nightFoodSubsidy = salaryDepartmentPerformance.getDelayDays() * 30 + salaryDepartmentPerformance.getNightDays() * 20;
             // 1号值班天数
 //            double firstDutyDays = salaryDepartmentPerformance.getFirstDutyWorkdayDays() + salaryDepartmentPerformance.getFirstDutyWeekendDays();
             // 值班补贴+夜餐补贴+减人不减资（元）+高温补贴+其他补发-其他补扣-减事假-减病假
-            double sumBase = onDutyDaySubsidy + nightFoodSubsidy
+            double sumBase = cal(onDutyDaySubsidy + nightFoodSubsidy
                     + salaryDepartmentPerformance.getJianrenbujianzi() + salaryAddition.getHighTemperatureReward() + salaryAddition.getOtherReward()
-                    - salaryAddition.getOtherDeduct() - sickDayDeduct - personalLeaveDaysDeduct;
+                    - salaryAddition.getOtherDeduct() - sickDayDeduct - personalLeaveDaysDeduct);
             // 其他应纳税所得合计
-            double otherShouldTax = salaryTax.getOtherTaxWithoutMeal() + foodSubsidy;
+            double otherShouldTax = cal(salaryTax.getOtherTaxWithoutMeal() + foodSubsidy);
             // 值班工资=值班补贴+夜餐补贴
-            double duty = onDutyDaySubsidy + nightFoodSubsidy;
+            double duty = cal(onDutyDaySubsidy + nightFoodSubsidy);
             SalaryTotal salaryTotal = new SalaryTotal();
             salaryTotal.setIdCardNo(salaryUserBaseInfo.getIdCardNo());
             salaryTotal.setBasicSalary(salaryUserBaseInfo.getBaseSalary());
@@ -221,31 +221,31 @@ public class SalaryService {
             // 1:本部，2:惠泽，3:空港，4:实习生
             if ("1".equals(salaryUserBaseInfo.getMemberCat()) || "2".equals(salaryUserBaseInfo.getMemberCat())) {
                 // 本部其他应发合计
-                double otherShouldFund = salaryAddition.getAdvancedReward() + salaryAddition.getPartyBuildingReward() + sumBase;
+                double otherShouldFund = cal(salaryAddition.getAdvancedReward() + salaryAddition.getPartyBuildingReward() + sumBase);
                 // 本部应发合计
-                double shouldFund = baseSalary + jobSalary + yearMerit + salaryDepartmentPerformance.getMonthPerformancePrice() + huanjianpaodaoDaysSubsidy
-                        + otherShouldFund + salaryAddition.getHousingReformReward();
+                double shouldFund = cal(baseSalary + jobSalary + yearMerit + salaryDepartmentPerformance.getMonthPerformancePrice() + huanjianpaodaoDaysSubsidy
+                        + otherShouldFund + salaryAddition.getHousingReformReward());
                 SalaryCentralEnterpriseFund salaryCentralEnterpriseFund = salaryCentralEnterpriseFundMap.getOrDefault(salaryUserBaseInfo.getIdCardNo(), new SalaryCentralEnterpriseFund());
                 SalaryCentralReserveFund salaryCentralReserveFund = salaryCentralReserveFundMap.getOrDefault(salaryUserBaseInfo.getIdCardNo(), new SalaryCentralReserveFund());
                 SalaryCentralSocialSecurityFund salaryCentralSocialSecurityFund = salaryCentralSocialSecurityFundMap.getOrDefault(salaryUserBaseInfo.getIdCardNo(), new SalaryCentralSocialSecurityFund());
                 SalaryCentralAgedFund salaryCentralAgedFund = salaryCentralAgedFundMap.getOrDefault(salaryUserBaseInfo.getIdCardNo(), new SalaryCentralAgedFund());
                 // 社保=养老个人+失业个人+医保个人+企业年金
-                double socialTotal = salaryCentralEnterpriseFund.getIndividualMonthlyPayment()
-                        + salaryCentralSocialSecurityFund.getLoseJobPersonalPament() + salaryCentralSocialSecurityFund.getPersonalPament() + salaryCentralAgedFund.getPersonalPament();
+                double socialTotal = cal(salaryCentralEnterpriseFund.getIndividualMonthlyPayment()
+                        + salaryCentralSocialSecurityFund.getLoseJobPersonalPament() + salaryCentralSocialSecurityFund.getPersonalPament() + salaryCentralAgedFund.getPersonalPament());
                 // 社保+公积金
                 double socialAndReserve = "是".equals(salaryUserBaseInfo.getBuySocialSecurity()) ? socialTotal + salaryCentralReserveFund.getPersonalMonthlyDeposit() : 0;
                 // 本部应纳税所得额
-                double shouldTax = (salaryCentralReserveFund.getPersonalMonthlyDeposit() > 3476 ?
+                double shouldTax = cal((salaryCentralReserveFund.getPersonalMonthlyDeposit() > 3476 ?
                 salaryCentralReserveFund.getPersonalMonthlyDeposit() + shouldFund + otherShouldTax - 3476 - (3476 + socialTotal + salaryTax.getSpecialDeduction() + 5000)
-                : shouldFund + otherShouldTax - (socialAndReserve + salaryTax.getSpecialDeduction() + 5000)) + salaryTaxFirst.getFirstTax();
+                : shouldFund + otherShouldTax - (socialAndReserve + salaryTax.getSpecialDeduction() + 5000)) + salaryTaxFirst.getFirstTax());
                 // 本部预扣预缴个税
-                double readyDeductTax = calReadyDeductTax(shouldTax, salaryTax.getAllYearTaxDeduction());
+                double readyDeductTax = cal(calReadyDeductTax(shouldTax, salaryTax.getAllYearTaxDeduction()));
                 // 本部代扣款合计
-                double replaceDeduct = socialAndReserve + partyPersonal + salaryDepartmentPerformance.getWeinisiPrice() + readyDeductTax;
+                double replaceDeduct = cal(socialAndReserve + partyPersonal + salaryDepartmentPerformance.getWeinisiPrice() + readyDeductTax);
                 // 本部实发工资
-                double realSalary = shouldFund - replaceDeduct - salaryTax.getDeductPersonalTax();
+                double realSalary = cal(shouldFund - replaceDeduct - salaryTax.getDeductPersonalTax());
                 // 本部加发其他（总额）
-                double addtionSalary = salaryAddition.getPartyBuildingReward() + salaryAddition.getHousingReformReward() + huanjianpaodaoDaysSubsidy + salaryDepartmentPerformance.getJianrenbujianzi() + salaryAddition.getOtherReward();
+                double addtionSalary = cal(salaryAddition.getPartyBuildingReward() + salaryAddition.getHousingReformReward() + huanjianpaodaoDaysSubsidy + salaryDepartmentPerformance.getJianrenbujianzi() + salaryAddition.getOtherReward());
 
                 salaryTotal.setRealSalary(realSalary);
                 salaryTotal.setAdditionOtherTotal(addtionSalary);
@@ -277,21 +277,21 @@ public class SalaryService {
                 SalaryOutsourcingReserveFund salaryOutsourcingReserveFund = salaryOutsourcingReserveFundMap.getOrDefault(salaryUserBaseInfo.getIdCardNo(), new SalaryOutsourcingReserveFund());
                 SalaryOutsourcingSocialFund salaryOutsourcingSocialFund = salaryOutsourcingSocialFundMap.getOrDefault(salaryUserBaseInfo.getIdCardNo(), new SalaryOutsourcingSocialFund());
                 // 社保公积金=公积金个人+失业个人+养老个人+医保个人
-                double socialAndReserve = "是".equals(salaryUserBaseInfo.getBuySocialSecurity()) ? salaryOutsourcingSocialFund.getPersonalPament() + salaryOutsourcingSocialFund.getLoseJobPersonalPayment() + salaryOutsourcingReserveFund.getPersonalMonthlyDeposit() + salaryOutsourcingSocialFund.getAgedPersonalPament() : 0;
+                double socialAndReserve = cal("是".equals(salaryUserBaseInfo.getBuySocialSecurity()) ? salaryOutsourcingSocialFund.getPersonalPament() + salaryOutsourcingSocialFund.getLoseJobPersonalPayment() + salaryOutsourcingReserveFund.getPersonalMonthlyDeposit() + salaryOutsourcingSocialFund.getAgedPersonalPament() : 0);
                 // 岗位补贴
                 double jobSubsidy = salaryDepartmentPerformance.getJobSubsidyDays() * 200;
                 // 空港应发合计
-                double shouldFund = salaryAddition.getAdvancedReward() + salaryAddition.getSafetyJobReward() + jobSalary + baseSalary + salaryDepartmentPerformance.getMonthPerformancePrice() + jobSubsidy + huanjianpaodaoDaysSubsidy + sumBase;
+                double shouldFund = cal(salaryAddition.getAdvancedReward() + salaryAddition.getSafetyJobReward() + jobSalary + baseSalary + salaryDepartmentPerformance.getMonthPerformancePrice() + jobSubsidy + huanjianpaodaoDaysSubsidy + sumBase);
                 // 空港应纳税所得额 = (空港应发合计+餐费+其他应纳税所得合计 (除去餐补))-(养老个人+公积金个人+失业个人+医保个人+专项扣除数)-5000+上月空港应纳税所得额+差错调整金额
-                double shouldTax = (shouldFund + otherShouldTax) - (socialAndReserve + salaryTax.getSpecialDeduction()) - 5000 + salaryTaxFirst.getFirstTax() + salaryTax.getFixedTax();
+                double shouldTax = cal((shouldFund + otherShouldTax) - (socialAndReserve + salaryTax.getSpecialDeduction()) - 5000 + salaryTaxFirst.getFirstTax() + salaryTax.getFixedTax());
                 // 空港预扣预缴个税
-                double readyDeductTax = calReadyDeductTax(shouldTax, salaryTax.getAllYearTaxDeduction());
+                double readyDeductTax = cal(calReadyDeductTax(shouldTax, salaryTax.getAllYearTaxDeduction()));
                 // 空港代扣款合计 = 公积金个人+失业个人+养老个人+医保个人+工会经费+空港预扣预缴个税
-                double replaceDeduct = socialAndReserve + partyPersonal + readyDeductTax;
+                double replaceDeduct = cal(socialAndReserve + partyPersonal + readyDeductTax);
                 // 空港实发工资 = 空港应发合计-空港代扣款合计-补扣个税
-                double realSalary = shouldFund - replaceDeduct - salaryTax.getDeductPersonalTax();
+                double realSalary = cal(shouldFund - replaceDeduct - salaryTax.getDeductPersonalTax());
                 // 空港加发其他（总额）
-                double addtionSalary = salaryAddition.getHousingReformReward() + huanjianpaodaoDaysSubsidy + salaryDepartmentPerformance.getJianrenbujianzi() + salaryAddition.getOtherReward();
+                double addtionSalary = cal(salaryAddition.getHousingReformReward() + huanjianpaodaoDaysSubsidy + salaryDepartmentPerformance.getJianrenbujianzi() + salaryAddition.getOtherReward());
                 salaryTotal.setRealSalary(realSalary);
                 salaryTotal.setAdditionOtherTotal(addtionSalary);
                 salaryTotal.setReplaceDeduct(replaceDeduct);
@@ -324,15 +324,15 @@ public class SalaryService {
                 // 岗位补贴
                 double jobSubsidy = salaryDepartmentPerformance.getJobSubsidyDays() * 100;
                 // 实习生总计（元）= 实习岗位补贴+见习补贴+其他补发+高温补贴+住宿补贴+实习补贴+夜餐补贴+月绩效金额（元）+减人不减资（元）+值班补贴-其他补扣-考勤扣款
-                double internshipTotal = jobSubsidy + noviciateSubsidy + accommodationSubsidy + internshipSubsidy + salaryDepartmentPerformance.getMonthPerformancePrice() + sumBase;
+                double internshipTotal = cal(jobSubsidy + noviciateSubsidy + accommodationSubsidy + internshipSubsidy + salaryDepartmentPerformance.getMonthPerformancePrice() + sumBase);
                 // 实习生应纳税所得额
-                double shouldTax = internshipTotal + salaryTaxFirst.getFirstTax() + foodSubsidy - salaryTax.getSpecialDeduction() - 5000;
+                double shouldTax = cal(internshipTotal + salaryTaxFirst.getFirstTax() + foodSubsidy - salaryTax.getSpecialDeduction() - 5000);
                 // 实习生预扣预缴个税
-                double readyDeductTax = calReadyDeductTax(shouldTax, salaryTax.getAllYearTaxDeduction());
+                double readyDeductTax = cal(calReadyDeductTax(shouldTax, salaryTax.getAllYearTaxDeduction()));
                 // 实习生实发工资
-                double realSalary = internshipTotal - readyDeductTax;
+                double realSalary = cal(internshipTotal - readyDeductTax);
                 // 实习生加发其他（总额）
-                double addtionSalary = accommodationSubsidy + salaryDepartmentPerformance.getJianrenbujianzi() + jobSubsidy + noviciateSubsidy + salaryAddition.getOtherReward();
+                double addtionSalary = cal(accommodationSubsidy + salaryDepartmentPerformance.getJianrenbujianzi() + jobSubsidy + noviciateSubsidy + salaryAddition.getOtherReward());
                 SalaryInternSocialFund salaryInternSocialFund = salaryInternSocialFundMap.getOrDefault(salaryUserBaseInfo.getIdCardNo(), new SalaryInternSocialFund());
                 // 特定人员单项工伤保险
                 salaryTotal.setInjuryCompany(salaryInternSocialFund.getInjuryPament());
@@ -347,6 +347,11 @@ public class SalaryService {
             }
             salaryTotalMapper.insert(salaryTotal);
         }
+    }
+
+    private double cal(double item) {
+        BigDecimal bd = BigDecimal.valueOf(item);
+        return bd.setScale(2, RoundingMode.HALF_UP).doubleValue();
     }
 
     /**
@@ -374,7 +379,7 @@ public class SalaryService {
      */
     private double calYearMerit(SalaryUserBaseInfo salaryUserBaseInfo, Date computeTimeBase) {
         // 基本工资为0则年功工资为0
-        return salaryUserBaseInfo.getBaseSalary() == 0 ? 0.0 : calJobTime(salaryUserBaseInfo, computeTimeBase);
+        return salaryUserBaseInfo.getBaseSalary() == 0 ? 0.0 : (calJobTime(salaryUserBaseInfo, computeTimeBase) * 50);
     }
 
     /**
