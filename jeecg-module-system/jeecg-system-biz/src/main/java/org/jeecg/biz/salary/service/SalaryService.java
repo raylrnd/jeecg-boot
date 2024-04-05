@@ -62,6 +62,9 @@ public class SalaryService {
     @Autowired
     private SalaryTotalMapper salaryTotalMapper;
 
+    @Autowired
+    private SalaryFoodMapper salaryFoodMapper;
+
     private static final int QUERY_PAGE_SIZE = 500;
     // 住宿补贴
     private static final double ACCOMMODATION_SUBSIDY = 300.0;
@@ -110,6 +113,9 @@ public class SalaryService {
         // 人员信息库
         Page<SalaryTaxFirst> salaryTaxFirstPage = salaryTaxFirstMapper.selectPage(new Page<>(0, QUERY_PAGE_SIZE), new QueryWrapper<>());
         checkPage(salaryTaxFirstPage);
+        // 人员信息库
+        Page<SalaryFood> salaryFoodPage = salaryFoodMapper.selectPage(new Page<>(0, QUERY_PAGE_SIZE), new QueryWrapper<>());
+        checkPage(salaryFoodPage);
 
         // 计算本部工资报表
         Map<String, SalaryCentralAgedFund> salaryCentralAgedFundMap = salaryCentralAgedFundPage.getRecords().stream().collect(Collectors.toMap(SalaryCentralAgedFund::getIdCardNo, Function.identity()));
@@ -123,6 +129,7 @@ public class SalaryService {
         Map<String, SalaryOutsourcingReserveFund> salaryOutsourcingReserveFundMap = salaryOutsourcingReserveFundPage.getRecords().stream().collect(Collectors.toMap(SalaryOutsourcingReserveFund::getIdCardNo, Function.identity()));
         Map<String, SalaryOutsourcingSocialFund> salaryOutsourcingSocialFundMap = salaryOutsourcingSocialFundPage.getRecords().stream().collect(Collectors.toMap(SalaryOutsourcingSocialFund::getIdCardNo, Function.identity()));
         Map<String, SalaryInternSocialFund> salaryInternSocialFundMap = salaryInternSocialFundPage.getRecords().stream().collect(Collectors.toMap(SalaryInternSocialFund::getIdCardNo, Function.identity()));
+        Map<String, SalaryFood> salaryFoodFundMap = salaryFoodPage.getRecords().stream().collect(Collectors.toMap(SalaryFood::getMemberNo, Function.identity()));
 
         List<SalaryUserBaseInfo> userBaseInfoRecords = salaryUserBaseInfoPage.getRecords();
         for (SalaryUserBaseInfo salaryUserBaseInfo : userBaseInfoRecords) {
@@ -136,8 +143,10 @@ public class SalaryService {
             double post = cal(BigDecimal.valueOf(baseSalary).add(BigDecimal.valueOf(jobSalary)).doubleValue());
             // 住宿补贴
             double accommodationSubsidy = "是".equals(salaryUserBaseInfo.getHasAccommodationSubsidy()) ? calFloatSalary(ACCOMMODATION_SUBSIDY, computeTimeBase, salaryUserBaseInfo) : 0.0;
+
+            SalaryFood salaryFood = salaryFoodFundMap.getOrDefault(salaryUserBaseInfo.getMemberNo(), new SalaryFood());
             // 餐费
-            double foodSubsidy = calFloatSalary(salaryUserBaseInfo.getLevel() == 4 ? 400 : 600, computeTimeBase, salaryUserBaseInfo);
+            double foodSubsidy = calFloatSalary(salaryFood.getFoodSubsidy(), computeTimeBase, salaryUserBaseInfo);
 
             SalaryAddition salaryAddition = salaryAdditionMap.getOrDefault(salaryUserBaseInfo.getIdCardNo(), new SalaryAddition());
             SalaryTax salaryTax = salaryTaxMap.getOrDefault(salaryUserBaseInfo.getIdCardNo(), new SalaryTax());
