@@ -133,16 +133,21 @@ public class SalaryService {
 
         List<SalaryUserBaseInfo> userBaseInfoRecords = salaryUserBaseInfoPage.getRecords();
         for (SalaryUserBaseInfo salaryUserBaseInfo : userBaseInfoRecords) {
+            // 是否离职
+            boolean leaveJob = salaryUserBaseInfo.getLeaveTime() != null && salaryUserBaseInfo.getLeaveTime().before(computeTimeBase);
+            if (leaveJob && !"4".equals(salaryUserBaseInfo.getMemberCat())) {
+                continue;
+            }
             // 年功工资
             double yearMerit = calYearMerit(salaryUserBaseInfo, computeTimeBase);
             // 基本工资
-            double baseSalary = calFloatSalary(salaryUserBaseInfo.getBaseSalary(), computeTimeBase, salaryUserBaseInfo);
+            double baseSalary = leaveJob ? 0 : calFloatSalary(salaryUserBaseInfo.getBaseSalary(), computeTimeBase, salaryUserBaseInfo);
             // 岗位工资
-            double jobSalary = calFloatSalary(salaryUserBaseInfo.getJobSalary(), computeTimeBase, salaryUserBaseInfo);
+            double jobSalary = leaveJob ? 0 : calFloatSalary(salaryUserBaseInfo.getJobSalary(), computeTimeBase, salaryUserBaseInfo);
             // 岗位(职级)工资
             double post = cal(BigDecimal.valueOf(baseSalary).add(BigDecimal.valueOf(jobSalary)).doubleValue());
             // 住宿补贴
-            double accommodationSubsidy = "是".equals(salaryUserBaseInfo.getHasAccommodationSubsidy()) ? calFloatSalary(ACCOMMODATION_SUBSIDY, computeTimeBase, salaryUserBaseInfo) : 0.0;
+            double accommodationSubsidy = leaveJob ? 0 : ("是".equals(salaryUserBaseInfo.getHasAccommodationSubsidy()) ? calFloatSalary(ACCOMMODATION_SUBSIDY, computeTimeBase, salaryUserBaseInfo) : 0.0);
 
             SalaryFood salaryFood = salaryFoodFundMap.getOrDefault(salaryUserBaseInfo.getMemberNo(), new SalaryFood());
             // 餐费
@@ -327,9 +332,9 @@ public class SalaryService {
                 }
             } else {
                 // 实习补贴
-                double internshipSubsidy = calFloatSalary("地勤服务部".equals(salaryUserBaseInfo.getDepartment()) ? 1000 : 1600, computeTimeBase, salaryUserBaseInfo);
+                double internshipSubsidy = leaveJob ? 0 : calFloatSalary("地勤服务部".equals(salaryUserBaseInfo.getDepartment()) ? 1000 : 1600, computeTimeBase, salaryUserBaseInfo);
                 // 见习补贴
-                double noviciateSubsidy = "是".equals(salaryUserBaseInfo.getHasNoviciateSubsidy()) ? calFloatSalary(NOVICIATE_SUBSIDY, computeTimeBase, salaryUserBaseInfo) : 0.0;
+                double noviciateSubsidy =  leaveJob ? 0 : ("是".equals(salaryUserBaseInfo.getHasNoviciateSubsidy()) ? calFloatSalary(NOVICIATE_SUBSIDY, computeTimeBase, salaryUserBaseInfo) : 0.0);
                 // 岗位补贴
                 double jobSubsidy = salaryDepartmentPerformance.getJobSubsidyDays() * 100;
                 // 实习生总计（元）= 实习岗位补贴+见习补贴+其他补发+高温补贴+住宿补贴+实习补贴+夜餐补贴+月绩效金额（元）+减人不减资（元）+值班补贴-其他补扣-考勤扣款
