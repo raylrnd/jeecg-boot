@@ -1,0 +1,1 @@
+select year_merit , department, department_cat from salary_total  order by department_cat

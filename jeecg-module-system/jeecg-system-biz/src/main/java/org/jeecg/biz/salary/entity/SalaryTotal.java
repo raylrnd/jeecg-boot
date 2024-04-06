@@ -436,6 +436,12 @@ public class SalaryTotal implements Serializable {
     @TableField(value = "job_salary")
     private double jobSalary;
 
+    /**
+     * 部门类别
+     */
+    @TableField(value = "department_cat")
+    private String departmentCat;
+
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
 }

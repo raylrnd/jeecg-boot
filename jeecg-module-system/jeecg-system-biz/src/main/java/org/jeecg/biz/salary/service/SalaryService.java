@@ -135,7 +135,7 @@ public class SalaryService {
         for (SalaryUserBaseInfo salaryUserBaseInfo : userBaseInfoRecords) {
             // 是否离职
             boolean leaveJob = salaryUserBaseInfo.getLeaveTime() != null && salaryUserBaseInfo.getLeaveTime().before(computeTimeBase);
-            if (leaveJob && !"4".equals(salaryUserBaseInfo.getMemberCat())) {
+            if (leaveJob && ("1".equals(salaryUserBaseInfo.getMemberCat()) || "2".equals(salaryUserBaseInfo.getMemberCat()))) {
                 continue;
             }
             // 年功工资
@@ -151,7 +151,7 @@ public class SalaryService {
 
             SalaryFood salaryFood = salaryFoodFundMap.getOrDefault(salaryUserBaseInfo.getMemberNo(), new SalaryFood());
             // 餐费
-            double foodSubsidy = calFloatSalary(salaryFood.getFoodSubsidy(), computeTimeBase, salaryUserBaseInfo);
+            double foodSubsidy = leaveJob ? 0 : calFloatSalary(salaryFood.getFoodSubsidy(), computeTimeBase, salaryUserBaseInfo);
 
             SalaryAddition salaryAddition = salaryAdditionMap.getOrDefault(salaryUserBaseInfo.getIdCardNo(), new SalaryAddition());
             SalaryTax salaryTax = salaryTaxMap.getOrDefault(salaryUserBaseInfo.getIdCardNo(), new SalaryTax());
@@ -231,6 +231,7 @@ public class SalaryService {
             salaryTotal.setHousingReformReward(salaryAddition.getHousingReformReward());
             salaryTotal.setYearMerit(yearMerit);
             salaryTotal.setJobSalary(salaryUserBaseInfo.getJobSalary());
+            salaryTotal.setDepartmentCat(salaryUserBaseInfo.getDepartmentCat());
 
             // 1:本部，2:惠泽，3:空港，4:实习生
             if ("1".equals(salaryUserBaseInfo.getMemberCat()) || "2".equals(salaryUserBaseInfo.getMemberCat())) {
