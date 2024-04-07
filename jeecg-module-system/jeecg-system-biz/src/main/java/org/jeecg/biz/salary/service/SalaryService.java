@@ -337,6 +337,8 @@ public class SalaryService {
                     // 公积金
                     salaryTotal.setReservePersonalFund(salaryOutsourcingReserveFund.getPersonalMonthlyDeposit());
                     salaryTotal.setReserveCompanyFund(salaryOutsourcingReserveFund.getCompanyMonthlyDeposit());
+                    salaryTotal.setOutsourcingConnectSocial(salaryOutsourcingSocialFund.getAgedCompanyPament() + salaryOutsourcingSocialFund.getLoseJobCompanyPament()
+                            + salaryOutsourcingSocialFund.getCompanyPament() + salaryOutsourcingSocialFund.getAdditionMedicalPament() + salaryOutsourcingReserveFund.getCompanyMonthlyDeposit());
                 }
             } else {
                 // 实习补贴

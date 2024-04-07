@@ -460,6 +460,12 @@ public class SalaryTotal implements Serializable {
     @TableField(value = "outsourcing_connect_remark")
     private String outsourcingConnectRemark;
 
+    /**
+     * 空港联系单社保
+     */
+    @TableField(value = "outsourcing_connect_social")
+    private Double outsourcingConnectSocial;
+
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
 }
