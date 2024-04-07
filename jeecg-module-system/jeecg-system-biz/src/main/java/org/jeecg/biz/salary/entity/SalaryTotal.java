@@ -490,6 +490,12 @@ public class SalaryTotal implements Serializable {
     @TableField(value = "food_subsidy")
     private Double foodSubsidy;
 
+    /**
+     * 员工编号
+     */
+    @TableField(value = "member_no")
+    private String memberNo;
+
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
 }

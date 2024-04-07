@@ -237,6 +237,7 @@ public class SalaryService {
             salaryTotal.setFirstTax(salaryTaxFirst.getFirstTax());
             salaryTotal.setOtherShouldTax(otherShouldTax);
             salaryTotal.setFoodSubsidy(foodSubsidy);
+            salaryTotal.setMemberNo(salaryUserBaseInfo.getMemberNo());
 
             // 1:本部，2:惠泽，3:空港，4:实习生
             if ("1".equals(salaryUserBaseInfo.getMemberCat()) || "2".equals(salaryUserBaseInfo.getMemberCat())) {
