@@ -80,6 +80,10 @@
             <result property="manageFee" column="manage_fee" jdbcType="DOUBLE"/>
             <result property="outsourcingConnectRemark" column="outsourcing_connect_remark" jdbcType="VARCHAR"/>
             <result property="outsourcingConnectSocial" column="outsourcing_connect_social" jdbcType="DOUBLE"/>
+            <result property="allYearTaxDeduction" column="all_year_tax_deduction" jdbcType="DOUBLE"/>
+            <result property="firstTax" column="first_tax" jdbcType="DOUBLE"/>
+            <result property="otherShouldTax" column="other_should_tax" jdbcType="DOUBLE"/>
+            <result property="foodSubsidy" column="food_subsidy" jdbcType="DOUBLE"/>
     </resultMap>
 
     <sql id="Base_Column_List">
@@ -107,6 +111,6 @@
         eged_company,lose_job_company,medical_company,
         enterprise_annuity_company,house_subsidy,intern_subsidy,
         job_subsidy,jianx_subsidy,total,job_salary,department_cat,member_cat,manage_fee,outsourcing_connect_remark
-        ,outsourcing_connect_social
+        ,outsourcing_connect_social,all_year_tax_deduction,first_tax,other_should_tax,food_subsidy
     </sql>
 </mapper>

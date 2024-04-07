@@ -268,19 +268,19 @@ public class SalaryTotal implements Serializable {
     private double shouldTax;
 
     /**
-     * 本部预扣预缴个税
+     * 预扣预缴个税
      */
     @TableField(value = "ready_deduct_tax")
     private double readyDeductTax;
 
     /**
-     * 本部代扣款合计
+     * 代扣款合计
      */
     @TableField(value = "replace_deduct")
     private double replaceDeduct;
 
     /**
-     * 本部实发工资
+     * 实发工资
      */
     @TableField(value = "real_salary")
     private double realSalary;
@@ -465,6 +465,30 @@ public class SalaryTotal implements Serializable {
      */
     @TableField(value = "outsourcing_connect_social")
     private Double outsourcingConnectSocial;
+
+    /**
+     * 1-12月扣税合计
+     */
+    @TableField(value = "all_year_tax_deduction")
+    private Double allYearTaxDeduction;
+
+    /**
+     * 上月累计应纳税所得额（首次上月累计应纳税所得额（首次提交需要）需要）
+     */
+    @TableField(value = "first_tax")
+    private Double firstTax;
+
+    /**
+     * 其他应纳税所得合计
+     */
+    @TableField(value = "other_should_tax")
+    private Double otherShouldTax;
+
+    /**
+     * 餐补
+     */
+    @TableField(value = "food_subsidy")
+    private Double foodSubsidy;
 
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;

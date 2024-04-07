@@ -200,7 +200,6 @@ public class SalaryService {
             salaryTotal.setDepartment(salaryUserBaseInfo.getDepartment());
             salaryTotal.setAdvanced(salaryAddition.getAdvancedReward());
             salaryTotal.setEconomicCompensation(salaryAddition.getEconomicReward());
-            salaryTotal.setAdvanced(salaryAddition.getAdvancedReward());
             salaryTotal.setCheckingInDeduct(checkingInDeduct);
             salaryTotal.setPost(post);
             salaryTotal.setMerit(salaryDepartmentPerformance.getMonthPerformancePrice());
@@ -234,6 +233,10 @@ public class SalaryService {
             salaryTotal.setJobSalary(salaryUserBaseInfo.getJobSalary());
             salaryTotal.setDepartmentCat(salaryUserBaseInfo.getDepartmentCat());
             salaryTotal.setMemberCat(salaryUserBaseInfo.getMemberCat());
+            salaryTotal.setAllYearTaxDeduction(salaryTax.getAllYearTaxDeduction());
+            salaryTotal.setFirstTax(salaryTaxFirst.getFirstTax());
+            salaryTotal.setOtherShouldTax(otherShouldTax);
+            salaryTotal.setFoodSubsidy(foodSubsidy);
 
             // 1:本部，2:惠泽，3:空港，4:实习生
             if ("1".equals(salaryUserBaseInfo.getMemberCat()) || "2".equals(salaryUserBaseInfo.getMemberCat())) {
@@ -337,8 +340,8 @@ public class SalaryService {
                     // 公积金
                     salaryTotal.setReservePersonalFund(salaryOutsourcingReserveFund.getPersonalMonthlyDeposit());
                     salaryTotal.setReserveCompanyFund(salaryOutsourcingReserveFund.getCompanyMonthlyDeposit());
-                    salaryTotal.setOutsourcingConnectSocial(salaryOutsourcingSocialFund.getAgedCompanyPament() + salaryOutsourcingSocialFund.getLoseJobCompanyPament()
-                            + salaryOutsourcingSocialFund.getCompanyPament() + salaryOutsourcingSocialFund.getAdditionMedicalPament() + salaryOutsourcingReserveFund.getCompanyMonthlyDeposit());
+                    salaryTotal.setOutsourcingConnectSocial(cal(salaryOutsourcingSocialFund.getAgedCompanyPament() + salaryOutsourcingSocialFund.getLoseJobCompanyPament()
+                            + salaryOutsourcingSocialFund.getCompanyPament() + salaryOutsourcingSocialFund.getAdditionMedicalPament() + salaryOutsourcingReserveFund.getCompanyMonthlyDeposit()));
                 }
             } else {
                 // 实习补贴
