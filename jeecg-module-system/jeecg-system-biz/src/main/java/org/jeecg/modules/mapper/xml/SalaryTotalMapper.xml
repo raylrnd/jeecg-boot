@@ -76,6 +76,9 @@
             <result property="total" column="total" jdbcType="DOUBLE"/>
             <result property="jobSalary" column="job_salary" jdbcType="DOUBLE"/>
             <result property="departmentCat" column="department_cat" jdbcType="VARCHAR"/>
+            <result property="memberCat" column="member_cat" jdbcType="VARCHAR"/>
+            <result property="manageFee" column="manage_fee" jdbcType="DOUBLE"/>
+            <result property="outsourcingConnectRemark" column="outsourcing_connect_remark" jdbcType="VARCHAR"/>
     </resultMap>
 
     <sql id="Base_Column_List">
@@ -102,6 +105,6 @@
         job_title,duty,reserve_company_fund,
         eged_company,lose_job_company,medical_company,
         enterprise_annuity_company,house_subsidy,intern_subsidy,
-        job_subsidy,jianx_subsidy,total,job_salary,department_cat
+        job_subsidy,jianx_subsidy,total,job_salary,department_cat,member_cat,manage_fee,outsourcing_connect_remark
     </sql>
 </mapper>

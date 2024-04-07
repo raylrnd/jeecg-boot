@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.annotation.Resource;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 @RestController
@@ -26,8 +27,10 @@ public class IncomeController {
         //处理日期格式以便使用
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM");
         Date computeTimeBase = sdf.parse(yearmonth);
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(2024, 1, 1);
         try {
-            salaryService.handleSalaryCompute(computeTimeBase);
+            salaryService.handleSalaryCompute(calendar.getTime());
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

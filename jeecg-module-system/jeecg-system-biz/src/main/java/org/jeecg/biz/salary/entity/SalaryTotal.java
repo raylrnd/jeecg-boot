@@ -442,6 +442,24 @@ public class SalaryTotal implements Serializable {
     @TableField(value = "department_cat")
     private String departmentCat;
 
+    /**
+     * 人员类别
+     */
+    @TableField(value = "member_cat")
+    private String memberCat;
+
+    /**
+     * 管理费用
+     */
+    @TableField(value = "manage_fee")
+    private Double manageFee;
+
+    /**
+     * 空港联系单备注
+     */
+    @TableField(value = "outsourcing_connect_remark")
+    private String outsourcingConnectRemark;
+
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
 }

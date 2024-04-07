@@ -124,19 +124,19 @@ public class SalaryUserBaseInfo implements Serializable {
     private double jobSalary;
 
     /**
-     * 部门类别
+     * 部门类别 1:一线部门，2:机关部门
      */
     @TableField(value = "department_cat")
     private String departmentCat;
 
     /**
-     * 人员类别
+     * 人员类别 1:本部，2:惠泽，3:空港，4:实习生
      */
     @TableField(value = "member_cat")
     private String memberCat;
 
     /**
-     * 级别
+     * 级别 1:领导班子，2:部门负责人，3:本部普通职工：4:实习生，5:劳派
      */
     @TableField(value = "level")
     private int level;
@@ -176,6 +176,12 @@ public class SalaryUserBaseInfo implements Serializable {
      */
     @TableField(value = "has_noviciate_subsidy")
     private String hasNoviciateSubsidy;
+
+    /**
+     * 管理费用
+     */
+    @TableField(value = "manage_fee")
+    private Double manageFee;
 
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;

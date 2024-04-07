@@ -1,5 +1,6 @@
 package org.jeecg.biz.salary.service;
 
+import cn.hutool.core.date.DateUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -232,6 +233,7 @@ public class SalaryService {
             salaryTotal.setYearMerit(yearMerit);
             salaryTotal.setJobSalary(salaryUserBaseInfo.getJobSalary());
             salaryTotal.setDepartmentCat(salaryUserBaseInfo.getDepartmentCat());
+            salaryTotal.setMemberCat(salaryUserBaseInfo.getMemberCat());
 
             // 1:本部，2:惠泽，3:空港，4:实习生
             if ("1".equals(salaryUserBaseInfo.getMemberCat()) || "2".equals(salaryUserBaseInfo.getMemberCat())) {
@@ -314,6 +316,11 @@ public class SalaryService {
                 salaryTotal.setShouldTax(shouldTax);
                 salaryTotal.setJobSubsidy(jobSubsidy);
                 salaryTotal.setShouldFund(shouldFund);
+                salaryTotal.setManageFee(salaryUserBaseInfo.getManageFee());
+                // 当月离职或者上月离职
+                if (leaveJob && DateUtils.isSameMonth(computeTimeBase, DateUtil.offsetMonth(salaryUserBaseInfo.getLeaveTime(), 1))) {
+                    salaryTotal.setOutsourcingConnectRemark(DateUtils.date2Str(salaryUserBaseInfo.getLeaveTime(),DateUtils.date_sdf_wz.get()) + "离职");
+                }
 
                 if ("是".equals(salaryUserBaseInfo.getBuySocialSecurity())) {
                     // 空港无企业年金，实习生无社保公积金

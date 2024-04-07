@@ -32,6 +32,7 @@
             <result property="telephoneNo" column="telephone_no" jdbcType="VARCHAR"/>
             <result property="hasAccommodationSubsidy" column="has_accommodation_subsidy" jdbcType="VARCHAR"/>
             <result property="hasNoviciateSubsidy" column="has_noviciate_subsidy" jdbcType="VARCHAR"/>
+            <result property="manageFee" column="manage_fee" jdbcType="DOUBLE"/>
     </resultMap>
 
     <sql id="Base_Column_List">
@@ -43,6 +44,6 @@
         department,job_title,job_salary,
         department_cat,member_cat,level,
         salary_level,salary_grade,internship_subsidy,
-        telephone_no,has_accommodation_subsidy,has_noviciate_subsidy
+        telephone_no,has_accommodation_subsidy,has_noviciate_subsidy,manage_fee
     </sql>
 </mapper>

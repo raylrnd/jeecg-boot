@@ -760,8 +760,12 @@ public class DateUtils extends PropertyEditorSupport {
         return calendar1.get(Calendar.YEAR) == calendar2.get(Calendar.YEAR);
     }
 
+    /**
+     * 获取当前月份的最后一天
+     * @param date
+     * @return
+     */
     public static Date getLastDayOfMonth(Date date) {
-        // 获取当前月份的最后一天
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
         calendar.setLenient(false);
