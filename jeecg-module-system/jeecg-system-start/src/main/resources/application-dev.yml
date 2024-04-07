@@ -158,8 +158,8 @@ spring:
           slow-sql-millis: 5000
       datasource:
         master:
-          url: jdbc:mysql://1Panel-mysql-Vclf:3306/jeecg-boot?characterEncoding=UTF-8&useUnicode=true&useSSL=false&tinyInt1isBit=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Shanghai
-          username: jeecg-boot
+          url: jdbc:mysql://1Panel-mysql-bslC:3306/jeecg-boot?characterEncoding=UTF-8&useUnicode=true&useSSL=false&tinyInt1isBit=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Shanghai
+          username: zhongshunchao
           password: 2511921Zsc12.0
           driver-class-name: com.mysql.cj.jdbc.Driver
           # 多数据源配置
@@ -171,7 +171,7 @@ spring:
   #redis 配置
   redis:
     database: 0
-    host: 1Panel-redis-GbRF
+    host: 1Panel-redis-orEv
     port: 6379
     password: 2511921Zsc12.0
 #mybatis plus 设置
@@ -259,8 +259,8 @@ jeecg:
     logRetentionDays: 30
   #分布式锁配置
   redisson:
-    address: 1Panel-redis-GbRF:6379
-    password: 2511921Zsc12.0
+    address: 127.0.0.1:6379
+    password:
     type: STANDALONE
     enabled: true
   # ai-chat
