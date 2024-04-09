@@ -76,12 +76,6 @@ public class SalaryUserBaseInfo implements Serializable {
     private String memberNo;
 
     /**
-     * 当月是否要买社保公积金企业年金
-     */
-    @TableField(value = "buy_social_security")
-    private String buySocialSecurity;
-
-    /**
      * 银行卡号
      */
     @TableField(value = "bank_no")
@@ -134,12 +128,6 @@ public class SalaryUserBaseInfo implements Serializable {
      */
     @TableField(value = "member_cat")
     private String memberCat;
-
-    /**
-     * 级别 1:领导班子，2:部门负责人，3:本部普通职工：4:实习生，5:劳派
-     */
-    @TableField(value = "level")
-    private int level;
 
     /**
      * 薪级
