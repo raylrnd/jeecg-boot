@@ -171,6 +171,12 @@ public class SalaryUserBaseInfo implements Serializable {
     @TableField(value = "manage_fee")
     private Double manageFee;
 
+    /**
+     * 性别
+     */
+    @TableField(value = "sex")
+    private String sex;
+
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
 }
