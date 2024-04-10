@@ -206,7 +206,7 @@ public class SalaryService {
             salaryTotal.setJobTime(calJobTime(salaryUserBaseInfo, computeTimeBase));
             salaryTotal.setPartyBuildSubsidy(salaryAddition.getPartyBuildingReward());
             salaryTotal.setPartyPersonal(partyPersonal);
-            salaryTotal.setSex((salaryUserBaseInfo.getIdCardNo().charAt(17) - '0') % 2 == 0 ? "男" : "女");
+            salaryTotal.setSex(salaryUserBaseInfo.getSex());
             salaryTotal.setSalaryGrade(salaryUserBaseInfo.getSalaryGrade());
             salaryTotal.setWeinisiPrice(salaryDepartmentPerformance.getWeinisiPrice());
             salaryTotal.setOtherReward(salaryAddition.getOtherReward());
