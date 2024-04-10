@@ -57,8 +57,8 @@ jeecg:
   signUrls: /sys/dict/getDictItems/*,/sys/dict/loadDict/*,/sys/dict/loadDictOrderByValue/*,/sys/dict/loadDictItem/*,/sys/dict/loadTreeData,/sys/api/queryTableDictItemsByCode,/sys/api/queryFilterTableDictInfo,/sys/api/queryTableDictByKeys,/sys/api/translateDictFromTable,/sys/api/translateDictFromTableByKeys
   uploadType: local
   domainUrl:
-    pc: http://localhost:3100
-    app: http://localhost:8051
+    pc: http://www.salary.gdhzairport.com:3100
+    app: http://www.salary.gdhzairport.com:8051
   path:
     upload: /opt/upFiles
     webapp: /opt/webapp
@@ -104,7 +104,7 @@ logging:
   level:
     org.jeecg.modules.system.mapper : info
 cas:
-  prefixUrl: http://localhost:8888/cas
+  prefixUrl: http://www.salary.gdhzairport.com:8888/cas
 knife4j:
   production: false
   basic:
