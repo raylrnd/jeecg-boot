@@ -66,6 +66,9 @@ public class SalaryService {
     @Autowired
     private SalaryFoodMapper salaryFoodMapper;
 
+    @Autowired
+    private SalaryTaxFirstHisMapper salaryTaxFirstHisMapper;
+
     private static final int QUERY_PAGE_SIZE = 500;
     // 住宿补贴
     private static final double ACCOMMODATION_SUBSIDY = 300.0;
@@ -368,6 +371,9 @@ public class SalaryService {
                 salaryTotal.setInternSubsidy(internshipSubsidy);
                 salaryTotal.setTotal(internshipTotal);
                 salaryTotal.setJianxSubsidy(noviciateSubsidy);
+
+                // 写入税务历史表
+//                salaryTaxFirstHisMapper.update();
             }
             salaryTotalMapper.insert(salaryTotal);
         }

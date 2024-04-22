@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.jeecg.modules.mapper.SalaryTaxFirstHisMapper">
+
+    <resultMap id="BaseResultMap" type="org.jeecg.biz.salary.entity.SalaryTaxFirstHis">
+            <id property="id" column="id" jdbcType="VARCHAR"/>
+            <result property="createBy" column="create_by" jdbcType="VARCHAR"/>
+            <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+            <result property="updateBy" column="update_by" jdbcType="VARCHAR"/>
+            <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+            <result property="sysOrgCode" column="sys_org_code" jdbcType="VARCHAR"/>
+            <result property="name" column="name" jdbcType="VARCHAR"/>
+            <result property="idCardNo" column="id_card_no" jdbcType="VARCHAR"/>
+            <result property="firstTax" column="first_tax" jdbcType="DOUBLE"/>
+            <result property="partitionDate" column="partition_date" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,create_by,create_time,
+        update_by,update_time,sys_org_code,
+        name,id_card_no,first_tax,
+        partition_date
+    </sql>
+</mapper>
